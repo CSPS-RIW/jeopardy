@@ -14,7 +14,7 @@
             :key="qIndex"
             class="question-cell"
             :class="{ 'answered': question.answered }"
-            @click="selectQuestion(question)"
+            @click="selectQuestion(question.id)"
           >
             {{ question.value }}
           </div>
@@ -26,7 +26,7 @@
   
   <script setup>
   import { ref } from 'vue'
-  import { useRouter } from 'vue-router'
+  import { useRouter, useRoute } from 'vue-router'
   import gameData from '../gameData.json'
   import ScoreDisplay from './ScoreDisplay.vue'
   
@@ -34,9 +34,10 @@
   const categories = ref(gameData.categories)
   const questions = ref(gameData.questions.map(q => ({ ...q, answered: false })))
   
-  const selectQuestion = (question) => {
-    if (!question.answered) {
-      router.push(`/question/${question.id}`)
+  const selectQuestion = (questionId) => {
+    const question = questions.value.find(q => q.id === questionId)
+    if (question && !question.answered) {
+      router.push(`/question/${questionId}`)
     }
   }
   

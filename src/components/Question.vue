@@ -11,7 +11,7 @@
   
   <script setup>
   import { ref } from 'vue'
-  import { useRouter } from 'vue-router'
+  import { useRoute, useRouter } from 'vue-router'
   import gameData from '../gameData.json'
   
   const questionId = $route.params.id
