@@ -2,23 +2,23 @@
     <div>
       <h1>Jeopardy Game</h1>
       <div class="game-board">
-        <!-- Display category headers -->
-        <div class="category-header" v-for="(category, index) in categories" :key="index">
-          <h2>{{ category }}</h2>
-        </div>
-        
-        <!-- Display questions -->
-        <div class="question-column" v-for="(category, catIndex) in categories" :key="catIndex">
-          <button
-            v-for="(question, qIndex) in filteredQuestions(catIndex)"
-            :key="qIndex"
-            class="question-cell"
-            :class="{ 'attempted': question.attempted }"
-            @click="selectQuestion(question.id)"
-            :disabled="question.attempted === true"
-          >
-            ${{ question.value }}
-        </button>
+        <!-- Display category headers and corresponding questions -->
+        <div v-for="(category, catIndex) in categories" :key="catIndex">
+          <div class="category-column">
+            <h2>{{ category }}</h2>
+          </div>
+          <div class="question-column">
+            <button
+              v-for="(question, qIndex) in filteredQuestions(catIndex)"
+              :key="qIndex"
+              class="question-cell"
+              :class="{ 'attempted': question.attempted }"
+              @click="selectQuestion(question.id)"
+              :disabled="question.attempted === true"
+            >
+              ${{ question.value }}
+            </button>
+          </div>
         </div>
       </div>
       <ScoreDisplay />
