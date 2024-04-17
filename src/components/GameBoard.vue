@@ -20,6 +20,7 @@
           </div>
         </div>
       </div>
+      <ScoreDisplay />
     </div>
   </template>
   
@@ -27,6 +28,7 @@
   import { ref } from 'vue'
   import { useRouter } from 'vue-router'
   import gameData from '../gameData.json'
+  import ScoreDisplay from './ScoreDisplay.vue'
   
   const router = useRouter()
   const categories = ref(gameData.categories)
