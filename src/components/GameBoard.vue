@@ -2,21 +2,22 @@
     <div>
       <h1>Jeopardy Game</h1>
       <div class="game-board">
-        <div class="category" v-for="(category, index) in categories" :key="index">
+        <!-- Display category headers -->
+        <div class="category-header" v-for="(category, index) in categories" :key="index">
           <h2>{{ category }}</h2>
-          <div class="question-row">
-  <div
-    v-for="(question, qIndex) in questions"
-    :key="qIndex"
-    class="question-cell"
-    :class="{ 'answered': question.answered }"
-    v-if="question.categoryIndex === index" <!-- Updated to compare with index -->
-    @click="selectQuestion(question)"
-  >
-    {{ question.value }}
-  </div>
-</div>
-
+        </div>
+        
+        <!-- Display questions -->
+        <div class="question-column" v-for="(category, catIndex) in categories" :key="catIndex">
+          <div
+            v-for="(question, qIndex) in filteredQuestions(catIndex)"
+            :key="qIndex"
+            class="question-cell"
+            :class="{ 'answered': question.answered }"
+            @click="selectQuestion(question)"
+          >
+            {{ question.value }}
+          </div>
         </div>
       </div>
     </div>
@@ -26,7 +27,6 @@
   import { ref } from 'vue'
   import { useRouter } from 'vue-router'
   import gameData from '../gameData.json'
-  import question from '../components/Question.vue'
   
   const router = useRouter()
   const categories = ref(gameData.categories)
@@ -37,6 +37,10 @@
       router.push(`/question/${question.id}`)
     }
   }
+  
+  const filteredQuestions = (categoryIndex) => {
+    return questions.value.filter(question => question.categoryId === categoryIndex)
+  }
   </script>
   
   <style scoped>
@@ -46,17 +50,15 @@
     gap: 10px;
   }
   
-  .category {
-    display: flex;
-    flex-direction: column;
+  .category-header {
     border: 2px solid #333;
     border-radius: 5px;
     padding: 10px;
   }
   
-  .question-row {
+  .question-column {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: column;
   }
   
   .question-cell {
