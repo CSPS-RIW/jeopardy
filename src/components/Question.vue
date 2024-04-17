@@ -50,6 +50,7 @@ const isSubmitted = ref(false)
     alert('Incorrect. Try again!')
   }
   isSubmitted.value = true
+  question.value.attempted = true
 }
 
   const goBack = () => {

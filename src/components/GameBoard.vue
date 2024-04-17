@@ -13,8 +13,9 @@
             v-for="(question, qIndex) in filteredQuestions(catIndex)"
             :key="qIndex"
             class="question-cell"
-            :class="{ 'answered': question.answered }"
+            :class="{ 'attempted': question.attempted }"
             @click="selectQuestion(question.id)"
+            :disabled="question.attempted === true"
           >
             ${{ question.value }}
           </div>
@@ -77,7 +78,7 @@
     background-color: #e0e0e0;
   }
   
-  .answered {
+  .attempted {
     background-color: #ccc !important;
     cursor: default;
   }
