@@ -16,7 +16,7 @@
             :class="{ 'answered': question.answered }"
             @click="selectQuestion(question.id)"
           >
-            {{ question.value }}
+            ${{ question.value }}
           </div>
         </div>
       </div>

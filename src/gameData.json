@@ -1,37 +1,212 @@
 {
     "categories": [
-      "Science",
-      "History",
-      "Geography",
-      "Movies",
-      "Sports"
+      "Personal Protective Equipment (PPE)",
+      "Emergency Procedures",
+      "Hazard Identification",
+      "Safety Signs and Labels",
+      "Workplace Ergonomics"
     ],
     "questions": [
-      {"id": 1, "categoryId": 0, "value": "$200", "options": ["Option 1A", "Option 1B", "Option 1C"], "answer": "Option 1A"},
-      {"id": 2, "categoryId": 0, "value": "$400", "options": ["Option 2A", "Option 2B", "Option 2C"], "answer": "Option 2B"},
-      {"id": 3, "categoryId": 0, "value": "$600", "options": ["Option 3A", "Option 3B", "Option 3C"], "answer": "Option 3C"},
-      {"id": 4, "categoryId": 0, "value": "$800", "options": ["Option 4A", "Option 4B", "Option 4C"], "answer": "Option 4A"},
-      {"id": 5, "categoryId": 0, "value": "$1000", "options": ["Option 5A", "Option 5B", "Option 5C"], "answer": "Option 5B"},
-      {"id": 6, "categoryId": 1, "value": "$200", "options": ["Option 1A", "Option 1B", "Option 1C"], "answer": "Option 1A"},
-      {"id": 7, "categoryId": 1, "value": "$400", "options": ["Option 2A", "Option 2B", "Option 2C"], "answer": "Option 2B"},
-      {"id": 8, "categoryId": 1, "value": "$600", "options": ["Option 3A", "Option 3B", "Option 3C"], "answer": "Option 3C"},
-      {"id": 9, "categoryId": 1, "value": "$800", "options": ["Option 4A", "Option 4B", "Option 4C"], "answer": "Option 4A"},
-      {"id": 10, "categoryId": 1, "value": "$1000", "options": ["Option 5A", "Option 5B", "Option 5C"], "answer": "Option 5B"},
-      {"id": 11, "categoryId": 2, "value": "$200", "options": ["Option 1A", "Option 1B", "Option 1C"], "answer": "Option 1A"},
-      {"id": 12, "categoryId": 2, "value": "$400", "options": ["Option 2A", "Option 2B", "Option 2C"], "answer": "Option 2B"},
-      {"id": 13, "categoryId": 2, "value": "$600", "options": ["Option 3A", "Option 3B", "Option 3C"], "answer": "Option 3C"},
-      {"id": 14, "categoryId": 2, "value": "$800", "options": ["Option 4A", "Option 4B", "Option 4C"], "answer": "Option 4A"},
-      {"id": 15, "categoryId": 2, "value": "$1000", "options": ["Option 5A", "Option 5B", "Option 5C"], "answer": "Option 5B"},
-      {"id": 16, "categoryId": 3, "value": "$200", "options": ["Option 1A", "Option 1B", "Option 1C"], "answer": "Option 1A"},
-      {"id": 17, "categoryId": 3, "value": "$400", "options": ["Option 2A", "Option 2B", "Option 2C"], "answer": "Option 2B"},
-      {"id": 18, "categoryId": 3, "value": "$600", "options": ["Option 3A", "Option 3B", "Option 3C"], "answer": "Option 3C"},
-      {"id": 19, "categoryId": 3, "value": "$800", "options": ["Option 4A", "Option 4B", "Option 4C"], "answer": "Option 4A"},
-      {"id": 20, "categoryId": 3, "value": "$1000", "options": ["Option 5A", "Option 5B", "Option 5C"], "answer": "Option 5B"},
-      {"id": 21, "categoryId": 4, "value": "$200", "options": ["Option 1A", "Option 1B", "Option 1C"], "answer": "Option 1A"},
-      {"id": 22, "categoryId": 4, "value": "$400", "options": ["Option 2A", "Option 2B", "Option 2C"], "answer": "Option 2B"},
-      {"id": 23, "categoryId": 4, "value": "$600", "options": ["Option 3A", "Option 3B", "Option 3C"], "answer": "Option 3C"},
-      {"id": 24, "categoryId": 4, "value": "$800", "options": ["Option 4A", "Option 4B", "Option 4C"], "answer": "Option 4A"},
-      {"id": 25, "categoryId": 4, "value": "$1000", "options": ["Option 5A", "Option 5B", "Option 5C"], "answer": "Option 5B"}
+      {
+        "id": 1,
+        "categoryId": 0,
+        "value": 200,
+        "question": "What type of PPE is commonly used to protect against head injuries?",
+        "options": ["Hard hat", "Safety glasses", "Ear plugs", "Gloves"],
+        "answer": "Hard hat"
+      },
+      {
+        "id": 2,
+        "categoryId": 0,
+        "value": 400,
+        "question": "Which of the following is NOT considered a type of PPE?",
+        "options": ["Safety shoes", "Emergency eyewash station", "Respirator", "Safety harness"],
+        "answer": "Emergency eyewash station"
+      },
+      {
+        "id": 3,
+        "categoryId": 0,
+        "value": 600,
+        "question": "What type of gloves are used to protect against chemical exposure?",
+        "options": ["Latex gloves", "Leather gloves", "Rubber gloves", "Cotton gloves"],
+        "answer": "Rubber gloves"
+      },
+      {
+        "id": 4,
+        "categoryId": 0,
+        "value": 800,
+        "question": "What type of eye protection is recommended when working with chemicals?",
+        "options": ["Safety glasses", "Sunglasses", "Reading glasses", "Goggles"],
+        "answer": "Goggles"
+      },
+      {
+        "id": 5,
+        "categoryId": 0,
+        "value": 1000,
+        "question": "What type of respiratory protection is used in environments with airborne contaminants?",
+        "options": ["Dust mask", "Bandana", "Scarf", "Handkerchief"],
+        "answer": "Dust mask"
+      },
+      {
+        "id": 6,
+        "categoryId": 1,
+        "value": 200,
+        "question": "What is the emergency evacuation procedure in case of a fire?",
+        "options": ["Run to the nearest exit", "Use elevators", "Follow designated escape routes", "Ignore the alarm"],
+        "answer": "Follow designated escape routes"
+      },
+      {
+        "id": 7,
+        "categoryId": 1,
+        "value": 400,
+        "question": "What should you do if you discover a fire in the workplace?",
+        "options": ["Attempt to extinguish it yourself", "Ignore it and continue working", "Notify a supervisor immediately", "Wait for someone else to report it"],
+        "answer": "Notify a supervisor immediately"
+      },
+      {
+        "id": 8,
+        "categoryId": 1,
+        "value": 600,
+        "question": "What should you do if you hear the fire alarm sound?",
+        "options": ["Finish your work before evacuating", "Wait for instructions", "Immediately evacuate the building", "Check your email"],
+        "answer": "Immediately evacuate the building"
+      },
+      {
+        "id": 9,
+        "categoryId": 1,
+        "value": 800,
+        "question": "What is the purpose of fire drills?",
+        "options": ["To practice emergency procedures", "To waste time", "To confuse employees", "To cause panic"],
+        "answer": "To practice emergency procedures"
+      },
+      {
+        "id": 10,
+        "categoryId": 1,
+        "value": 1000,
+        "question": "What should you do if you are unable to evacuate during a fire?",
+        "options": ["Hide under your desk", "Wait for someone to rescue you", "Use the elevator", "Find a safe area and wait for assistance"],
+        "answer": "Find a safe area and wait for assistance"
+      },
+      {
+        "id": 11,
+        "categoryId": 2,
+        "value": 200,
+        "question": "What is the first step in the process of hazard identification?",
+        "options": ["Performing a risk assessment", "Inspecting the workplace", "Training employees", "Ignoring potential hazards"],
+        "answer": "Inspecting the workplace"
+      },
+      {
+        "id": 12,
+        "categoryId": 2,
+        "value": 400,
+        "question": "What is the purpose of a safety data sheet (SDS)?",
+        "options": ["To provide information on chemical hazards", "To provide cooking recipes", "To provide instructions for operating machinery", "To provide employee phone numbers"],
+        "answer": "To provide information on chemical hazards"
+      },
+      {
+        "id": 13,
+        "categoryId": 2,
+        "value": 600,
+        "question": "What should employees do if they identify a hazard in the workplace?",
+        "options": ["Report it to a supervisor", "Ignore it", "Keep it to themselves", "Fix it themselves"],
+        "answer": "Report it to a supervisor"
+      },
+      {
+        "id": 14,
+        "categoryId": 2,
+        "value": 800,
+        "question": "What is the purpose of a hazard control program?",
+        "options": ["To eliminate hazards", "To create hazards", "To increase productivity", "To cause accidents"],
+        "answer": "To eliminate hazards"
+      },
+      {
+        "id": 15,
+        "categoryId": 2,
+        "value": 1000,
+        "question": "What should you do if you are unsure about the safety of a task?",
+        "options": ["Proceed with the task anyway", "Ask a coworker for advice", "Wait for a supervisor to check", "Ignore your concerns"],
+        "answer": "Ask a coworker for advice"
+      },
+      {
+        "id": 16,
+        "categoryId": 3,
+        "value": 200,
+        "question": "What color is typically used for a 'Danger' safety sign?",
+        "options": ["Red", "Yellow", "Green", "Blue"],
+        "answer": "Red"
+      },
+      {
+        "id": 17,
+        "categoryId": 3,
+        "value": 400,
+        "question": "What does a 'Caution' safety sign indicate?",
+        "options": ["High voltage", "Biohazard", "Slippery surface", "Exit route"],
+        "answer": "Slippery surface"
+      },
+      {
+        "id": 18,
+        "categoryId": 3,
+        "value": 600,
+        "question": "What does a 'Warning' safety sign indicate?",
+        "options": ["Biohazard", "Radiation", "Dangerous animals", "Unsafe chemicals"],
+        "answer": "Unsafe chemicals"
+      },
+      {
+        "id": 19,
+        "categoryId": 3,
+        "value": 800,
+        "question": "What does a 'Notice' safety sign indicate?",
+        "options": ["Important information", "A sale", "Upcoming event", "A break room"],
+        "answer": "Important information"
+      },
+      {
+        "id": 20,
+        "categoryId": 3,
+        "value": 1000,
+        "question": "What does a 'Mandatory' safety sign indicate?",
+        "options": ["A suggestion", "A recommendation", "A requirement", "An option"],
+        "answer": "A requirement"
+      },
+      {
+        "id": 21,
+        "categoryId": 4,
+        "value": 200,
+        "question": "What is the main goal of workplace ergonomics?",
+        "options": ["To prevent injuries", "To increase productivity", "To reduce costs", "To provide entertainment"],
+        "answer": "To prevent injuries"
+      },
+      {
+        "id": 22,
+        "categoryId": 4,
+        "value": 400,
+        "question": "Which of the following is an example of poor ergonomics?",
+        "options": ["Adjustable chair and desk", "Frequent breaks", "Awkward posture when lifting heavy objects", "Ergonomic keyboard and mouse"],
+        "answer": "Awkward posture when lifting heavy objects"
+      },
+      {
+        "id": 23,
+        "categoryId": 4,
+        "value": 600,
+        "question": "What is the correct posture for sitting at a desk?",
+        "options": ["Hunched over with shoulders forward", "Feet flat on the floor, knees at a 90-degree angle, back straight", "Leaning back with feet on the desk", "Crossing legs"],
+        "answer": "Feet flat on the floor, knees at a 90-degree angle, back straight"
+      },
+      {
+        "id": 24,
+        "categoryId": 4,
+        "value": 800,
+        "question": "What should you do to prevent repetitive strain injuries (RSIs) when using a computer?",
+        "options": ["Type faster", "Take frequent breaks", "Use a mouse with a high DPI setting", "Ignore any discomfort"],
+        "answer": "Take frequent breaks"
+      },
+      {
+        "id": 25,
+        "categoryId": 4,
+        "value": 1000,
+        "question": "What is the purpose of ergonomic equipment?",
+        "options": ["To improve comfort and efficiency", "To increase risk of injury", "To decrease productivity", "To cause discomfort"],
+        "answer": "To improve comfort and efficiency"
+      }
     ]
   }
   
