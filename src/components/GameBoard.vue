@@ -9,7 +9,7 @@
         
         <!-- Display questions -->
         <div class="question-column" v-for="(category, catIndex) in categories" :key="catIndex">
-          <div
+          <button
             v-for="(question, qIndex) in filteredQuestions(catIndex)"
             :key="qIndex"
             class="question-cell"
@@ -18,7 +18,7 @@
             :disabled="question.attempted === true"
           >
             ${{ question.value }}
-          </div>
+        </button>
         </div>
       </div>
       <ScoreDisplay />
@@ -72,6 +72,7 @@
     cursor: pointer;
     background-color: #f0f0f0;
     transition: background-color 0.3s ease;
+    margin-bottom: 6px;
   }
   
   .question-cell:hover {
