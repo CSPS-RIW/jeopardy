@@ -19,6 +19,9 @@
   import { ref, onMounted } from 'vue'
   import { useRoute, useRouter } from 'vue-router'
   import gameData from '../gameData.json'
+  import { useScoreStore } from '../stores/scoreStore.js'
+
+const scoreStore = useScoreStore()
   
   const route = useRoute()
   const router = useRouter()
@@ -38,11 +41,11 @@ const score = ref(0)
   const checkAnswer = () => {
   if (selectedOption.value === question.value.answer) {
     // Correct answer
-    score.value += question.value.value
+    scoreStore.increaseScore(question.value.value)
     alert('Correct!')
   } else {
     // Incorrect answer
-    score.value -= question.value.value
+    scoreStore.decreaseScore(question.value.value)
     alert('Incorrect. Try again!')
   }
 }

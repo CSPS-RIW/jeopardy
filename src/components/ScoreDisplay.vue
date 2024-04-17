@@ -6,9 +6,10 @@
   </template>
   
   <script setup>
-  import { ref } from 'vue'
-  
-  const score = ref(0)
+  import { useScoreStore } from '../stores/scoreStore.js'
+
+const scoreStore = useScoreStore()
+const score = scoreStore.score
   </script>
   
   <style scoped>
