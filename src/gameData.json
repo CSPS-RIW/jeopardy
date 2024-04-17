@@ -1,0 +1,17 @@
+{
+    "categories": [
+      "Science",
+      "History",
+      "Geography",
+      "Movies",
+      "Sports"
+    ],
+    "questions": [
+      {"id": 1, "question": "Question 1", "options": ["Option 1A", "Option 1B", "Option 1C"], "answer": "Option 1A"},
+      {"id": 2, "question": "Question 2", "options": ["Option 2A", "Option 2B", "Option 2C"], "answer": "Option 2B"},
+      {"id": 3, "question": "Question 3", "options": ["Option 3A", "Option 3B", "Option 3C"], "answer": "Option 3C"},
+      {"id": 4, "question": "Question 4", "options": ["Option 4A", "Option 4B", "Option 4C"], "answer": "Option 4A"},
+      {"id": 5, "question": "Question 5", "options": ["Option 5A", "Option 5B", "Option 5C"], "answer": "Option 5B"}
+    ]
+  }
+  
