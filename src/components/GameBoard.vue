@@ -53,7 +53,7 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 6px;
-    background-color: #2e2e2e;
+    background-color: #000f52;
     padding: 6px;
     border-radius: 10px;
   }
