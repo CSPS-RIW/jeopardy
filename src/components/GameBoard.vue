@@ -14,6 +14,7 @@
               class="question-cell"
               :class="{ 'attempted': question.attempted }"
               @click="selectQuestion(question.id)"
+              @keyup.enter="selectQuestion(question.id)"
               :disabled="question.attempted === true"
             >
               ${{ question.value }}
@@ -51,13 +52,25 @@
   .game-board {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 10px;
+    gap: 6px;
+    background-color: #2e2e2e;
+    padding: 6px;
+    border-radius: 10px;
   }
   
-  .category-header {
-    border: 2px solid #333;
-    border-radius: 5px;
-    padding: 10px;
+  .category-column {
+    min-height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    
+  }
+
+  .category-column h2 {
+    color: #ffffff;
+    text-align: center;
+    font-weight: bold;
   }
   
   .question-column {
@@ -70,17 +83,21 @@
     padding: 10px;
     border: 1px solid #ccc;
     cursor: pointer;
-    background-color: #f0f0f0;
+    background-color: #060ce9;
+    color: #ffCC00;
+    font-size: 24px;
+    font-weight: bold;
     transition: background-color 0.3s ease;
     margin-bottom: 6px;
   }
   
   .question-cell:hover {
-    background-color: #e0e0e0;
+    background-color: #000483;
   }
   
   .attempted {
-    background-color: #ccc !important;
+    background-color: #e0e0e0 !important;
+    color : rgb(175, 175, 175);
     cursor: default;
   }
   </style>
