@@ -23,6 +23,7 @@
         </div>
       </div>
       <ScoreDisplay />
+      <GameOverDialog v-if="isGameOver" :finalScore="score" @retry="restartGame" />
     </div>
   </template>
   
@@ -31,21 +32,47 @@
   import { useRouter, useRoute } from 'vue-router'
   import gameData from '../gameData.json'
   import ScoreDisplay from './ScoreDisplay.vue'
+  import GameOverDialog from './GameOverDialog.vue'
+  import { useScoreStore } from '../stores/scoreStore.js'
+
+  const scoreStore = useScoreStore()
+const score = scoreStore.score
+
+const isGameOver = ref(false)
+const finalScore = ref(Number)
   
   const router = useRouter()
   const categories = ref(gameData.categories)
   const questions = ref(gameData.questions.map(q => ({ ...q, answered: false })))
   
   const selectQuestion = (questionId) => {
-    const question = questions.value.find(q => q.id === questionId)
-    if (question && !question.answered) {
-      router.push(`/question/${questionId}`)
+  const question = questions.value.find(q => q.id === questionId)
+  if (question && !question.answered) {
+    question.answered = true
+    if (allQuestionsAnswered()) {
+      isGameOver.value = true
+      finalScore.value = score
     }
+    router.push(`/question/${questionId}`)
   }
+}
   
   const filteredQuestions = (categoryIndex) => {
     return questions.value.filter(question => question.categoryId === categoryIndex)
   }
+
+  const allQuestionsAnswered = () => {
+  return questions.value.every(question => question.answered)
+}
+
+const restartGame = () => {
+  // Reset game state
+  questions.value.forEach(question => {
+    question.answered = false
+  })
+  score.value = 0
+  isGameOver.value = false
+}
   </script>
   
   <style scoped>
