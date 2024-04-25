@@ -45,11 +45,22 @@ const isSubmitted = ref(false)
   if (selectedOption.value === question.value.answer) {
     // Correct answer
     scoreStore.increaseScore(question.value.value)
-    alert('Correct!')
+    //alert('Correct!')
+    document.querySelector('.question-wrapper').insertAdjacentHTML('beforeend', `
+      <div aria-live="polite" class="question-feedback">
+        <p>${question.value.feedback.correct}</p>
+        <p>${question.value.feedback.generic}</p>
+      </div>
+    `)
   } else {
     // Incorrect answer
     scoreStore.decreaseScore(question.value.value)
-    alert('Incorrect. Head back to the game board!')
+    document.querySelector('.question-wrapper').insertAdjacentHTML('beforeend', `
+      <div aria-live="polite" class="question-feedback">
+        <p>${question.value.feedback.incorrect}</p>
+        <p>${question.value.feedback.generic}</p>
+      </div>
+    `)
   }
   isSubmitted.value = true
   question.value.attempted = true
