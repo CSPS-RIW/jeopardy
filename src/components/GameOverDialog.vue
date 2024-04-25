@@ -2,7 +2,7 @@
     <div class="game-over-dialog">
       <h2>Game Over</h2>
       <p>Your final score is: {{ finalScore }}</p>
-      <button @click="retry">Retry</button>
+      <button @click="$emit('update:retry')">Retry</button>
     </div>
   </template>
   
@@ -16,10 +16,6 @@
     }
   })
   
-  const retry = () => {
-    // Emit an event to notify the parent component (GameBoard.vue) to restart the game
-    emit('retry')
-  }
   </script>
   
   <style scoped>

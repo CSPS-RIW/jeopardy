@@ -1,7 +1,7 @@
 <template>
     <div>
       <h1>Jeopardy Game</h1>
-      <div class="game-board">
+      <div class="game-board" v-if="!isGameOver">
         <!-- Display category headers and corresponding questions -->
         <div v-for="(category, catIndex) in categories" :key="catIndex">
           <div class="category-column">
@@ -22,8 +22,8 @@
           </div>
         </div>
       </div>
-      <ScoreDisplay />
-      <GameOverDialog v-if="isGameOver" :finalScore="score" @retry="restartGame" />
+      <ScoreDisplay v-if="!isGameOver"/>
+      <GameOverDialog v-if="isGameOver" :finalScore="score" @update:retry="restartGame" />
     </div>
   </template>
   
@@ -65,13 +65,17 @@ const finalScore = ref(Number)
   return questions.value.every(question => question.answered)
 }
 
-const restartGame = () => {
+const restartGame = (value) => {
   // Reset game state
   questions.value.forEach(question => {
     question.answered = false
   })
-  score.value = 0
+  
+  finalScore.value = 0
+  //score.value = 0
+  scoreStore.resetScore()
   isGameOver.value = false
+  console.log(value)
 }
   </script>
   
