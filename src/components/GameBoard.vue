@@ -1,5 +1,6 @@
 <template>
     <div>
+      <ScoreDisplay v-if="!isGameOver" class="sr-only"/>
       <div class="game-board" v-if="!isGameOver">
         <!-- Display category headers and corresponding questions -->
         <div v-for="(category, catIndex) in categories" :key="catIndex">
