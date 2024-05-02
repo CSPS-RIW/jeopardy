@@ -54,3 +54,7 @@ a,
 	position: absolute;
 	width: 1px;
 }
+
+fieldset {
+  border: none;
+}
