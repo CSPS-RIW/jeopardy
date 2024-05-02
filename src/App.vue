@@ -1,4 +1,7 @@
 <template>
+	<header>
+		<h1>Jeopardy Game</h1>
+	</header>
   <main>
 	<div id="app">
 	  <router-view></router-view>

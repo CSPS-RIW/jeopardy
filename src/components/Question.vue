@@ -5,10 +5,10 @@
       <h2>Question</h2>
       <p v-if="question">{{ question.question }}</p>
 
-      <fieldset v-if="question" tabindex="0">
+      <fieldset v-if="question" tabindex="-1">
         <legend></legend>
-        <span v-for="(option, index) in question.options" :key="option.id" class="option">
-          <input type="radio" :id="'option_' + index" :value="option" :name="'option_' + index" v-model="selectedOption"
+        <span v-for="(option, index) in question.options" :key="index" class="option">
+          <input type="radio" :id="'option_' + index" :value="option" name="option" v-model="selectedOption"
             :disabled="isSubmitted" ref="options">
           <label :for="'option_' + index">{{ option }}</label>
         </span>
@@ -35,7 +35,6 @@ const question = ref(null)
 const selectedOption = ref('')
 const score = ref(0)
 const isSubmitted = ref(false)
-const focusedOptionIndex = ref(-1)
 
 
 onMounted(() => {

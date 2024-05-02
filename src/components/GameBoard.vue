@@ -1,6 +1,5 @@
 <template>
     <div>
-      <h1>Jeopardy Game</h1>
       <div class="game-board" v-if="!isGameOver">
         <!-- Display category headers and corresponding questions -->
         <div v-for="(category, catIndex) in categories" :key="catIndex">
