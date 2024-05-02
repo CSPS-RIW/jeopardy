@@ -16,8 +16,9 @@
               @click="selectQuestion(question.id)"
               @keyup.enter="selectQuestion(question.id)"
               :disabled="question.attempted === true"
+              :aria-label="question.value + ' point question for ' + category"
             >
-              ${{ question.value }}
+              {{ question.value }}
             </button>
           </div>
         </div>
