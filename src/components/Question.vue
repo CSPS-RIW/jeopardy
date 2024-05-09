@@ -113,19 +113,20 @@ p {
   border: none;
   margin-bottom: 6px;
   transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #0309b4;
+    color: #ffCC00;
+    cursor: pointer;
+  }
+
+  &:disabled {
+    background-color: #e0e0e0 !important;
+    color: rgb(175, 175, 175);
+    cursor: not-allowed;
+  }
 }
 
-.game-button:hover {
-  background-color: #0309b4;
-  color: #ffCC00;
-  cursor: pointer;
-}
-
-.game-button:disabled {
-  background-color: #e0e0e0 !important;
-  color: rgb(175, 175, 175);
-  cursor: not-allowed;
-}
 
 /* Custom Radio inputs */
 input[type='radio'] {
