@@ -7,14 +7,6 @@
   font-weight: normal;
 }
 
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-  padding: 3px;
-}
-
 @media (hover: hover) {
   a:hover {
     background-color: hsla(160, 100%, 37%, 0.2);
@@ -24,8 +16,8 @@ a,
 .game-button {
   font-size: 18px;
   padding: 6px 12px;
-  background-color: #ffCC00;
-  color: #0309b4;
+  background-color: var(--main-yellow);
+  color: var(--game-button-blue);
   border-radius: 10px;
   border: none;
   margin-bottom: 6px;
@@ -33,14 +25,14 @@ a,
 }
 
 .game-button:hover {
-  background-color: #0309b4;
-  color: #ffCC00;
+  background-color: var(--game-button-blue);
+  color: var(--main-yellow);
   cursor: pointer;
 }
 
 .game-button:disabled {
-  background-color: #e0e0e0 !important;
-  color : rgb(175, 175, 175);
+  background-color: var(--disabled-button-bgc) !important;
+  color : var(--disabled-button-color);
   cursor:not-allowed;
 }
 

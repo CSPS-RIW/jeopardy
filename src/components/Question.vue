@@ -90,7 +90,7 @@ const goBack = () => {
 h2 {
   font-size: 28px;
   font-weight: bold;
-  color: #0309b4;
+  color: var(--game-button-blue);
 }
 
 p {
@@ -107,16 +107,16 @@ p {
 .game-button {
   font-size: 18px;
   padding: 6px 12px;
-  background-color: #ffCC00;
-  color: #0309b4;
+  background-color: var(--main-yellow);
+  color: var(--game-button-blue);
   border-radius: 10px;
   border: none;
   margin-bottom: 6px;
   transition: background-color 0.3s ease;
 
   &:hover {
-    background-color: #0309b4;
-    color: #ffCC00;
+    background-color: var(--game-button-blue);
+    color: var(--main-yellow);
     cursor: pointer;
   }
 
@@ -148,19 +148,19 @@ input[type='radio']+label {
   line-height: 36px;
   color: #000;
   user-select: none;
-}
 
-input[type='radio']+label::before {
-  content: '';
-  display: block;
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 36px;
-  height: 36px;
-  outline: 2px solid #000;
-  border-radius: 50%;
-  background-color: var(--white-heat);
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 36px;
+    height: 36px;
+    outline: 2px solid #000;
+    border-radius: 50%;
+    background-color: var(--white-heat);
+  }
 }
 
 input[type='radio']:checked+label::after {

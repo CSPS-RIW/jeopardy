@@ -36,9 +36,9 @@
 
   .container {
     padding: 2rem;
-    background-color: #060ce9;
-    color: #ffCC00;
-    border: 2px solid #ffCC00;
+    background-color: var(--game-button-blue);
+    color: var(--main-yellow);
+    border: 2px solid var(--main-yellow);
     font-size: 20px;
   }
   </style>
