@@ -29,12 +29,15 @@
   </template>
   
   <script setup>
-  import { ref } from 'vue'
+  import { ref, onMounted } from 'vue'
   import { useRouter, useRoute } from 'vue-router'
   import gameData from '../gameData.json'
   import ScoreDisplay from '../components/ScoreDisplay.vue'
   import GameOverDialog from '../components/GameOverDialog.vue'
   import { useScoreStore } from '../stores/scoreStore.js'
+  import { useProgressStore } from '../stores/progressStore'
+
+const progressStore = useProgressStore()
 
   const scoreStore = useScoreStore()
 const score = scoreStore.score
@@ -43,13 +46,33 @@ const isGameOver = ref(false)
 const finalScore = ref(Number)
   
   const router = useRouter()
-  const categories = ref(gameData.categories)
-  const questions = ref(gameData.questions.map(q => ({ ...q, answered: false })))
+
+  const categories = ref([])
+  const questions = ref([])
+  //const categories = ref(gameData.categories)
+  //const questions = ref(gameData.questions.map(q => ({ ...q, answered: false })))
+  onMounted(() => {
+  // Check if progress exists in local storage
+  const savedProgress = progressStore.loadProgress()
+  if (savedProgress) {
+    // Use saved progress for the game board
+    console.log('if')
+    categories.value = savedProgress.categories
+    questions.value = savedProgress.questions
+  } else {
+    // Use default game data
+    console.log('else');
+    categories.value = gameData.categories
+    questions.value = gameData.questions.map(q => ({ ...q, answered: false }))
+  }
+})
   
   const selectQuestion = (questionId) => {
   const question = questions.value.find(q => q.id === questionId)
   if (question && !question.answered) {
     question.answered = true
+    question.attempted = true
+    
     if (allQuestionsAnswered()) {
       isGameOver.value = true
       finalScore.value = score

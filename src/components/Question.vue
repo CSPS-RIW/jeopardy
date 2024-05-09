@@ -26,8 +26,10 @@ import { ref, onMounted, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import gameData from '../gameData.json'
 import { useScoreStore } from '../stores/scoreStore.js'
+import { useProgressStore } from '../stores/progressStore'
 
 const scoreStore = useScoreStore()
+const progressStore = useProgressStore()
 
 const route = useRoute()
 const router = useRouter()
