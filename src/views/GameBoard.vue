@@ -125,6 +125,10 @@ const restartGame = (value) => {
     &:hover {
       background-color: var(--game-button-blue-hover);
     }
+
+    &:focus {
+      outline: 2px solid var(--main-yellow);
+    }
   }
   
   .attempted {

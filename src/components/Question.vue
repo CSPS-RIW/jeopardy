@@ -13,8 +13,10 @@
           <label :for="'option_' + index">{{ option }}</label>
         </span>
       </fieldset>
-      <button @click="checkAnswer" class="game-button" :disabled="!selectedOption || isSubmitted">Submit</button>
-      <button @click="goBack" class="game-button" :disabled="!isSubmitted">Back to Game Board</button>
+      <div class="controls">
+        <button @click="checkAnswer" class="game-button" :disabled="!selectedOption || isSubmitted">Submit</button>
+        <button @click="goBack" class="game-button" :disabled="!isSubmitted">Back to Game Board</button>
+      </div>
     </div>
   </div>
 </template>
@@ -102,6 +104,11 @@ p {
   display: flex;
   justify-content: center;
   margin-top: 10px;
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
 }
 
 

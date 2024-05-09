@@ -9,7 +9,7 @@
 
 .game-button {
   font-size: 18px;
-  padding: 6px 12px;
+  padding: 10px 20px;
   background-color: var(--main-yellow);
   color: var(--game-button-blue);
   border-radius: 10px;
