@@ -192,8 +192,14 @@ input[type='radio']:disabled+label::after {
 }
 
 @media (prefers-contrast: more) {
-  input[type='radio']:focus+label::before {
-  outline: 5px solid #ffffff;
+  fieldset:focus-within {
+    outline: 1px solid #ffffff00;
+  }
 }
+
+@media (forced-colors: active), (--ms-high-contrast: active) {
+  fieldset:focus-within {
+    outline: 1px solid #ffffff00;
+  }
 }
 </style>
