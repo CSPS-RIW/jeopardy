@@ -21,12 +21,13 @@ export const useProgressStore = defineStore({
       
     // Method to load the user's progress from local storage
     loadProgress() {
-        const savedProgress = localStorage.getItem('progress')
-        if (savedProgress) {
-          const attempts = JSON.parse(savedProgress) || {}
+        const savedData = localStorage.getItem('gameData')
+        if (savedData) {
+          const gameInfo = JSON.parse(savedData)
+          console.log(gameInfo)
           // Iterate through gameData questions and update attempted based on attempts object
-          for (const question of this.gameData.questions) {
-            question.attempted = attempts[question.id] || false;
+          for (const question of gameInfo.questions) {
+            question.attempted = gameInfo.questions[question.id] || false;
           }
         }
       },
@@ -47,6 +48,7 @@ export const useProgressStore = defineStore({
           const resp = await fetch('./gameData.json')
           const data = await resp.json()
           this.gameData = data
+          localStorage.setItem('gameData', JSON.stringify(data))
         } catch (error) {
           console.error('Error fetching game data:', error)
         }
