@@ -5,7 +5,7 @@
       <h2>Question</h2>
       <p v-if="question">{{ question.question }}</p>
 
-      <fieldset v-if="question" tabindex="-1">
+      <fieldset v-if="question">
         <legend></legend>
         <span v-for="(option, index) in question.options" :key="index" class="option">
           <input type="radio" :id="'option_' + index" :value="option" name="option" v-model="selectedOption"
@@ -13,8 +13,10 @@
           <label :for="'option_' + index">{{ option }}</label>
         </span>
       </fieldset>
-      <button @click="checkAnswer" class="game-button" :disabled="!selectedOption || isSubmitted">Submit</button>
-      <button @click="goBack" class="game-button" :disabled="!isSubmitted">Back to Game Board</button>
+      <div class="controls">
+        <button @click="checkAnswer" class="game-button" :disabled="!selectedOption || isSubmitted">Submit</button>
+        <button @click="goBack" class="game-button" :disabled="!isSubmitted">Back to Game Board</button>
+      </div>
     </div>
   </div>
 </template>
@@ -79,18 +81,19 @@ const goBack = () => {
 
 <style scoped>
 .question-wrapper {
-  background-color: #fafafa;
+  background-color: var(--question-wrapper);
   max-width: 700px;
   padding: 20px;
-  color: #000;
+  color: var(--vt-c-black);
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  outline: 1px solid #ffffff00;
 }
 
 h2 {
   font-size: 28px;
   font-weight: bold;
-  color: #0309b4;
+  color: var(--game-button-blue);
 }
 
 p {
@@ -104,28 +107,11 @@ p {
   margin-top: 10px;
 }
 
-.game-button {
-  font-size: 18px;
-  padding: 6px 12px;
-  background-color: #ffCC00;
-  color: #0309b4;
-  border-radius: 10px;
-  border: none;
-  margin-bottom: 6px;
-  transition: background-color 0.3s ease;
+.controls {
+  display: flex;
+  justify-content: space-between;
 }
 
-.game-button:hover {
-  background-color: #0309b4;
-  color: #ffCC00;
-  cursor: pointer;
-}
-
-.game-button:disabled {
-  background-color: #e0e0e0 !important;
-  color: rgb(175, 175, 175);
-  cursor: not-allowed;
-}
 
 /* Custom Radio inputs */
 input[type='radio'] {
@@ -147,19 +133,19 @@ input[type='radio']+label {
   line-height: 36px;
   color: #000;
   user-select: none;
-}
 
-input[type='radio']+label::before {
-  content: '';
-  display: block;
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 36px;
-  height: 36px;
-  outline: 2px solid #000;
-  border-radius: 50%;
-  background-color: var(--white-heat);
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 36px;
+    height: 36px;
+    outline: 2px solid #000;
+    border-radius: 50%;
+    background-color: var(--white-heat);
+  }
 }
 
 input[type='radio']:checked+label::after {
@@ -203,5 +189,17 @@ input[type='radio']:disabled+label::after {
   background-color: var(--disabled);
   border-color: var(--disabled);
   cursor: not-allowed;
+}
+
+@media (prefers-contrast: more) {
+  fieldset:focus-within {
+    outline: 1px solid #ffffff00;
+  }
+}
+
+@media (forced-colors: active), (--ms-high-contrast: active) {
+  fieldset:focus-within {
+    outline: 1px solid #ffffff00;
+  }
 }
 </style>

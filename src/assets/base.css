@@ -1,8 +1,16 @@
 /* color palette from <https://github.com/vuejs/theme> */
 :root {
   --vt-c-white: #ffffff;
+  --vt-c-black: #000;
   --vt-c-white-soft: #f8f8f8;
   --vt-c-white-mute: #f2f2f2;
+  --main-yellow: #ffCC00;
+  --game-button-blue: #0309b4;
+  --game-button-blue-hover: #000483;
+  --disabled-button-bgc: #e0e0e0;
+  --disabled-button-color: rgb(175, 175, 175);
+  --dark-bgc: #000f52;
+  --question-wrapper: #fafafa;
 
   --vt-c-black: #181818;
   --vt-c-black-soft: #222222;
@@ -19,10 +27,8 @@
   --vt-c-text-light-2: rgba(60, 60, 60, 0.66);
   --vt-c-text-dark-1: var(--vt-c-white);
   --vt-c-text-dark-2: rgba(235, 235, 235, 0.64);
-}
 
-/* semantic color variables for this project */
-:root {
+  /* semantic color variables for this project */
   --color-background: var(--vt-c-white);
   --color-background-soft: var(--vt-c-white-soft);
   --color-background-mute: var(--vt-c-white-mute);
@@ -34,6 +40,30 @@
   --color-text: var(--vt-c-text-light-1);
 
   --section-gap: 160px;
+
+  /*School colours*/
+  --school-purple: #3f2a56;
+	--school-purple-drk: #18032f;
+	--slate-blue: #4e5b73;
+	--true-blue: #1c578a;
+	--true-light: #226aa8;
+	--system-gray: #f1f5fb;
+	--body-grey: #333;
+	--white-heat: #ffffff;
+	--horizontal-rule: #ddd;
+	--off-white: #f6f7f8;
+	--hyperlink-blue: #2b4380;
+	--hyperlink-hover: #0535d2;
+	--hyperlink-visited: #7834bc;
+	--hyperlink-menu: #337ab7;
+	--disabled: #6c6c6c;
+	--input-gradient: linear-gradient(to bottom, #e6e5e5, #fff 50%);
+	--input-box-shadow: 0px 0px 8px 4px #3b99fc, 2px 5px 16px 0px #0b325e,
+		0px 0px 21px 5px rgba(125, 195, 255, 0.3);
+	--border-feedback-colour: var(--white-heat);
+	--border-feedback-bg-colour: #369;
+	--feedback-bg-colour: var(--white-heat);
+	--feedback-colour: #333;
 }
 
 @media (prefers-color-scheme: dark) {

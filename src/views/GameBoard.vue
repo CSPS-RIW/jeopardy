@@ -32,8 +32,8 @@
   import { ref } from 'vue'
   import { useRouter, useRoute } from 'vue-router'
   import gameData from '../gameData.json'
-  import ScoreDisplay from './ScoreDisplay.vue'
-  import GameOverDialog from './GameOverDialog.vue'
+  import ScoreDisplay from '../components/ScoreDisplay.vue'
+  import GameOverDialog from '../components/GameOverDialog.vue'
   import { useScoreStore } from '../stores/scoreStore.js'
 
   const scoreStore = useScoreStore()
@@ -80,14 +80,15 @@ const restartGame = (value) => {
 }
   </script>
   
-  <style scoped>
+  <style scoped lang="scss">
   .game-board {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 6px;
-    background-color: #000f52;
+    background-color: var(--dark-bgc);
     padding: 6px;
     border-radius: 10px;
+    outline: 1px solid #ffffff00;
   }
   
   .category-column {
@@ -95,14 +96,14 @@ const restartGame = (value) => {
     display: flex;
     align-items: center;
     justify-content: center;
-    
-    
-  }
 
-  .category-column h2 {
-    color: #ffffff;
+    h2 {
+      color: var(--vt-c-white);
     text-align: center;
     font-weight: bold;
+    }
+    
+    
   }
   
   .question-column {
@@ -115,21 +116,25 @@ const restartGame = (value) => {
     padding: 10px;
     border: 1px solid #ccc;
     cursor: pointer;
-    background-color: #060ce9;
-    color: #ffCC00;
+    background-color: var(--game-button-blue);
+    color: var(--main-yellow);
     font-size: 24px;
     font-weight: bold;
     transition: background-color 0.3s ease;
     margin-bottom: 6px;
-  }
-  
-  .question-cell:hover {
-    background-color: #000483;
+
+    &:hover {
+      background-color: var(--game-button-blue-hover);
+    }
+
+    &:focus {
+      outline: 2px solid var(--main-yellow);
+    }
   }
   
   .attempted {
-    background-color: #e0e0e0 !important;
-    color : rgb(175, 175, 175);
+    background-color: var(--disabled-button-bgc) !important;
+    color : var(--disabled-button-color);
     cursor: default;
   }
   </style>

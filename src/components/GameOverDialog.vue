@@ -9,7 +9,6 @@
   </template>
   
   <script setup>
-  import { ref } from 'vue'
   
   const props = defineProps({
     finalScore: {
@@ -24,21 +23,20 @@
   /* Add your component-specific styles here */
   .game-over-dialog {
     text-align: center;
-    background-color: #000f52;
+    background-color: var(--dark-bgc);
     border-radius: 10px;
     max-width: 700px;
     min-height: 200px;
     display: flex;
     align-items: center;
     justify-content: center;
-
   }
 
   .container {
     padding: 2rem;
-    background-color: #060ce9;
-    color: #ffCC00;
-    border: 2px solid #ffCC00;
+    background-color: var(--game-button-blue);
+    color: var(--main-yellow);
+    border: 2px solid var(--main-yellow);
     font-size: 20px;
   }
   </style>
