@@ -73,6 +73,8 @@ const checkAnswer = () => {
   }
   isSubmitted.value = true
   question.value.attempted = true
+
+  progressStore.updateProgress(questionId)
 }
 
 const goBack = () => {
