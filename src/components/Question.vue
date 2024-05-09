@@ -79,10 +79,10 @@ const goBack = () => {
 
 <style scoped>
 .question-wrapper {
-  background-color: #fafafa;
+  background-color: var(--question-wrapper);
   max-width: 700px;
   padding: 20px;
-  color: #000;
+  color: var(--vt-c-black);
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
@@ -102,29 +102,6 @@ p {
   display: flex;
   justify-content: center;
   margin-top: 10px;
-}
-
-.game-button {
-  font-size: 18px;
-  padding: 6px 12px;
-  background-color: var(--main-yellow);
-  color: var(--game-button-blue);
-  border-radius: 10px;
-  border: none;
-  margin-bottom: 6px;
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: var(--game-button-blue);
-    color: var(--main-yellow);
-    cursor: pointer;
-  }
-
-  &:disabled {
-    background-color: #e0e0e0 !important;
-    color: rgb(175, 175, 175);
-    cursor: not-allowed;
-  }
 }
 
 
