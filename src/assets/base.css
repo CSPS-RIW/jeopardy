@@ -5,8 +5,10 @@
   --vt-c-white-mute: #f2f2f2;
   --main-yellow: #ffCC00;
   --game-button-blue: #0309b4;
+  --game-button-blue-hover: #000483;
   --disabled-button-bgc: #e0e0e0;
   --disabled-button-color: rgb(175, 175, 175);
+  --dark-bgc: #000f52;
 
   --vt-c-black: #181818;
   --vt-c-black-soft: #222222;

@@ -24,14 +24,13 @@
   /* Add your component-specific styles here */
   .game-over-dialog {
     text-align: center;
-    background-color: #000f52;
+    background-color: var(--dark-bgc);
     border-radius: 10px;
     max-width: 700px;
     min-height: 200px;
     display: flex;
     align-items: center;
     justify-content: center;
-
   }
 
   .container {

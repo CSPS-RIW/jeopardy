@@ -85,7 +85,7 @@ const restartGame = (value) => {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     gap: 6px;
-    background-color: #000f52;
+    background-color: var(--dark-bgc);
     padding: 6px;
     border-radius: 10px;
   }
@@ -97,7 +97,7 @@ const restartGame = (value) => {
     justify-content: center;
 
     h2 {
-      color: #ffffff;
+      color: var(--vt-c-white);
     text-align: center;
     font-weight: bold;
     }
@@ -115,21 +115,21 @@ const restartGame = (value) => {
     padding: 10px;
     border: 1px solid #ccc;
     cursor: pointer;
-    background-color: #060ce9;
-    color: #ffCC00;
+    background-color: var(--game-button-blue);
+    color: var(--main-yellow);
     font-size: 24px;
     font-weight: bold;
     transition: background-color 0.3s ease;
     margin-bottom: 6px;
 
     &:hover {
-      background-color: #000483;
+      background-color: var(--game-button-blue-hover);
     }
   }
   
   .attempted {
-    background-color: #e0e0e0 !important;
-    color : rgb(175, 175, 175);
+    background-color: var(--disabled-button-bgc) !important;
+    color : var(--disabled-button-color);
     cursor: default;
   }
   </style>

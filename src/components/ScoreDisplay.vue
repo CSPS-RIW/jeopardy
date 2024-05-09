@@ -16,7 +16,7 @@ const score = scoreStore.score
   
   <style scoped>
     .score-board {
-      background-color: #000f52;
+      background-color: var(--dark-bgc);
       color: #fff;
       display: inline-block;
       padding: 20px;
