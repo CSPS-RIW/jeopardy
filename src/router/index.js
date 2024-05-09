@@ -1,7 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import GameBoard from '../components/GameBoard.vue'
+import GameBoard from '../views/GameBoard.vue'
 import Question from '../components/Question.vue'
-import ScoreDisplay from '../components/ScoreDisplay.vue'
 
 const routes = [
   {
@@ -13,11 +12,6 @@ const routes = [
     path: '/question/:id',
     name: 'Question',
     component: Question
-  },
-  {
-    path: '/score',
-    name: 'ScoreDisplay',
-    component: ScoreDisplay
   }
 ]
 

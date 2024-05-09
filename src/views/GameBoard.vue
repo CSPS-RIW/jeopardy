@@ -32,8 +32,8 @@
   import { ref } from 'vue'
   import { useRouter, useRoute } from 'vue-router'
   import gameData from '../gameData.json'
-  import ScoreDisplay from './ScoreDisplay.vue'
-  import GameOverDialog from './GameOverDialog.vue'
+  import ScoreDisplay from '../components/ScoreDisplay.vue'
+  import GameOverDialog from '../components/GameOverDialog.vue'
   import { useScoreStore } from '../stores/scoreStore.js'
 
   const scoreStore = useScoreStore()
