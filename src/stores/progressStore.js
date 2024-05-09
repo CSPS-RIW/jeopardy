@@ -9,19 +9,37 @@ export const useProgressStore = defineStore({
   state: () => ({
     // Object to store the user's progress
     progress: {},
-    gameData: gameData.json
+    gameData: {}
   }),
 
   // Define actions to modify the state
   actions: {
     // Method to save the user's progress to local storage
-    saveProgress() {
+    saveProgress(passedData) {
         if(localStorage.getItem('progress')){
             localStorage.removeItem('progress')
-            localStorage.setItem('progress', JSON.stringify(gameData))
+            localStorage.setItem('progress', JSON.stringify(passedData))
         }
       
     },
+    async fetchGameData() {
+        try {
+            let resp = await fetch('./gameData.json');
+           
+            let data = await resp.text();
+            
+            let parsedData = JSON.parse(data)
+            // Attempt to parse response as JSON
+            this.gameData = {...parsedData}
+            console.log(this.gameData);
+
+            this.saveProgress(this.gameData)
+        } catch (error) {
+            console.error('Error fetching game data:', error);
+        }
+    },
+    
+    
 
     // Method to load the user's progress from local storage
     loadProgress() {
