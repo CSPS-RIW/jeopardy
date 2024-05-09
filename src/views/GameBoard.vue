@@ -53,18 +53,20 @@ const finalScore = ref(Number)
   //const questions = ref(gameData.questions.map(q => ({ ...q, answered: false })))
   onMounted(() => {
   // Check if progress exists in local storage
-  const savedProgress = progressStore.loadProgress()
-  if (savedProgress) {
-    // Use saved progress for the game board
-    console.log('if')
-    categories.value = savedProgress.categories
-    questions.value = savedProgress.questions
-  } else {
-    // Use default game data
-    console.log('else');
-    categories.value = gameData.categories
-    questions.value = gameData.questions.map(q => ({ ...q, answered: false }))
-  }
+  // if (savedProgress) {
+  //   // Use saved progress for the game board
+  //   console.log('if')
+  //   categories.value = savedProgress.categories
+  //   questions.value = savedProgress.questions
+  // } else {
+  //   // Use default game data
+  //   console.log('else');
+  //   categories.value = gameData.categories
+  //   questions.value = gameData.questions.map(q => ({ ...q, answered: false }))
+  // }
+
+  categories.value = gameData.categories
+  questions.value = gameData.questions.map(q => ({ ...q, answered: false }))
 })
   
   const selectQuestion = (questionId) => {
@@ -72,7 +74,7 @@ const finalScore = ref(Number)
   if (question && !question.answered) {
     question.answered = true
     question.attempted = true
-    
+
     if (allQuestionsAnswered()) {
       isGameOver.value = true
       finalScore.value = score

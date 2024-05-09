@@ -10,8 +10,18 @@
 </template>
 
 <script setup>
+import { onBeforeMount } from 'vue';
+import { useProgressStore } from './stores/progressStore';
 import { useRouter } from 'vue-router'
 const router = useRouter()
+
+
+onBeforeMount(()=> {
+	const progressStore = useProgressStore()
+	
+	progressStore.fetchGameData()
+})
+
 </script>
 
 <style>
