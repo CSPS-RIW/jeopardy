@@ -21,6 +21,7 @@ const score = scoreStore.score
       display: inline-block;
       padding: 20px;
       border-radius: 10px;
+      outline: 1px solid #ffffff00;
     }
 
     h2 {

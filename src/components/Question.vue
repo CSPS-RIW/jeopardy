@@ -5,7 +5,7 @@
       <h2>Question</h2>
       <p v-if="question">{{ question.question }}</p>
 
-      <fieldset v-if="question" tabindex="-1">
+      <fieldset v-if="question">
         <legend></legend>
         <span v-for="(option, index) in question.options" :key="index" class="option">
           <input type="radio" :id="'option_' + index" :value="option" name="option" v-model="selectedOption"
@@ -87,6 +87,7 @@ const goBack = () => {
   color: var(--vt-c-black);
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  outline: 1px solid #ffffff00;
 }
 
 h2 {
@@ -188,5 +189,11 @@ input[type='radio']:disabled+label::after {
   background-color: var(--disabled);
   border-color: var(--disabled);
   cursor: not-allowed;
+}
+
+@media (prefers-contrast: more) {
+  input[type='radio']:focus+label::before {
+  outline: 5px solid #ffffff;
+}
 }
 </style>

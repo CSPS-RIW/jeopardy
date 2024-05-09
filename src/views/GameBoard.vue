@@ -88,6 +88,7 @@ const restartGame = (value) => {
     background-color: var(--dark-bgc);
     padding: 6px;
     border-radius: 10px;
+    outline: 1px solid #ffffff00;
   }
   
   .category-column {

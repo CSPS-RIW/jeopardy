@@ -16,12 +16,17 @@
   border: none;
   margin-bottom: 6px;
   transition: background-color 0.3s ease;
+  outline: 1px solid #ffffff00;
 }
 
 .game-button:hover {
   background-color: var(--game-button-blue);
   color: var(--main-yellow);
   cursor: pointer;
+}
+
+.game-button:focus {
+  outline: 3px solid var(--game-button-blue);
 }
 
 .game-button:disabled {
