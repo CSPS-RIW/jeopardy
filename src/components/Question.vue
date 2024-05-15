@@ -42,11 +42,7 @@ const isSubmitted = ref(false)
 
 
 onMounted(() => {
-  console.log("Component mounted");
   question.value = gameData.questions.find(q => q.id === parseInt(questionId.value))
-  if (!question.value) {
-    console.error(`Question with ID ${questionId.value} not found.`)
-  }
 })
 
 

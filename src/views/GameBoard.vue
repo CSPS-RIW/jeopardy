@@ -44,31 +44,43 @@ const router = useRouter()
 const categories = ref([])
 const questions = ref([])
 
-const gameData2 = computed(() => {
-  if (!progressStore.gameData) {
-    progressStore.fetchGameData()
-  }
-  return progressStore.gameData
-})
-//const categories = ref(gameData.categories)
+// const gameData2 = computed(() => {
+//   if (!progressStore.gameData) {
+//     progressStore.fetchGameData()
+//   }
+//   return progressStore.gameData
+// })
+// //const categories = ref(gameData.categories)
 //const questions = ref(gameData.questions.map(q => ({ ...q, answered: false })))
 onMounted(() => {
   //Check if progress exists in local storage
 
   // Fetch game data
-  progressStore.fetchGameData()
+ 
   // Load progress from local storage
-  progressStore.loadProgress()
+  if(localStorage.getItem("progress")){
 
-  // Use progress data if available, otherwise fallback to original gameData
-  if (progressStore.gameData && Object.keys(progressStore.gameData).length > 0) {
-    categories.value = progressStore.gameData.categories
-    questions.value = progressStore.gameData.questions
+    progressStore.loadProgress()
+    let localStorageProgress = JSON.parse(localStorage.getItem("progress"))
+    console.log(localStorageProgress);
+    categories.value = localStorageProgress.categories
+    questions.value = localStorageProgress.questions
   } else {
-    // Fallback to original gameData if no progress data is available
+    progressStore.fetchGameData()
     categories.value = gameData.categories
     questions.value = gameData.questions
   }
+  
+
+  // Use progress data if available, otherwise fallback to original gameData
+  // if (localStorage.getItem("progress")) {
+  //   categories.value = progressStore.progress.categories
+  //   questions.value = progressStore.progress.questions
+  // } else {
+  //   // Fallback to original gameData if no progress data is available
+  //   categories.value = gameData.categories
+  //   questions.value = gameData.questions
+  // }
 
   // categories.value = gameData.categories
   // questions.value = gameData.questions.map(q => ({ ...q, answered: false }))
@@ -102,18 +114,15 @@ const allQuestionsAnswered = () => {
   return questions.value.every(question => question.answered)
 }
 
-const restartGame = (value) => {
+const restartGame = () => {
   // Reset game state
-  questions.value.forEach(question => {
-    question.answered = false
-  })
+  progressStore.resetProgress()
 
   finalScore.value = 0
-  //score.value = 0
   scoreStore.resetScore()
   isGameOver.value = false
-  console.log(value)
 }
+
 </script>
 
 <style scoped lang="scss">

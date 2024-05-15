@@ -18,8 +18,16 @@ const router = useRouter()
 
 onBeforeMount(()=> {
 	const progressStore = useProgressStore()
+
+	let savedProgress = localStorage.getItem("progress")
 	
-	progressStore.fetchGameData()
+	if(savedProgress) {
+		const useSavedProgress = JSON.parse(savedProgress)
+		progressStore.gameData = useSavedProgress
+	} else {
+		progressStore.fetchGameData()
+	}
+	
 })
 
 </script>
