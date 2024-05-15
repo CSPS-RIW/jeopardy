@@ -16,5 +16,12 @@ export const useScoreStore = defineStore({
     resetScore() {
       this.score = 0;
     },
+    saveScore() {
+      localStorage.setItem('score', this.score)
+    },
+    loadScore() {
+      let savedScore = JSON.parse(localStorage.getItem("score"))
+      this.score = savedScore
+    }
   },
 })

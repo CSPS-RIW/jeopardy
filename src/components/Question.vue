@@ -67,6 +67,7 @@ const checkAnswer = () => {
       </div>
     `)
   }
+  scoreStore.saveScore()
   isSubmitted.value = true
   question.value.attempted = true
 

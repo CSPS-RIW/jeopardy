@@ -27,6 +27,8 @@ onBeforeMount(()=> {
 	} else {
 		progressStore.fetchGameData()
 	}
+
+	
 	
 })
 
