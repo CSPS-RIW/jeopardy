@@ -13,8 +13,10 @@
 import { onBeforeMount } from 'vue';
 import { useProgressStore } from './stores/progressStore';
 import { useRouter } from 'vue-router'
+import { useScoreStore } from '@/stores/scoreStore.js'
 const router = useRouter()
 
+const scoreStore = useScoreStore()
 
 onBeforeMount(()=> {
 	const progressStore = useProgressStore()
@@ -28,7 +30,11 @@ onBeforeMount(()=> {
 		progressStore.fetchGameData()
 	}
 
-	
+	if(localStorage.getItem("score")) {
+		scoreStore.loadScore()
+	} else {
+    scoreStore.score = 0
+  }
 	
 })
 

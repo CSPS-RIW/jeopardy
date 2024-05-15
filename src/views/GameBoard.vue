@@ -71,11 +71,7 @@ onMounted(() => {
     questions.value = gameData.questions
   }
 
-  if(localStorage.getItem('score')) {
-		scoreStore.score = JSON.parse(localStorage.getItem('score'))
-	} else {
-    scoreStore.score = 0
-  }
+  
   
 
   // Use progress data if available, otherwise fallback to original gameData
