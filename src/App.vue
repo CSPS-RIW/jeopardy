@@ -16,20 +16,21 @@ import { useRouter } from 'vue-router'
 import { useScoreStore } from '@/stores/scoreStore.js'
 const router = useRouter()
 
-const scoreStore = useScoreStore()
+
 
 onBeforeMount(()=> {
+	// defining our stores & progress from localStorage
 	const progressStore = useProgressStore()
-
+	const scoreStore = useScoreStore()
 	let savedProgress = localStorage.getItem("progress")
-	
+	// if there is saved progress, we assign it to gameData in our store. If not, fetch the original gameData
 	if(savedProgress) {
 		const useSavedProgress = JSON.parse(savedProgress)
 		progressStore.gameData = useSavedProgress
 	} else {
 		progressStore.fetchGameData()
 	}
-
+	// getting saved score from localstorage, otherwise set score to 0
 	if(localStorage.getItem("score")) {
 		scoreStore.loadScore()
 	} else {
