@@ -56,15 +56,16 @@ onBeforeMount(() => {
 		let category = item.querySelector('td').innerText
 		categories.push(category)
 	})
-	gameData.value.categories = categories
 
 	qsTr.forEach((item, index) => {
+		let optionsArr = []
 		let headers = item.children
 		let id = index
 		let categoryId = categories.includes(headers[0].innerText) && categories[categories.indexOf(headers[0].innerText)]
 		let value = headers[1].innerText
 		let question = headers[2].innerText
-		let options;
+		// options 
+		headers[3].querySelectorAll('p').forEach(item => { optionsArr.push(item.innerText) })
 		let answer = headers[4].innerText
 		let correctFeedback = headers[5].innerText
 		let incorrectFeedback = headers[6].innerText
@@ -75,18 +76,22 @@ onBeforeMount(() => {
 		obj.categoryId = categoryId
 		obj.value = value
 		obj.question = question
-		obj.options = options
+		obj.options = optionsArr
 		obj.answer = answer
 		obj.feedback = {}
 		obj.feedback.correct = correctFeedback
 		obj.feedback.incorrect = incorrectFeedback
 		obj.feedback.generic = genericFeedback
 
+
 		questions.value = obj
 	});
+
+	// populate game data
+	gameData.value.categories = categories
 	gameData.value.questions = questions.value
 	console.log(gameData.value);
-	// console.log(questions);
+
 
 	let savedProgress = localStorage.getItem("progress")
 
