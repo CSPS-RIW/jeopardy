@@ -1,12 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jeopardy Game</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
-  </body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Jeopardy Game</title>
+		<!-- Template CSS -->
+		<link
+			rel="stylesheet"
+			href="https://app.csps-efpc.gc.ca/shared/LCS_HTML_Templates/CSPS_Template_2021/_assets/css/styles.min.css" />
+	</head>
+	<body>
+		<div id="app"></div>
+		<div class="get-content">
+			<div class="table-responsive">
+				<table class="table" contenteditable="true">
+					<caption>
+						Questions
+					</caption>
+					<thead>
+						<tr>
+							<th scope="col">
+								<p>id</p>
+							</th>
+							<th scope="col">
+								<p>Category id</p>
+							</th>
+							<th scope="col">
+								<p>value</p>
+							</th>
+							<th scope="col">
+								<p>question</p>
+							</th>
+							<th scope="col">
+								<p>answer</p>
+							</th>
+							<th scope="col">
+								<p>correct feedback</p>
+							</th>
+							<th scope="col">
+								<p>incorrect feedback</p>
+							</th>
+							<th scope="col">
+								<p>generic feedback</p>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>
+								Branching level<code> a</code> one
+								<code>(a-1)</code>
+							</td>
+							<td data-content="instructions">
+								You consult your departmental GBA Plus unit
+							</td>
+							<td data-content="cta">N/A</td>
+							<td data-content="content">
+								<p>
+									It is an excellent idea to contact your
+									departmental GBA Plus unit, Gender Focal
+									Point, and other external experts to ask for
+									tools and additional resources for
+									considering GBA Plus. Remember to visit the
+									GBA Plus GCpedia web page for tools and
+									resources.
+								</p>
+								<p>
+									While these resources can serve as a guiding
+									framework, as the subject-matter expert in
+									heart disease, you are best positioned to
+									conduct the GBA Plus.
+								</p>
+								<p>
+									Because GBA Plus starts with information
+									gathering, you decide to go to the
+									Statistics Canada website.
+								</p>
+								<div class="scenario-footer">
+									<a
+										href="javascript:;"
+										data-location="a-2"
+										class="scenario-link btn btn-primary"
+										>Continue the scenario</a
+									>
+								</div>
+							</td>
+							<td>answer</td>
+							<td>correct</td>
+							<td>incorrect</td>
+							<td>generic</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<script type="module" src="/src/main.js"></script>
+	</body>
 </html>
