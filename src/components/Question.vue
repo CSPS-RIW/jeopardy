@@ -22,11 +22,10 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import gameData from '../gameData.json'
-import { useScoreStore } from '../stores/scoreStore.js'
 import { useProgressStore } from '../stores/progressStore'
+import { useScoreStore } from '../stores/scoreStore.js'
 
 const scoreStore = useScoreStore()
 const progressStore = useProgressStore()
@@ -42,11 +41,7 @@ const isSubmitted = ref(false)
 
 
 onMounted(() => {
-  console.log("Component mounted");
-  question.value = gameData.questions.find(q => q.id === parseInt(questionId.value))
-  if (!question.value) {
-    console.error(`Question with ID ${questionId.value} not found.`)
-  }
+  question.value = progressStore.gameData.questions.find(q => q.id === parseInt(questionId.value))
 })
 
 
@@ -71,8 +66,11 @@ const checkAnswer = () => {
       </div>
     `)
   }
+  scoreStore.saveScore()
   isSubmitted.value = true
   question.value.attempted = true
+
+  progressStore.updateProgress(questionId)
 }
 
 const goBack = () => {
@@ -199,7 +197,8 @@ input[type='radio']:disabled+label::after {
   }
 }
 
-@media (forced-colors: active), (--ms-high-contrast: active) {
+@media (forced-colors: active),
+(--ms-high-contrast: active) {
   fieldset:focus-within {
     outline: 1px solid #ffffff00;
   }

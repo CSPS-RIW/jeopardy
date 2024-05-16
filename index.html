@@ -1,12 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jeopardy Game</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
-  </body>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Jeopardy Game</title>
+		<!-- Template CSS -->
+		<link
+			rel="stylesheet"
+			href="https://app.csps-efpc.gc.ca/shared/LCS_HTML_Templates/CSPS_Template_2021/_assets/css/styles.min.css" />
+	</head>
+	<body>
+		<div id="app"></div>
+		<div class="get-content">
+			<div class="table-responsive">
+				<table
+					class="table"
+					contenteditable="true"
+					data-table-name="categories">
+					<caption>
+						Categories
+					</caption>
+					<thead>
+						<tr>
+							<th scope="col">
+								<p>Categories</p>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Personal Protective Equipment (PPE)</td>
+						</tr>
+						<tr>
+							<td>Category 2</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="table-responsive">
+				<table
+					class="table"
+					contenteditable="true"
+					data-table-name="questions">
+					<caption>
+						Questions
+					</caption>
+					<thead>
+						<tr>
+							<th scope="col">
+								<p>Category id</p>
+							</th>
+							<th scope="col">
+								<p>value</p>
+							</th>
+							<th scope="col">
+								<p>question</p>
+							</th>
+							<th scope="col">
+								<p>options</p>
+							</th>
+							<th scope="col">
+								<p>answer</p>
+							</th>
+							<th scope="col">
+								<p>correct feedback</p>
+							</th>
+							<th scope="col">
+								<p>incorrect feedback</p>
+							</th>
+							<th scope="col">
+								<p>generic feedback</p>
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>Personal Protective Equipment (PPE)</td>
+							<td>400</td>
+							<td>
+								<p>
+									It is an excellent idea to contact your
+									departmental GBA Plus unit, Gender Focal
+									Point, and other external experts to ask for
+									tools and additional resources for
+									considering GBA Plus. Remember to visit the
+									GBA Plus GCpedia web page for tools and
+									resources.
+								</p>
+							</td>
+							<td>
+								<p>Option 1</p>
+								<p>Option 2</p>
+								<p>Option 3</p>
+								<p>Option 4</p>
+							</td>
+							<td>Option 1</td>
+							<td>correct</td>
+							<td>incorrect</td>
+							<td>generic</td>
+						</tr>
+						<tr>
+							<td>Category 2</td>
+							<td>500</td>
+							<td>
+								<p>How is this going to work?</p>
+							</td>
+							<td>
+								<p>It won't</p>
+								<p>There will be bugs</p>
+								<p>It'll be perfect</p>
+								<p>It will suck</p>
+							</td>
+							<td>There will be bugs</td>
+							<td>You are right! There are some bugs</td>
+							<td>This isn't as perfect as you think it is.</td>
+							<td>This happens when we write code.</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+
+		<script type="module" src="/src/main.js"></script>
+	</body>
 </html>

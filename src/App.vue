@@ -2,28 +2,49 @@
 	<header>
 		<h1>Jeopardy Game</h1>
 	</header>
-  <main>
-	<div id="app">
-	  <router-view></router-view>
-	</div>
-  </main>
+	<main>
+		<div id="app">
+			<router-view></router-view>
+		</div>
+	</main>
 </template>
 
 <script setup>
-import { onBeforeMount } from 'vue';
+import { onBeforeMount, ref } from 'vue';
 import { useProgressStore } from './stores/progressStore';
 import { useRouter } from 'vue-router'
+import { useScoreStore } from '@/stores/scoreStore.js'
 const router = useRouter()
 
 
-onBeforeMount(()=> {
+
+onBeforeMount(() => {
 	const progressStore = useProgressStore()
-	
-	progressStore.fetchGameData()
+
+	const scoreStore = useScoreStore()
+
+	let tables = document.querySelector('.get-content')
+
+	let savedProgress = localStorage.getItem("progress")
+
+	if (savedProgress) {
+		const useSavedProgress = JSON.parse(savedProgress)
+		progressStore.gameData = useSavedProgress
+		tables.remove()
+	} else {
+		// progressStore.fetchGameData()
+		progressStore.getGameData()
+		tables.remove()
+	}
+	// getting saved score from localstorage, otherwise set score to 0
+	if (localStorage.getItem("score")) {
+		scoreStore.loadScore()
+	} else {
+		scoreStore.score = 0
+	}
+
 })
 
 </script>
 
-<style>
-
-</style>
+<style></style>
