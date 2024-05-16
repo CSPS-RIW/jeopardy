@@ -134,6 +134,7 @@ export const useProgressStore = defineStore({
 				obj.feedback.correct = correctFeedback;
 				obj.feedback.incorrect = incorrectFeedback;
 				obj.feedback.generic = genericFeedback;
+				obj.attempted = false;
 
 				questions.value.push(obj);
 			});
