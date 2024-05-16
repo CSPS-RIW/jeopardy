@@ -23,13 +23,12 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue'
-import { useRouter, useRoute } from 'vue-router'
-import gameData from '../gameData.json'
-import ScoreDisplay from '../components/ScoreDisplay.vue'
+import { onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
 import GameOverDialog from '../components/GameOverDialog.vue'
-import { useScoreStore } from '../stores/scoreStore.js'
+import ScoreDisplay from '../components/ScoreDisplay.vue'
 import { useProgressStore } from '../stores/progressStore'
+import { useScoreStore } from '../stores/scoreStore.js'
 
 const progressStore = useProgressStore()
 
