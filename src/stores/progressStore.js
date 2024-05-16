@@ -4,21 +4,12 @@ import { ref } from 'vue';
 export const useProgressStore = defineStore({
 	id: 'progress',
 	state: () => ({
-		progress: {}, // Store user's progress
-		gameData: {}, // Store game data
+		// Store user's progress
+		progress: {},
+		// Store game data
+		gameData: {},
 	}),
 	actions: {
-		// Method to save the user's progress to local storage
-		// saveProgress() {
-		//     const attempts = this.gameData
-		//     for (const question of this.gameData.questions) {
-		//       if (question.attempted) {
-		//         attempts.questions[question.id - 1].attempted = true
-		//       }
-		//     }
-		//     localStorage.setItem('progress', JSON.stringify(attempts))
-		//   },
-		// Method to save the user's progress to local storage
 		saveProgress() {
 			// Create a deep copy of gameData to avoid direct modification
 			const updatedGameData = JSON.parse(JSON.stringify(this.gameData));
@@ -64,7 +55,8 @@ export const useProgressStore = defineStore({
 			this.gameData.questions.forEach((question) => {
 				question.attempted = false;
 			});
-			this.saveProgress(); // Save the updated progress to local storage
+			// Save the updated progress to local storage
+			this.saveProgress();
 		},
 
 		// Method to fetch game data
@@ -109,22 +101,14 @@ export const useProgressStore = defineStore({
 				let optionsArr = [];
 				let headers = item.children;
 				let id = index;
-				// let categoryId =
-				// 	categories.includes(headers[0].innerText) &&
-				// 	categories[categories.indexOf(headers[0].innerText)];
-				// let categoryText = headers[0].innerText.toLowerCase();
-				// let categoryId = categories.find(
-				// 	(category, index) =>
-				// 		category.toLowerCase() === categoryText,
-				// );
-
 				let categoryText = headers[0].innerText.toLowerCase();
 				let categoryId;
 
 				for (let i = 0; i < categories.length; i++) {
 					if (categories[i].toLowerCase() === categoryText) {
 						categoryId = i;
-						break; // Exit the loop after finding the first match
+						// Exit the loop after finding the first match
+						break;
 					}
 				}
 
@@ -152,20 +136,12 @@ export const useProgressStore = defineStore({
 				obj.feedback.generic = genericFeedback;
 
 				questions.value.push(obj);
-
-				console.log(
-					'category text: ',
-					categoryText,
-					'categoryId: ',
-					categoryId,
-				);
 			});
 
 			// populate game data
 			this.gameData.categories = categories;
 			this.gameData.questions = questions.value;
 			localStorage.setItem('gameData', JSON.stringify(this.gameData));
-			console.log(this.gameData);
 		},
 	},
 });
