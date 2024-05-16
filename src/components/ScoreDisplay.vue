@@ -26,6 +26,7 @@ const score = scoreStore.score
 
     h2 {
       font-size: 28px;
+      color: #fff;
     }
 
     p {
