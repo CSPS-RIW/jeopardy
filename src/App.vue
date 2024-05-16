@@ -16,10 +16,12 @@ import { useRouter } from 'vue-router'
 import { useScoreStore } from '@/stores/scoreStore.js'
 const router = useRouter()
 
-const scoreStore = useScoreStore()
+
 
 onBeforeMount(() => {
 	const progressStore = useProgressStore()
+
+	const scoreStore = useScoreStore()
 
 	let tables = document.querySelector('.get-content')
 
@@ -34,7 +36,7 @@ onBeforeMount(() => {
 		progressStore.getGameData()
 		tables.remove()
 	}
-
+	// getting saved score from localstorage, otherwise set score to 0
 	if (localStorage.getItem("score")) {
 		scoreStore.loadScore()
 	} else {

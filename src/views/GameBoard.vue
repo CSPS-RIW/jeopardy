@@ -43,16 +43,8 @@ const router = useRouter()
 const categories = ref([])
 const questions = ref([])
 
-// const gameData2 = computed(() => {
-//   if (!progressStore.gameData) {
-//     progressStore.fetchGameData()
-//   }
-//   return progressStore.gameData
-// })
-// //const categories = ref(gameData.categories)
-//const questions = ref(gameData.questions.map(q => ({ ...q, answered: false })))
+
 onMounted(() => {
-  //Check if progress exists in local storage
 
   // Fetch game data
 
@@ -61,7 +53,6 @@ onMounted(() => {
 
     progressStore.loadProgress()
     let localStorageProgress = JSON.parse(localStorage.getItem("progress"))
-    console.log(localStorageProgress);
     categories.value = localStorageProgress.categories
     questions.value = localStorageProgress.questions
   } else {
@@ -69,24 +60,8 @@ onMounted(() => {
     categories.value = progressStore.gameData.categories
     questions.value = progressStore.gameData.questions
   }
-
-
-
-
-  // Use progress data if available, otherwise fallback to original gameData
-  // if (localStorage.getItem("progress")) {
-  //   categories.value = progressStore.progress.categories
-  //   questions.value = progressStore.progress.questions
-  // } else {
-  //   // Fallback to original gameData if no progress data is available
-  //   categories.value = gameData.categories
-  //   questions.value = gameData.questions
-  // }
-
-  // categories.value = gameData.categories
-  // questions.value = gameData.questions.map(q => ({ ...q, answered: false }))
 })
-
+// function for question select
 const selectQuestion = (questionId) => {
   const question = questions.value.find(q => q.id === questionId)
   if (question && !question.attempted) {
@@ -106,15 +81,17 @@ const selectQuestion = (questionId) => {
     router.push(`/question/${questionId}`)
   }
 }
-
+// filtering questions by category
 const filteredQuestions = (categoryIndex) => {
   return questions.value.filter(question => question.categoryId === categoryIndex)
 }
-
+// checking to see when all questions have been answered
 const allQuestionsAnswered = () => {
-  return questions.value.every(question => question.answered)
-}
+  console.log("all questions attempted");
+  return questions.value.every(question => question.attempted)
 
+}
+// reseting the game when it's done
 const restartGame = () => {
   // Reset game state
   progressStore.resetProgress()
