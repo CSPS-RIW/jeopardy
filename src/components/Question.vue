@@ -22,11 +22,10 @@
 </template>
 
 <script setup>
-import { ref, onMounted, watch } from 'vue'
+import { onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import gameData from '../gameData.json'
-import { useScoreStore } from '../stores/scoreStore.js'
 import { useProgressStore } from '../stores/progressStore'
+import { useScoreStore } from '../stores/scoreStore.js'
 
 const scoreStore = useScoreStore()
 const progressStore = useProgressStore()
@@ -42,7 +41,7 @@ const isSubmitted = ref(false)
 
 
 onMounted(() => {
-  question.value = gameData.questions.find(q => q.id === parseInt(questionId.value))
+  question.value = progressStore.gameData.questions.find(q => q.id === parseInt(questionId.value))
 })
 
 
@@ -198,7 +197,8 @@ input[type='radio']:disabled+label::after {
   }
 }
 
-@media (forced-colors: active), (--ms-high-contrast: active) {
+@media (forced-colors: active),
+(--ms-high-contrast: active) {
   fieldset:focus-within {
     outline: 1px solid #ffffff00;
   }
