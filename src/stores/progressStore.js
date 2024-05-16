@@ -109,8 +109,8 @@ export const useProgressStore = defineStore({
 				let optionsArr = [];
 				let headers = item.children;
 				let id = index;
-				// let categoryId =
-				categories.includes(headers[0].innerText) &&
+				let categoryId =
+					categories.includes(headers[0].innerText) &&
 					categories[categories.indexOf(headers[0].innerText)];
 				let value = headers[1].innerText;
 				let question = headers[2].innerText;
