@@ -23,7 +23,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, watch } from 'vue'
 import { useRouter } from 'vue-router'
 import GameOverDialog from '../components/GameOverDialog.vue'
 import ScoreDisplay from '../components/ScoreDisplay.vue'
@@ -68,19 +68,26 @@ const selectQuestion = (questionId) => {
     question.attempted = true
 
     // Check if gameData is available before updating progress
-    if (progressStore.gameData && progressStore.gameData.questions) {
-      progressStore.updateProgress(questionId)
-    } else {
-      console.warn("GameData not available for updating progress")
-    }
+    // if (progressStore.gameData && progressStore.gameData.questions) {
+    //   progressStore.updateProgress(questionId)
+    // } else {
+    //   console.warn("GameData not available for updating progress")
+    // }
 
-    if (allQuestionsAnswered()) {
-      isGameOver.value = true
-      finalScore.value = score
-    }
+
     router.push(`/question/${questionId}`)
   }
 }
+
+watch(questions, () => {
+
+  if (questions.value.every(question => question.attempted)) {
+    isGameOver.value = true
+    finalScore.value = score
+  }
+
+
+})
 // filtering questions by category
 const filteredQuestions = (categoryIndex) => {
   return questions.value.filter(question => question.categoryId === categoryIndex)
