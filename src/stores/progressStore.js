@@ -55,6 +55,7 @@ export const useProgressStore = defineStore({
 			this.gameData.questions.forEach((question) => {
 				question.attempted = false;
 			});
+			localStorage.removeItem('progress');
 			// Save the updated progress to local storage
 			this.saveProgress();
 		},
