@@ -109,9 +109,25 @@ export const useProgressStore = defineStore({
 				let optionsArr = [];
 				let headers = item.children;
 				let id = index;
-				let categoryId =
-					categories.includes(headers[0].innerText) &&
-					categories[categories.indexOf(headers[0].innerText)];
+				// let categoryId =
+				// 	categories.includes(headers[0].innerText) &&
+				// 	categories[categories.indexOf(headers[0].innerText)];
+				// let categoryText = headers[0].innerText.toLowerCase();
+				// let categoryId = categories.find(
+				// 	(category, index) =>
+				// 		category.toLowerCase() === categoryText,
+				// );
+
+				let categoryText = headers[0].innerText.toLowerCase();
+				let categoryId;
+
+				for (let i = 0; i < categories.length; i++) {
+					if (categories[i].toLowerCase() === categoryText) {
+						categoryId = i;
+						break; // Exit the loop after finding the first match
+					}
+				}
+
 				let value = headers[1].innerText;
 				let question = headers[2].innerText;
 				// options
@@ -136,6 +152,13 @@ export const useProgressStore = defineStore({
 				obj.feedback.generic = genericFeedback;
 
 				questions.value.push(obj);
+
+				console.log(
+					'category text: ',
+					categoryText,
+					'categoryId: ',
+					categoryId,
+				);
 			});
 
 			// populate game data
