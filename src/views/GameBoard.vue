@@ -56,9 +56,9 @@ onMounted(() => {
   //Check if progress exists in local storage
 
   // Fetch game data
- 
+
   // Load progress from local storage
-  if(localStorage.getItem("progress")){
+  if (localStorage.getItem("progress")) {
 
     progressStore.loadProgress()
     let localStorageProgress = JSON.parse(localStorage.getItem("progress"))
@@ -66,13 +66,13 @@ onMounted(() => {
     categories.value = localStorageProgress.categories
     questions.value = localStorageProgress.questions
   } else {
-    progressStore.fetchGameData()
-    categories.value = gameData.categories
-    questions.value = gameData.questions
+    // progressStore.getGameData()
+    categories.value = progressStore.gameData.categories
+    questions.value = progressStore.gameData.questions
   }
 
-  
-  
+
+
 
   // Use progress data if available, otherwise fallback to original gameData
   // if (localStorage.getItem("progress")) {
