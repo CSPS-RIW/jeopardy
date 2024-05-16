@@ -21,13 +21,14 @@ const scoreStore = useScoreStore()
 onBeforeMount(() => {
 	const progressStore = useProgressStore()
 
+	let tablesContainer = document.querySelector('.get-content')
 	let tableQuestions = document.querySelector('.get-content [data-table-name="questions"]')
 	let qsTbody = tableQuestions.querySelector('tbody')
 	let qsTr = Array.from(qsTbody.querySelectorAll('tr'))
 	let tableCategories = document.querySelector('.get-content [data-table-name="categories"]')
 	let catTbody = tableCategories.querySelector('tbody')
 	let catTr = Array.from(catTbody.querySelectorAll('tr'))
-	let questions = ref([{}])
+	let questions = ref([])
 	let gameData = ref({})
 
 	/*
@@ -84,13 +85,14 @@ onBeforeMount(() => {
 		obj.feedback.generic = genericFeedback
 
 
-		questions.value = obj
+		questions.value.push(obj)
 	});
 
 	// populate game data
 	gameData.value.categories = categories
 	gameData.value.questions = questions.value
-	console.log(gameData.value);
+	tablesContainer.remove()
+	console.log(gameData.value)
 
 
 	let savedProgress = localStorage.getItem("progress")
