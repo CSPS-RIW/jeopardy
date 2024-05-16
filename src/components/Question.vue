@@ -157,7 +157,7 @@ input[type='radio']:checked+label::after {
   left: 5px;
   top: 5px;
   border-radius: 50%;
-  border: 13px solid #444;
+  outline: 1px solid #444;
   background-color: #444;
 }
 
