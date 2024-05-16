@@ -45,9 +45,6 @@ const questions = ref([])
 
 
 onMounted(() => {
-
-  // Fetch game data
-
   // Load progress from local storage
   if (localStorage.getItem("progress")) {
 
@@ -66,14 +63,6 @@ const selectQuestion = (questionId) => {
   const question = questions.value.find(q => q.id === questionId)
   if (question && !question.attempted) {
     question.attempted = true
-
-    // Check if gameData is available before updating progress
-    // if (progressStore.gameData && progressStore.gameData.questions) {
-    //   progressStore.updateProgress(questionId)
-    // } else {
-    //   console.warn("GameData not available for updating progress")
-    // }
-
 
     router.push(`/question/${questionId}`)
   }
