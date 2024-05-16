@@ -8,9 +8,9 @@
           <h2>{{ category }}</h2>
         </div>
         <div class="question-column">
-          <button v-for="(question, qIndex) in filteredQuestions(catIndex)" :key="qIndex" class="question-cell"
-            :class="{ 'attempted': question.attempted }" @click="selectQuestion(question.id)"
-            @keyup.enter="selectQuestion(question.id)" :disabled="question.attempted === true"
+          <button v-for="(question, qIndex) in progressStore.filteredQuestions(catIndex)" :key="qIndex"
+            class="question-cell" :class="{ 'attempted': question.attempted }" @click="selectQuestion(question.id)"
+            @keyup.enter="selectQuestion(question.id)" :disabled="question.attempted"
             :aria-label="question.value + ' point question for ' + category">
             {{ question.value }}
           </button>
@@ -85,19 +85,8 @@ watch(questions, () => {
     isGameOver.value = true
     finalScore.value = score
   }
-
-
 })
-// filtering questions by category
-const filteredQuestions = (categoryIndex) => {
-  return questions.value.filter(question => question.categoryId === categoryIndex)
-}
-// checking to see when all questions have been answered
-const allQuestionsAnswered = () => {
-  console.log("all questions attempted");
-  return questions.value.every(question => question.attempted)
 
-}
 // reseting the game when it's done
 const restartGame = () => {
   // Reset game state

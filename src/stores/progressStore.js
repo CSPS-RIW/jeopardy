@@ -145,5 +145,11 @@ export const useProgressStore = defineStore({
 			this.gameData.questions = questions.value;
 			localStorage.setItem('gameData', JSON.stringify(this.gameData));
 		},
+		// filtering questions by category
+		filteredQuestions(categoryIndex) {
+			return this.gameData.questions.filter(
+				(question) => question.categoryId === categoryIndex,
+			);
+		},
 	},
 });
