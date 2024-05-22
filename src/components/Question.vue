@@ -74,7 +74,7 @@ const checkAnswer = () => {
 }
 
 const goBack = () => {
-  router.push('/')
+  router.push('/gameboard')
 }
 
 </script>
