@@ -38,6 +38,9 @@
             </div>
         </div>
     </div>
+    <div class="startgame">
+        <router-link :disabled="gameMode === ''" to="/gameboard">Start Game</router-link>
+    </div>
   </div>
 </template>
 
