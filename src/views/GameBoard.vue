@@ -17,7 +17,7 @@
         </div>
       </div>
     </div>
-    <ScoreDisplay v-if="!isGameOver" />
+    <ScoreDisplay v-for="player in playerStore.players" v-if="!isGameOver" />
     <GameOverDialog v-if="isGameOver" :finalScore="score" @update:retry="restartGame" />
   </div>
 </template>
@@ -29,9 +29,10 @@ import GameOverDialog from '../components/GameOverDialog.vue'
 import ScoreDisplay from '../components/ScoreDisplay.vue'
 import { useProgressStore } from '../stores/progressStore'
 import { useScoreStore } from '../stores/scoreStore.js'
+import { usePlayerStore } from '../stores/playerStore'
 
 const progressStore = useProgressStore()
-
+const playerStore = usePlayerStore()
 const scoreStore = useScoreStore()
 const score = scoreStore.score
 
