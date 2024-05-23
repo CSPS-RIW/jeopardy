@@ -21,10 +21,11 @@
                     <div v-for="(player, index) in playerStore.players" :key="index">
                         <label :for="'player_name' + index">Player/Team Name: </label>
                         <input type="text" name="player" :id="'player_name' + index" v-model="player.name">
+                        <button @click.prevent="playerStore.deletePlayer(index)">Delete player</button>
                     </div>
                 
                 </form>
-                <button @click="playerStore.addPlayer()">Add Player</button>
+                <button @click="playerStore.addPlayer()" :disabled="playerStore.playerCount >= 4">Add Player</button>
             </div>
             <div v-else-if="gameMode === 'single-player'">
                 <form>

@@ -26,8 +26,10 @@ export const usePlayerStore = defineStore({
 			}
 			
 		},
-		removePlayer() {
+		deletePlayer(playerNumber) {
 
+			this.playerCount--;
+			this.players.splice(playerNumber, 1)
 		}
 	}
 });
