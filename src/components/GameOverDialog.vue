@@ -2,13 +2,22 @@
     <div class="game-over-dialog">
       <div class="container">
         <h2>Game Over</h2>
-        <p>Your final score is: {{ finalScore }}</p>
+        <h3>Final Scores</h3>
+        <div v-for="player in playerStore.players">
+
+          <p>{{ player.name }}: {{ player.score }}</p>
+        </div>
+        
         <button class="game-button" @click="$emit('update:retry')">Retry</button>
       </div>
     </div>
   </template>
   
   <script setup>
+
+  import { usePlayerStore } from '@/stores/playerStore';
+
+  const playerStore = usePlayerStore()
   
   const props = defineProps({
     finalScore: {
@@ -20,6 +29,9 @@
   </script>
   
   <style scoped>
+  h2, h3 {
+    color: var(--main-yellow)
+  }
   /* Add your component-specific styles here */
   .game-over-dialog {
     text-align: center;
