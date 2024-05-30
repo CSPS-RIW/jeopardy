@@ -58,6 +58,10 @@ onMounted(() => {
     categories.value = progressStore.gameData.categories
     questions.value = progressStore.gameData.questions
   }
+
+  if (playerStore.players.length === 0) {
+    playerStore.initializePlayers()
+  }
 })
 // function for question select
 const selectQuestion = (questionId) => {
@@ -67,7 +71,11 @@ const selectQuestion = (questionId) => {
 
     router.push(`/question/${questionId}`)
   }
+
+  
 }
+
+
 
 watch(questions, () => {
 

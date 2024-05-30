@@ -26,9 +26,11 @@ import { onMounted, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useProgressStore } from '../stores/progressStore'
 import { useScoreStore } from '../stores/scoreStore.js'
+import { usePlayerStore } from '../stores/playerStore'
 
 const scoreStore = useScoreStore()
 const progressStore = useProgressStore()
+const playerStore = usePlayerStore()
 
 const route = useRoute()
 const router = useRouter()
@@ -36,7 +38,6 @@ const questionId = ref(route.params.id)
 const question = ref(null)
 
 const selectedOption = ref('')
-const score = ref(0)
 const isSubmitted = ref(false)
 
 
@@ -65,12 +66,25 @@ const checkAnswer = () => {
         <p>${question.value.feedback.generic}</p>
       </div>
     `)
+    // if the game is multiplayer, we update the turn
+    if(playerStore.gameMode === 'multi-player') {
+      updateTurn()
+      console.log('updated turn')
+    }
+    
   }
   scoreStore.saveScore()
   isSubmitted.value = true
   question.value.attempted = true
 
   progressStore.updateProgress(questionId)
+}
+// function for updating the turn
+const updateTurn = () => {
+  const currentPlayerIndex = playerStore.players.findIndex(player => player.isPlayerTurn)
+  playerStore.players[currentPlayerIndex].isPlayerTurn = false
+  const nextPlayerIndex = (currentPlayerIndex + 1) % playerStore.players.length
+  playerStore.players[nextPlayerIndex].isPlayerTurn = true
 }
 
 const goBack = () => {
