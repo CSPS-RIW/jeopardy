@@ -44,6 +44,13 @@ export const usePlayerStore = defineStore({
     deletePlayer(index) {
       this.players.splice(index, 1);
       this.playerCount--;
+    },
+    resetPlayerStore() {
+      this.players = []
+      this.playerCount = 0
+      this.singlePlayerName = ''
+      this.gameMode = ''
+      this.currentPlayerIndex = 0
     }
   }
 });

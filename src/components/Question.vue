@@ -60,7 +60,7 @@ const checkAnswer = () => {
     `)
   } else {
     // Incorrect answer
-    currentPlayer.score += question.value.value
+    currentPlayer.score -= question.value.value
     document.querySelector('.question-wrapper').insertAdjacentHTML('beforeend', `
       <div aria-live="polite" class="question-feedback">
         <p>${question.value.feedback.incorrect}</p>

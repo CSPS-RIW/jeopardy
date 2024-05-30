@@ -1,6 +1,6 @@
 <template>
-    <div class="container" :class="{ 'player-turn': player.isPlayerTurn }">
-      <div class="score-board">
+    <div >
+      <div class="score-board" :class="{ 'player-turn': player.isPlayerTurn }">
         <h2>{{ player.name }}</h2>
         <p>Your score: {{ player.score }}</p>
       </div>
@@ -49,7 +49,7 @@ const score = scoreStore.score
 
     .player-turn {
   font-weight: bold;
-  border: 2px solid yellow;
+  outline: 4px solid var(--main-yellow);
 }
   </style>
   

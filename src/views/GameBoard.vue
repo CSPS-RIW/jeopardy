@@ -17,7 +17,9 @@
         </div>
       </div>
     </div>
-    <ScoreDisplay v-for="player in playerStore.players" v-if="!isGameOver" :player="player" />
+    <div class="score-container">
+      <ScoreDisplay v-for="player in playerStore.players" v-if="!isGameOver" :player="player" />
+    </div>
     <GameOverDialog v-if="isGameOver" :finalScore="score" @update:retry="restartGame" />
   </div>
 </template>
@@ -89,10 +91,11 @@ watch(questions, () => {
 const restartGame = () => {
   // Reset game state
   progressStore.resetProgress()
-
+  playerStore.resetPlayerStore()
   finalScore.value = 0
   scoreStore.resetScore()
   isGameOver.value = false
+  router.push('/')
 }
 
 </script>
@@ -153,5 +156,11 @@ const restartGame = () => {
   background-color: var(--disabled-button-bgc) !important;
   color: var(--disabled-button-color);
   cursor: default;
+}
+
+.score-container {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: space-around;
 }
 </style>
