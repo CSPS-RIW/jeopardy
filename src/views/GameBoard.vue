@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ScoreDisplay v-if="!isGameOver" class="sr-only" />
+    <ScoreDisplay v-for="player in playerStore.players" v-if="!isGameOver" class="sr-only" :player="player" />
     <div class="game-board" v-if="!isGameOver">
       <!-- Display category headers and corresponding questions -->
       <div v-for="(category, catIndex) in categories" :key="catIndex">
@@ -17,7 +17,7 @@
         </div>
       </div>
     </div>
-    <ScoreDisplay v-for="player in playerStore.players" v-if="!isGameOver" />
+    <ScoreDisplay v-for="player in playerStore.players" v-if="!isGameOver" :player="player" />
     <GameOverDialog v-if="isGameOver" :finalScore="score" @update:retry="restartGame" />
   </div>
 </template>

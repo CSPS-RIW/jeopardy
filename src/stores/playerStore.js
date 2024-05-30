@@ -6,7 +6,8 @@ export const usePlayerStore = defineStore({
     players: [],
     playerCount: 0,
     singlePlayerName: '',
-    gameMode: '' // 'single-player' or 'multi-player'
+    gameMode: '', // 'single-player' or 'multi-player'
+    currentPlayerIndex: 0
   }),
   actions: {
     setGameMode(mode) {

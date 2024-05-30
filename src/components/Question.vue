@@ -47,9 +47,10 @@ onMounted(() => {
 
 
 const checkAnswer = () => {
+  const currentPlayer = playerStore.players[playerStore.currentPlayerIndex];
   if (selectedOption.value === question.value.answer) {
     // Correct answer
-    scoreStore.increaseScore(question.value.value)
+    currentPlayer.score += question.value.value
     //alert('Correct!')
     document.querySelector('.question-wrapper').insertAdjacentHTML('beforeend', `
       <div aria-live="polite" class="question-feedback">
@@ -59,7 +60,7 @@ const checkAnswer = () => {
     `)
   } else {
     // Incorrect answer
-    scoreStore.decreaseScore(question.value.value)
+    currentPlayer.score += question.value.value
     document.querySelector('.question-wrapper').insertAdjacentHTML('beforeend', `
       <div aria-live="polite" class="question-feedback">
         <p>${question.value.feedback.incorrect}</p>

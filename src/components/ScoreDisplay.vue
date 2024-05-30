@@ -1,14 +1,22 @@
 <template>
-    <div class="container">
+    <div class="container" :class="{ 'player-turn': player.isPlayerTurn }">
       <div class="score-board">
-        <h2>Score</h2>
-        <p>Your score: {{ score }}</p>
+        <h2>{{ player.name }}</h2>
+        <p>Your score: {{ player.score }}</p>
       </div>
     </div>
   </template>
   
   <script setup>
   import { useScoreStore } from '../stores/scoreStore.js'
+  import { defineProps } from 'vue';
+
+  const props = defineProps({
+    player: {
+      type: Object,
+      required: true
+    }
+  });
 
 const scoreStore = useScoreStore()
 const score = scoreStore.score
@@ -38,5 +46,10 @@ const score = scoreStore.score
       justify-content: center;
       margin-top: 10px;
     }
+
+    .player-turn {
+  font-weight: bold;
+  border: 2px solid yellow;
+}
   </style>
   
