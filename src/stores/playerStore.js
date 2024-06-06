@@ -7,7 +7,7 @@ export const usePlayerStore = defineStore({
     playerCount: 0,
     singlePlayerName: '',
     gameMode: '', // 'single-player' or 'multi-player'
-    currentPlayerIndex: 0
+    currentPlayerIndex: 0,
   }),
   actions: {
     setGameMode(mode) {
@@ -15,7 +15,6 @@ export const usePlayerStore = defineStore({
       this.saveConfig();
     },
     initializePlayers() {
-      // Check for saved state in localStorage
       const savedState = localStorage.getItem('playerStore');
       if (savedState) {
         const state = JSON.parse(savedState);
@@ -25,33 +24,25 @@ export const usePlayerStore = defineStore({
         this.gameMode = state.gameMode || '';
         this.currentPlayerIndex = state.currentPlayerIndex || 0;
       } else {
-        // If no saved state, initialize based on gameMode
-        if (this.gameMode === 'single-player') {
-          this.players = [
-            {
-              name: this.singlePlayerName,
-              score: 0,
-              isPlayerTurn: true
-            }
-          ];
-          this.currentPlayerIndex = 0; // Ensure the current player index is set
-        } else if (this.gameMode === 'multi-player') {
-          this.players.forEach((player, index) => {
-            player.score = 0;
-            player.isPlayerTurn = index === 0; // First player starts the game
-          });
-          this.currentPlayerIndex = 0; // Ensure the current player index is set
-        }
+        this.setupInitialPlayers();
       }
       this.saveConfig();
     },
+    setupInitialPlayers() {
+      if (this.gameMode === 'single-player') {
+        this.players = [{ name: this.singlePlayerName, score: 0, isPlayerTurn: true }];
+        this.currentPlayerIndex = 0;
+      } else if (this.gameMode === 'multi-player') {
+        this.players.forEach((player, index) => {
+          player.score = 0;
+          player.isPlayerTurn = index === 0;
+        });
+        this.currentPlayerIndex = 0;
+      }
+    },
     addPlayer() {
       if (this.playerCount < 4) {
-        this.players.push({
-          name: '',
-          score: 0,
-          isPlayerTurn: false
-        });
+        this.players.push({ name: '', score: 0, isPlayerTurn: false });
         this.playerCount++;
         this.saveConfig();
       } else {
@@ -61,7 +52,6 @@ export const usePlayerStore = defineStore({
     deletePlayer(index) {
       this.players.splice(index, 1);
       this.playerCount--;
-      // Adjust currentPlayerIndex if necessary
       if (this.currentPlayerIndex >= this.playerCount) {
         this.currentPlayerIndex = 0;
       }
@@ -89,9 +79,9 @@ export const usePlayerStore = defineStore({
         playerCount: this.playerCount,
         singlePlayerName: this.singlePlayerName,
         gameMode: this.gameMode,
-        currentPlayerIndex: this.currentPlayerIndex
+        currentPlayerIndex: this.currentPlayerIndex,
       };
       localStorage.setItem('playerStore', JSON.stringify(state));
-    }
-  }
+    },
+  },
 });
