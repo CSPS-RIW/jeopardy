@@ -82,11 +82,33 @@ const checkAnswer = () => {
 }
 // function for updating the turn
 const updateTurn = () => {
-  const currentPlayerIndex = playerStore.players.findIndex(player => player.isPlayerTurn)
-  playerStore.players[currentPlayerIndex].isPlayerTurn = false
-  const nextPlayerIndex = (currentPlayerIndex + 1) % playerStore.players.length
-  playerStore.players[nextPlayerIndex].isPlayerTurn = true
-}
+  // Check for saved state in localStorage
+  const savedState = localStorage.getItem('playerStore');
+  let players = playerStore.players;
+  let currentPlayerIndex = playerStore.currentPlayerIndex;
+
+  if (savedState) {
+    const state = JSON.parse(savedState);
+    players = state.players || playerStore.players;
+    currentPlayerIndex = state.currentPlayerIndex || playerStore.currentPlayerIndex;
+  }
+
+  const currentPlayer = players[currentPlayerIndex];
+  if (currentPlayer) {
+    currentPlayer.isPlayerTurn = false;
+  }
+
+  const nextPlayerIndex = (currentPlayerIndex + 1) % players.length;
+  const nextPlayer = players[nextPlayerIndex];
+  if (nextPlayer) {
+    nextPlayer.isPlayerTurn = true;
+  }
+
+  playerStore.currentPlayerIndex = nextPlayerIndex;
+  playerStore.players = players;
+
+  playerStore.saveConfig();
+};
 
 const goBack = () => {
   router.push('/gameboard')

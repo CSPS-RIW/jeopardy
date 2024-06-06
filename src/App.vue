@@ -14,6 +14,7 @@ import { onBeforeMount, ref } from 'vue';
 import { useProgressStore } from './stores/progressStore';
 import { useRouter } from 'vue-router'
 import { useScoreStore } from '@/stores/scoreStore.js'
+import { usePlayerStore } from './stores/playerStore';
 const router = useRouter()
 
 
@@ -22,6 +23,8 @@ onBeforeMount(() => {
 	const progressStore = useProgressStore()
 
 	const scoreStore = useScoreStore()
+
+	const playerStore = usePlayerStore()
 
 	let tables = document.querySelector('.get-content')
 
@@ -41,6 +44,10 @@ onBeforeMount(() => {
 		scoreStore.loadScore()
 	} else {
 		scoreStore.score = 0
+	}
+
+	if(localStorage.getItem("playerStore")) {
+		playerStore.initializePlayers()
 	}
 
 })

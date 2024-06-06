@@ -22,7 +22,7 @@
                 <div v-for="(player, index) in playerStore.players" :key="index">
                   <label :for="'player_name' + index" class="mr-2">Player/Team Name: </label>
                   <input class="mr-1" type="text" name="player" :id="'player_name' + index" v-model="player.name">
-                  <button class="delete-button" @click.prevent="playerStore.deletePlayer(index)"><i class="fas fa-times"></i></button>
+                  <button class="delete-button" @click.prevent="playerStore.deletePlayer(index)" title="Delete player"><i class="fas fa-times"></i></button>
                 </div>
               </form>
               <button @click="playerStore.addPlayer()" class="game-button" :disabled="playerStore.playerCount >= 4">Add Player</button>
@@ -37,8 +37,8 @@
             </div>
           </div>
         </div>
-        <div class="startgame" v-if="gameMode.length > 0">
-          <router-link to="/gameboard" @click="startGame">Start Game</router-link>
+        <div class="startgame d-flex justify-content-center" v-if="gameMode.length > 0">
+          <router-link to="/gameboard" @click="startGame" class="game-button ">Start Game</router-link>
         </div>
       </div>
     </div>
@@ -76,7 +76,11 @@
       border-radius: 10px;
       box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
       font-size: 20px;
-      max-width: 700px;
+      max-width: 550px;
+
+      @media (min-width: 700px) {
+        max-width: 700px;
+      }
     }
 
     .flex {

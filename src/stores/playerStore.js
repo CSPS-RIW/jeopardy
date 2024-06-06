@@ -12,22 +12,38 @@ export const usePlayerStore = defineStore({
   actions: {
     setGameMode(mode) {
       this.gameMode = mode;
+      this.saveConfig();
     },
     initializePlayers() {
-      if (this.gameMode === 'single-player') {
-        this.players = [
-          {
-            name: this.singlePlayerName,
-            score: 0,
-            isPlayerTurn: true
-          }
-        ];
-      } else if (this.gameMode === 'multi-player') {
-        this.players.forEach((player, index) => {
-          player.score = 0;
-          player.isPlayerTurn = index === 0; // First player starts the game
-        });
+      // Check for saved state in localStorage
+      const savedState = localStorage.getItem('playerStore');
+      if (savedState) {
+        const state = JSON.parse(savedState);
+        this.players = state.players || [];
+        this.playerCount = state.playerCount || 0;
+        this.singlePlayerName = state.singlePlayerName || '';
+        this.gameMode = state.gameMode || '';
+        this.currentPlayerIndex = state.currentPlayerIndex || 0;
+      } else {
+        // If no saved state, initialize based on gameMode
+        if (this.gameMode === 'single-player') {
+          this.players = [
+            {
+              name: this.singlePlayerName,
+              score: 0,
+              isPlayerTurn: true
+            }
+          ];
+          this.currentPlayerIndex = 0; // Ensure the current player index is set
+        } else if (this.gameMode === 'multi-player') {
+          this.players.forEach((player, index) => {
+            player.score = 0;
+            player.isPlayerTurn = index === 0; // First player starts the game
+          });
+          this.currentPlayerIndex = 0; // Ensure the current player index is set
+        }
       }
+      this.saveConfig();
     },
     addPlayer() {
       if (this.playerCount < 4) {
@@ -37,6 +53,7 @@ export const usePlayerStore = defineStore({
           isPlayerTurn: false
         });
         this.playerCount++;
+        this.saveConfig();
       } else {
         alert('Maximum player count reached!');
       }
@@ -44,13 +61,37 @@ export const usePlayerStore = defineStore({
     deletePlayer(index) {
       this.players.splice(index, 1);
       this.playerCount--;
+      // Adjust currentPlayerIndex if necessary
+      if (this.currentPlayerIndex >= this.playerCount) {
+        this.currentPlayerIndex = 0;
+      }
+      this.saveConfig();
     },
     resetPlayerStore() {
-      this.players = []
-      this.playerCount = 0
-      this.singlePlayerName = ''
-      this.gameMode = ''
-      this.currentPlayerIndex = 0
+      this.players = [];
+      this.playerCount = 0;
+      this.singlePlayerName = '';
+      this.gameMode = '';
+      this.currentPlayerIndex = 0;
+      this.saveConfig();
+    },
+    updateTurn() {
+      if (this.players.length > 0) {
+        this.players[this.currentPlayerIndex].isPlayerTurn = false;
+        this.currentPlayerIndex = (this.currentPlayerIndex + 1) % this.players.length;
+        this.players[this.currentPlayerIndex].isPlayerTurn = true;
+        this.saveConfig();
+      }
+    },
+    saveConfig() {
+      const state = {
+        players: this.players,
+        playerCount: this.playerCount,
+        singlePlayerName: this.singlePlayerName,
+        gameMode: this.gameMode,
+        currentPlayerIndex: this.currentPlayerIndex
+      };
+      localStorage.setItem('playerStore', JSON.stringify(state));
     }
   }
 });
