@@ -5,11 +5,11 @@
       <div>
         <fieldset>
           <div>
-            <input type="radio" name="option" id="single_player" value="single-player" v-model="gameMode">
+            <input type="radio" name="option" id="single_player" value="single-player" @change="playerStore.resetPlayerStore()" v-model="gameMode" class="mr-1">
             <label for="single_player">Single Player</label>
           </div>
           <div>
-            <input type="radio" name="option" id="multi_player" value="multi-player" v-model="gameMode">
+            <input type="radio" name="option" id="multi_player" value="multi-player" @change="playerStore.resetPlayerStore()" v-model="gameMode" class="mr-1">
             <label for="multi_player">Multi-Player</label>
           </div>
         </fieldset>
@@ -25,7 +25,7 @@
                 <button class="delete-button" @click.prevent="playerStore.deletePlayer(index)" title="Delete player"><i class="fas fa-times"></i></button>
               </div>
             </form>
-            <button @click="playerStore.addPlayer()" class="game-button" :disabled="playerStore.playerCount >= 4">Add Player</button>
+            <button @click="playerStore.addPlayer()" class="game-button mt-2" :disabled="playerStore.playerCount >= 4">Add Player</button>
           </div>
           <div v-else-if="gameMode === 'single-player'">
             <form>
@@ -37,8 +37,8 @@
           </div>
         </div>
       </div>
-      <div class="startgame d-flex justify-content-center" v-if="gameMode.length > 0">
-        <router-link to="/gameboard" @click="startGame" class="game-button">Start Game</router-link>
+      <div class="startgame d-flex justify-content-center" v-if="gameMode.length > 0 && playerStore.playerCount > 0 || playerStore.singlePlayerName.length > 0">
+        <router-link to="/gameboard" @click="startGame" class="game-button start-game">Start Game</router-link>
       </div>
     </div>
   </div>
@@ -94,5 +94,110 @@ const startGame = () => {
       border: 0rem;
       border-radius: 5px;
     }
+
+    .start-game {
+      text-decoration: none;
+      border-bottom: 2px solid var(--main-yellow);
+      font-weight: bold;
+    }
+
+    .start-game:visited {
+      color: var(--game-button-blue);
+    }
+
+    .start-game:hover {
+      color: var(--main-yellow);
+    }
+
+    /* Custom Radio inputs */
+input[type='radio'] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+
+}
+
+input[type='radio']+label {
+  display: block;
+  position: relative;
+  padding:  0px 0px 0px 40px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  font-size: 20px;
+  /* line-height: 36px; */
+  color: #000;
+  user-select: none;
+
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 4px;
+    width: 26px;
+    height: 26px;
+    outline: 2px solid #000;
+    border-radius: 50%;
+    background-color: var(--white-heat);
+  }
+}
+
+input[type='radio']:checked+label::after {
+  content: '';
+  display: block;
+  width: 16px;
+  height: 16px;
+  position: absolute;
+  left: 5px;
+  top: 9px;
+  border-radius: 50%;
+  outline: 1px solid #444;
+  background-color: #444;
+}
+
+input[type='radio']:focus+label::before {
+  -webkit-box-shadow: var(--input-box-shadow);
+  box-shadow: var(--input-box-shadow);
+  outline: 3px solid #141414;
+}
+
+input[type='radio']:not(:disabled)+label:hover::before {
+  border: 3px solid var(--white-heat);
+  background-image: var(--input-gradient);
+}
+
+/* disabled input styles */
+input[type='radio']:disabled,
+input[type='radio']:disabled+label,
+input[type='checkbox']:disabled,
+input[type='checkbox']:disabled+label {
+  cursor: not-allowed;
+  color: var(--disabled);
+}
+
+input[type='radio']:disabled+label::before {
+  outline: 2px solid var(--disabled);
+}
+
+input[type='radio']:disabled+label::after {
+  background-color: var(--disabled);
+  border-color: var(--disabled);
+  cursor: not-allowed;
+}
+
+@media (prefers-contrast: more) {
+  fieldset:focus-within {
+    outline: 1px solid #ffffff00;
+  }
+}
+
+@media (forced-colors: active),
+(--ms-high-contrast: active) {
+  fieldset:focus-within {
+    outline: 1px solid #ffffff00;
+  }
+}
   </style>
   
