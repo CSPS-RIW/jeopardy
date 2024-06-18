@@ -7,32 +7,47 @@
   font-weight: normal;
 }
 
+.delete-button {
+  padding: 0.2rem 0.3rem;
+  border-radius: 50%;
+  line-height: 0;
+  color: white;
+  background-color: rgb(221, 55, 55);
+  border: none;
+
+  &:hover, &:focus {
+    cursor: pointer;
+    background-color: rgb(145, 37, 37);
+  }
+}
+
 .game-button {
   font-size: 18px;
   padding: 10px 20px;
   background-color: var(--main-yellow);
   color: var(--game-button-blue);
   border-radius: 10px;
-  border: none;
+  border: 2px solid var(--main-yellow);
   margin-bottom: 6px;
   transition: background-color 0.3s ease;
   outline: 1px solid #ffffff00;
-}
 
-.game-button:hover {
-  background-color: var(--game-button-blue);
-  color: var(--main-yellow);
-  cursor: pointer;
-}
+  &:hover {
+    background-color: var(--game-button-blue);
+    color: var(--main-yellow);
+    cursor: pointer;
+  }
 
-.game-button:focus {
-  outline: 3px solid var(--game-button-blue);
-}
+  :focus {
+    outline: 3px solid var(--game-button-blue);
+  }
 
-.game-button:disabled {
-  background-color: var(--disabled-button-bgc) !important;
-  color : var(--disabled-button-color);
-  cursor:not-allowed;
+  &:disabled {
+    background-color: var(--disabled-button-bgc) !important;
+    color : var(--disabled-button-color);
+    cursor: not-allowed;
+    border: 0;
+  }
 }
 
 .sr-only {
@@ -49,3 +64,5 @@
 fieldset {
   border: none;
 }
+
+

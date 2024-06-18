@@ -8,8 +8,7 @@
       <fieldset v-if="question">
         <legend></legend>
         <span v-for="(option, index) in question.options" :key="index" class="option">
-          <input type="radio" :id="'option_' + index" :value="option" name="option" v-model="selectedOption"
-            :disabled="isSubmitted" ref="options">
+          <input type="radio" :id="'option_' + index" :value="option" name="option" v-model="selectedOption" :disabled="isSubmitted" ref="options">
           <label :for="'option_' + index">{{ option }}</label>
         </span>
       </fieldset>
@@ -22,62 +21,62 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import { useProgressStore } from '../stores/progressStore'
-import { useScoreStore } from '../stores/scoreStore.js'
+import { onMounted, ref } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import { useProgressStore } from '../stores/progressStore';
+import { usePlayerStore } from '../stores/playerStore';
 
-const scoreStore = useScoreStore()
-const progressStore = useProgressStore()
+const progressStore = useProgressStore();
+const playerStore = usePlayerStore();
 
-const route = useRoute()
-const router = useRouter()
-const questionId = ref(route.params.id)
-const question = ref(null)
+const route = useRoute();
+const router = useRouter();
+const questionId = ref(route.params.id);
+const question = ref(null);
 
-const selectedOption = ref('')
-const score = ref(0)
-const isSubmitted = ref(false)
-
+const selectedOption = ref('');
+const isSubmitted = ref(false);
 
 onMounted(() => {
-  question.value = progressStore.gameData.questions.find(q => q.id === parseInt(questionId.value))
-})
-
+  question.value = progressStore.gameData.questions.find(q => q.id === parseInt(questionId.value));
+});
 
 const checkAnswer = () => {
+  const currentPlayer = playerStore.players[playerStore.currentPlayerIndex];
   if (selectedOption.value === question.value.answer) {
-    // Correct answer
-    scoreStore.increaseScore(question.value.value)
-    //alert('Correct!')
+    currentPlayer.score += question.value.value;
     document.querySelector('.question-wrapper').insertAdjacentHTML('beforeend', `
       <div aria-live="polite" class="question-feedback">
         <p>${question.value.feedback.correct}</p>
         <p>${question.value.feedback.generic}</p>
       </div>
-    `)
+    `);
   } else {
-    // Incorrect answer
-    scoreStore.decreaseScore(question.value.value)
+    currentPlayer.score -= question.value.value;
     document.querySelector('.question-wrapper').insertAdjacentHTML('beforeend', `
       <div aria-live="polite" class="question-feedback">
         <p>${question.value.feedback.incorrect}</p>
         <p>${question.value.feedback.generic}</p>
       </div>
-    `)
+    `);
+    if (playerStore.gameMode === 'multi-player') {
+      playerStore.updateTurn();
+      console.log('Turn updated');
+    }
   }
-  scoreStore.saveScore()
-  isSubmitted.value = true
-  question.value.attempted = true
 
-  progressStore.updateProgress(questionId)
-}
+  playerStore.saveConfig();
+
+  isSubmitted.value = true;
+  question.value.attempted = true;
+  progressStore.updateProgress(questionId.value);
+};
 
 const goBack = () => {
-  router.push('/')
-}
-
+  router.push('/gameboard');
+};
 </script>
+
 
 <style scoped>
 .question-wrapper {

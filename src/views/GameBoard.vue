@@ -1,8 +1,7 @@
 <template>
   <div>
-    <ScoreDisplay v-if="!isGameOver" class="sr-only" />
+    <ScoreDisplay v-for="player in playerStore.players" v-if="!isGameOver" class="sr-only" :player="player" />
     <div class="game-board" v-if="!isGameOver">
-      <!-- Display category headers and corresponding questions -->
       <div v-for="(category, catIndex) in categories" :key="catIndex">
         <div class="category-column">
           <h2>{{ category }}</h2>
@@ -17,75 +16,72 @@
         </div>
       </div>
     </div>
-    <ScoreDisplay v-if="!isGameOver" />
+    <div class="score-container">
+      <ScoreDisplay v-for="player in playerStore.players" v-if="!isGameOver" :player="player" />
+    </div>
     <GameOverDialog v-if="isGameOver" :finalScore="score" @update:retry="restartGame" />
   </div>
 </template>
 
 <script setup>
-import { onMounted, ref, watch } from 'vue'
-import { useRouter } from 'vue-router'
-import GameOverDialog from '../components/GameOverDialog.vue'
-import ScoreDisplay from '../components/ScoreDisplay.vue'
-import { useProgressStore } from '../stores/progressStore'
-import { useScoreStore } from '../stores/scoreStore.js'
+import { onMounted, ref, watch } from 'vue';
+import { useRouter } from 'vue-router';
+import GameOverDialog from '../components/GameOverDialog.vue';
+import ScoreDisplay from '../components/ScoreDisplay.vue';
+import { useProgressStore } from '../stores/progressStore';
+import { usePlayerStore } from '../stores/playerStore';
+import { useScoreStore } from '../stores/scoreStore.js';
 
-const progressStore = useProgressStore()
+const progressStore = useProgressStore();
+const playerStore = usePlayerStore();
+const scoreStore = useScoreStore();
+const score = scoreStore.score;
 
-const scoreStore = useScoreStore()
-const score = scoreStore.score
+const isGameOver = ref(false);
+const finalScore = ref(Number);
 
-const isGameOver = ref(false)
-const finalScore = ref(Number)
+const router = useRouter();
 
-const router = useRouter()
-
-const categories = ref([])
-const questions = ref([])
-
+const categories = ref([]);
+const questions = ref([]);
 
 onMounted(() => {
-  // Load progress from local storage
   if (localStorage.getItem("progress")) {
-
-    progressStore.loadProgress()
-    let localStorageProgress = JSON.parse(localStorage.getItem("progress"))
-    categories.value = localStorageProgress.categories
-    questions.value = localStorageProgress.questions
+    progressStore.loadProgress();
+    let localStorageProgress = JSON.parse(localStorage.getItem("progress"));
+    categories.value = localStorageProgress.categories;
+    questions.value = localStorageProgress.questions;
   } else {
-    // progressStore.getGameData()
-    categories.value = progressStore.gameData.categories
-    questions.value = progressStore.gameData.questions
+    categories.value = progressStore.gameData.categories;
+    questions.value = progressStore.gameData.questions;
   }
-})
-// function for question select
-const selectQuestion = (questionId) => {
-  const question = questions.value.find(q => q.id === questionId)
-  if (question && !question.attempted) {
-    question.attempted = true
 
-    router.push(`/question/${questionId}`)
+  playerStore.initializePlayers();
+});
+
+const selectQuestion = (questionId) => {
+  const question = questions.value.find(q => q.id === questionId);
+  if (question && !question.attempted) {
+    question.attempted = true;
+    router.push(`/question/${questionId}`);
   }
-}
+};
 
 watch(questions, () => {
-
   if (questions.value.every(question => question.attempted)) {
-    isGameOver.value = true
-    finalScore.value = score
+    isGameOver.value = true;
+    finalScore.value = score;
   }
-})
+});
 
-// reseting the game when it's done
 const restartGame = () => {
-  // Reset game state
-  progressStore.resetProgress()
-
-  finalScore.value = 0
-  scoreStore.resetScore()
-  isGameOver.value = false
-}
-
+  progressStore.resetProgress();
+  playerStore.resetPlayerStore();
+  finalScore.value = 0;
+  scoreStore.resetScore();
+  isGameOver.value = false;
+  router.push('/');
+};
 </script>
 
 <style scoped lang="scss">
@@ -144,5 +140,11 @@ const restartGame = () => {
   background-color: var(--disabled-button-bgc) !important;
   color: var(--disabled-button-color);
   cursor: default;
+}
+
+.score-container {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: space-around;
 }
 </style>
