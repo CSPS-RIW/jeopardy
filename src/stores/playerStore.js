@@ -23,6 +23,9 @@ export const usePlayerStore = defineStore({
         this.singlePlayerName = state.singlePlayerName || '';
         this.gameMode = state.gameMode || '';
         this.currentPlayerIndex = state.currentPlayerIndex || 0;
+        if(this.gameMode === 'multi-player') {
+          this.players[this.currentPlayerIndex].isPlayerTurn = true
+        }
       } else {
         this.setupInitialPlayers();
       }
