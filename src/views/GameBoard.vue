@@ -56,7 +56,7 @@ onMounted(() => {
     questions.value = progressStore.gameData.questions;
   }
 
-  playerStore.initializePlayers();
+  //playerStore.initializePlayers();
 });
 
 const selectQuestion = (questionId) => {

@@ -46,9 +46,9 @@ onBeforeMount(() => {
 		scoreStore.score = 0
 	}
 
-	if(localStorage.getItem("playerStore")) {
-		playerStore.initializePlayers()
-	}
+	// if(localStorage.getItem("playerStore")) {
+	// 	playerStore.initializePlayers()
+	// }
 
 })
 
