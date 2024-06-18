@@ -19,7 +19,7 @@
     <div class="score-container">
       <ScoreDisplay v-for="player in playerStore.players" v-if="!isGameOver" :player="player" />
     </div>
-    <GameOverDialog v-if="isGameOver" :finalScore="score" @update:retry="restartGame" />
+    <GameOverDialog v-if="isGameOver" :finalScore="score" @update:retry="restartGame" @update:reset="resetGame" />
   </div>
 </template>
 
@@ -82,6 +82,14 @@ const restartGame = () => {
   isGameOver.value = false;
   router.push('/');
 };
+
+const resetGame = () => {
+  progressStore.resetProgress();
+  finalScore.value = 0;
+  scoreStore.resetScore();
+  isGameOver.value = false;
+  playerStore.players.forEach((player) => player.score = 0)
+}
 </script>
 
 <style scoped lang="scss">
