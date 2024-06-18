@@ -25,6 +25,8 @@ export const usePlayerStore = defineStore({
         this.currentPlayerIndex = state.currentPlayerIndex || 0;
         if(this.gameMode === 'multi-player') {
           this.players[this.currentPlayerIndex].isPlayerTurn = true
+        } else if (this.gameMode === 'single-player') {
+          this.players = [{ name: this.singlePlayerName, score: 0, isPlayerTurn: true }];
         }
       } else {
         this.setupInitialPlayers();

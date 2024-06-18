@@ -43,7 +43,9 @@ onMounted(() => {
 
 const checkAnswer = () => {
   const currentPlayer = playerStore.players[playerStore.currentPlayerIndex];
+  console.log(currentPlayer)
   if (selectedOption.value === question.value.answer) {
+    console.log('correct');
     currentPlayer.score += question.value.value;
     document.querySelector('.question-wrapper').insertAdjacentHTML('beforeend', `
       <div aria-live="polite" class="question-feedback">
