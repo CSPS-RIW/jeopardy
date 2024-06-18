@@ -1,5 +1,9 @@
 <template>
+  <div class="flex instructions-container">
+      <p>Welcome to the Jeopardy Game! Get ready to test your knowledge on our subject. Get a question right, and you'll earn points according to its difficulty. Get it wrong, and you'll lose points! Try to get the best score possible, or play multi-player for some healthy competition. When you're ready, set up your game configuration below, and hit Start Game. Good Luck!</p>
+    </div>
   <div class="flex">
+    
     <div class="config-container">
       <h2 class="center">Game Configuration</h2>
       <div>
@@ -38,7 +42,7 @@
         </div>
       </div>
       <div class="startgame d-flex justify-content-center" v-if="gameMode.length > 0 && playerStore.playerCount > 0 || playerStore.singlePlayerName.length > 0">
-        <router-link to="/gameboard" @click="startGame" class="game-button start-game">Start Game</router-link>
+        <router-link to="/gameboard" @click="startGame" class="game-button start-game" role="button">Start Game</router-link>
       </div>
     </div>
   </div>
@@ -80,6 +84,16 @@ const startGame = () => {
       @media (min-width: 700px) {
         max-width: 700px;
       }
+    }
+
+    .instructions-container {
+      border: 2px solid var(--game-button-blue);
+      border-radius: 5px;
+      background-color: var(--game-button-blue);
+      color: #fff;
+      padding: 0.5rem 1rem;
+      margin-bottom: 2rem;
+      box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
     }
 
     .flex {
