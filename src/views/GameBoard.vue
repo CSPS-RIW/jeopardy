@@ -88,7 +88,16 @@ const resetGame = () => {
   finalScore.value = 0;
   scoreStore.resetScore();
   isGameOver.value = false;
-  playerStore.players.forEach((player) => player.score = 0)
+  
+  const playerReset= (player) => {
+    player.score = 0;
+    player.isPlayerTurn = false
+  }
+  playerStore.players.forEach((player) => 
+    playerReset(player)
+  )
+
+  playerStore.players[0].isPlayerTurn = true
 }
 </script>
 
