@@ -19,7 +19,7 @@
     <div class="score-container">
       <ScoreDisplay v-for="player in playerStore.players" v-if="!isGameOver" :player="player" />
     </div>
-    <GameOverDialog v-if="isGameOver" :finalScore="score" @update:retry="restartGame" />
+    <GameOverDialog v-if="isGameOver" :finalScore="score" @update:retry="restartGame" @update:reset="resetGame" />
   </div>
 </template>
 
@@ -51,12 +51,14 @@ onMounted(() => {
     let localStorageProgress = JSON.parse(localStorage.getItem("progress"));
     categories.value = localStorageProgress.categories;
     questions.value = localStorageProgress.questions;
+    
   } else {
     categories.value = progressStore.gameData.categories;
     questions.value = progressStore.gameData.questions;
+    //playerStore.initializePlayers()
   }
 
-  //playerStore.initializePlayers();
+  playerStore.initializePlayers();
 });
 
 const selectQuestion = (questionId) => {
@@ -81,6 +83,33 @@ const restartGame = () => {
   scoreStore.resetScore();
   isGameOver.value = false;
   router.push('/');
+};
+
+const resetGame = () => {
+  progressStore.resetProgress();
+  scoreStore.resetScore();
+  isGameOver.value = false;
+  
+  playerStore.players.forEach((player) => {
+    player.score = 0;
+    player.isPlayerTurn = false;
+  });
+
+  if (playerStore.gameMode === 'multi-player') {
+    playerStore.players[0].isPlayerTurn = true;
+    playerStore.currentPlayerIndex = 0;
+  } else {
+    playerStore.players[0].isPlayerTurn = true;
+  }
+
+  // Reset questions and categories
+  questions.value = progressStore.gameData.questions.map(q => ({...q, attempted: false}));
+  categories.value = progressStore.gameData.categories;
+
+  // Save the updated state
+  progressStore.saveProgress();
+  playerStore.saveConfig();
+  scoreStore.saveScore();
 };
 </script>
 

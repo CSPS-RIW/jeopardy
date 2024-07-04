@@ -16,7 +16,14 @@ export const usePlayerStore = defineStore({
     },
     initializePlayers() {
       const savedState = localStorage.getItem('playerStore');
+      let singlePlayerScore
+      if(localStorage.getItem('score')) {
+        singlePlayerScore = localStorage.getItem('score')
+      } else {
+        singlePlayerScore = 0
+      }
       if (savedState) {
+        console.log(this.players);
         const state = JSON.parse(savedState);
         this.players = state.players || [];
         this.playerCount = state.playerCount || 0;
@@ -26,7 +33,7 @@ export const usePlayerStore = defineStore({
         if(this.gameMode === 'multi-player') {
           this.players[this.currentPlayerIndex].isPlayerTurn = true
         } else if (this.gameMode === 'single-player') {
-          this.players = [{ name: this.singlePlayerName, score: 0, isPlayerTurn: true }];
+          this.players = [{ name: this.singlePlayerName, score: singlePlayerScore , isPlayerTurn: true }];
         }
       } else {
         this.setupInitialPlayers();

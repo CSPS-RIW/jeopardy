@@ -25,9 +25,11 @@ import { onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useProgressStore } from '../stores/progressStore';
 import { usePlayerStore } from '../stores/playerStore';
+import { useScoreStore } from '@/stores/scoreStore';
 
 const progressStore = useProgressStore();
 const playerStore = usePlayerStore();
+const scoreStore = useScoreStore();
 
 const route = useRoute();
 const router = useRouter();
@@ -38,15 +40,21 @@ const selectedOption = ref('');
 const isSubmitted = ref(false);
 
 onMounted(() => {
+  progressStore.loadProgress()
   question.value = progressStore.gameData.questions.find(q => q.id === parseInt(questionId.value));
 });
 
 const checkAnswer = () => {
-  const currentPlayer = playerStore.players[playerStore.currentPlayerIndex];
-  console.log(currentPlayer)
+  let currentPlayer
+  if (playerStore.gameMode === 'single-player') {
+    currentPlayer = playerStore.players[0];
+  } else {
+    currentPlayer = playerStore.players[playerStore.currentPlayerIndex];
+  }
+  
   if (selectedOption.value === question.value.answer) {
-    console.log('correct');
     currentPlayer.score += question.value.value;
+    scoreStore.increaseScore(question.value.value);
     document.querySelector('.question-wrapper').insertAdjacentHTML('beforeend', `
       <div aria-live="polite" class="question-feedback">
         <p>${question.value.feedback.correct}</p>
@@ -55,6 +63,7 @@ const checkAnswer = () => {
     `);
   } else {
     currentPlayer.score -= question.value.value;
+    scoreStore.decreaseScore(question.value.value);
     document.querySelector('.question-wrapper').insertAdjacentHTML('beforeend', `
       <div aria-live="polite" class="question-feedback">
         <p>${question.value.feedback.incorrect}</p>
@@ -63,11 +72,11 @@ const checkAnswer = () => {
     `);
     if (playerStore.gameMode === 'multi-player') {
       playerStore.updateTurn();
-      console.log('Turn updated');
     }
   }
 
   playerStore.saveConfig();
+  scoreStore.saveScore()
 
   isSubmitted.value = true;
   question.value.attempted = true;

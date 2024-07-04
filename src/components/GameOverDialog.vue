@@ -8,7 +8,8 @@
           <p>{{ player.name }}: {{ player.score }}</p>
         </div>
         
-        <button class="game-button" @click="$emit('update:retry')">Retry</button>
+        <button class="game-button" @click="$emit('update:reset')">Reset (same players)</button>
+        <button class="game-button" @click="$emit('update:retry')">Back to Main Menu</button>
       </div>
     </div>
   </template>
