@@ -38,6 +38,7 @@ const selectedOption = ref('');
 const isSubmitted = ref(false);
 
 onMounted(() => {
+  progressStore.loadProgress()
   question.value = progressStore.gameData.questions.find(q => q.id === parseInt(questionId.value));
 });
 
