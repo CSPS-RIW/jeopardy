@@ -17,6 +17,7 @@ export const usePlayerStore = defineStore({
     initializePlayers() {
       const savedState = localStorage.getItem('playerStore');
       if (savedState) {
+        console.log(this.players);
         const state = JSON.parse(savedState);
         this.players = state.players || [];
         this.playerCount = state.playerCount || 0;

@@ -51,14 +51,17 @@
 <script setup>
 import { ref } from 'vue';
 import { usePlayerStore } from '@/stores/playerStore';
+import { useScoreStore } from '@/stores/scoreStore';
 import '@fortawesome/fontawesome-free/js/all.js';
 
 const playerStore = usePlayerStore();
+const scoreStore = useScoreStore();
 const gameMode = ref('');
 
 const startGame = () => {
   playerStore.setGameMode(gameMode.value);
   playerStore.initializePlayers();
+  scoreStore.resetScore();
 };
 </script>
 

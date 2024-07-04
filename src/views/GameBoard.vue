@@ -51,10 +51,11 @@ onMounted(() => {
     let localStorageProgress = JSON.parse(localStorage.getItem("progress"));
     categories.value = localStorageProgress.categories;
     questions.value = localStorageProgress.questions;
-    playerStore.initializePlayers()
+    
   } else {
     categories.value = progressStore.gameData.categories;
     questions.value = progressStore.gameData.questions;
+    playerStore.initializePlayers()
   }
 
   //playerStore.initializePlayers();
@@ -94,8 +95,12 @@ const resetGame = () => {
     player.isPlayerTurn = false;
   });
 
-  playerStore.players[0].isPlayerTurn = true;
-  playerStore.currentPlayerIndex = 0;
+  if (playerStore.gameMode === 'multi-player') {
+    playerStore.players[0].isPlayerTurn = true;
+    playerStore.currentPlayerIndex = 0;
+  } else {
+    playerStore.players[0].isPlayerTurn = true;
+  }
 
   // Reset questions and categories
   questions.value = progressStore.gameData.questions.map(q => ({...q, attempted: false}));
@@ -104,6 +109,7 @@ const resetGame = () => {
   // Save the updated state
   progressStore.saveProgress();
   playerStore.saveConfig();
+  scoreStore.saveScore();
 };
 </script>
 
