@@ -24,12 +24,15 @@
           <div v-if="gameMode === 'multi-player'">
             <form @submit.prevent>
               <div v-for="(player, index) in playerStore.players" :key="index">
-                <label :for="'player_name' + index" class="mr-2">Player/Team Name: </label>
-                <input class="mr-1" type="text" name="player" :id="'player_name' + index" v-model="player.name">
+                <label :for="`player_name${index}`" class="mr-2">Player/Team Name: </label>
+                <input class="mr-1" type="text" name="player" :id="`player_name${index}`" v-model="player.name" @keydown.enter.prevent="nextInputField">
                 <button class="delete-button" @click.prevent="playerStore.deletePlayer(index)" title="Delete player"><i class="fas fa-times"></i></button>
               </div>
+              <button @click="playerStore.addPlayer()" class="game-button mt-2" :disabled="playerStore.playerCount >= 4">Add Player</button>
+              <div class="startgame d-flex justify-content-center" v-if="playerStore.playerCount > 1">
+                <router-link to="/gameboard" @click="startGame" class="game-button start-game" role="button">Start Game</router-link>
+              </div>
             </form>
-            <button @click="playerStore.addPlayer()" class="game-button mt-2" :disabled="playerStore.playerCount >= 4">Add Player</button>
           </div>
           <div v-else-if="gameMode === 'single-player'">
             <form @submit.prevent>
@@ -37,12 +40,12 @@
                 <label for="player_name">Player Name: </label>
                 <input class="ml-2" type="text" name="player" id="player_name" v-model="playerStore.singlePlayerName">
               </span>
+              <div class="startgame d-flex justify-content-center" v-if="gameMode.length > 0 && playerStore.playerCount > 0 || playerStore.singlePlayerName.length > 0">
+                <router-link to="/gameboard" @click="startGame" class="game-button start-game" role="button">Start Game</router-link>
+              </div>
             </form>
           </div>
         </div>
-      </div>
-      <div class="startgame d-flex justify-content-center" v-if="gameMode.length > 0 && playerStore.playerCount > 0 || playerStore.singlePlayerName.length > 0">
-        <router-link to="/gameboard" @click="startGame" class="game-button start-game" role="button">Start Game</router-link>
       </div>
     </div>
   </div>
@@ -57,6 +60,15 @@ import '@fortawesome/fontawesome-free/js/all.js';
 const playerStore = usePlayerStore();
 const scoreStore = useScoreStore();
 const gameMode = ref('');
+
+// focus in next input field - multiplayer
+function nextInputField(e){
+  playerStore.addPlayer()
+  setTimeout(() => {
+    let nextFocusableEl = e.target.parentElement.nextElementSibling.querySelector(`input[type='text']`)
+    nextFocusableEl.focus()
+  }, 50);
+}
 
 const startGame = () => {
   playerStore.setGameMode(gameMode.value);
