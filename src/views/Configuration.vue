@@ -30,7 +30,7 @@
               </div>
               <button @click="playerStore.addPlayer()" class="game-button mt-2" :disabled="playerStore.playerCount >= 4">Add Player</button>
               <div class="startgame d-flex justify-content-center" v-if="playerStore.playerCount > 1">
-                <router-link to="/gameboard" @click="startGame" class="game-button start-game" role="button">Start Game</router-link>
+                <router-link to="/" @click.prevent="startGame" class="game-button start-game" role="button">Start Game</router-link>
               </div>
             </form>
           </div>
@@ -38,10 +38,10 @@
             <form @submit.prevent>
               <span>
                 <label for="player_name">Player Name: </label>
-                <input class="ml-2" type="text" name="player" id="player_name" v-model="playerStore.singlePlayerName">
+                <input class="ml-2" type="text" name="player" id="player_name" v-model="playerStore.singlePlayerName" @keydown.enter="startGame">
               </span>
               <div class="startgame d-flex justify-content-center" v-if="gameMode.length > 0 && playerStore.playerCount > 0 || playerStore.singlePlayerName.length > 0">
-                <router-link to="/gameboard" @click="startGame" class="game-button start-game" role="button">Start Game</router-link>
+                <router-link to="/" @click.prevent="startGame" class="game-button start-game" role="button">Start Game</router-link>
               </div>
             </form>
           </div>
@@ -52,14 +52,16 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
 import { usePlayerStore } from '@/stores/playerStore';
 import { useScoreStore } from '@/stores/scoreStore';
 import '@fortawesome/fontawesome-free/js/all.js';
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 
 const playerStore = usePlayerStore();
 const scoreStore = useScoreStore();
 const gameMode = ref('');
+const router = useRouter()
 
 // focus in next input field - multiplayer
 function nextInputField(e){
@@ -74,6 +76,7 @@ const startGame = () => {
   playerStore.setGameMode(gameMode.value);
   playerStore.initializePlayers();
   scoreStore.resetScore();
+  router.push({name: 'Gameboard'})
 };
 </script>
 
