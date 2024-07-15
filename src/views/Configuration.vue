@@ -22,7 +22,7 @@
         <div>
           <h3>Player Info</h3>
           <div v-if="gameMode === 'multi-player'">
-            <form>
+            <form @submit.prevent>
               <div v-for="(player, index) in playerStore.players" :key="index">
                 <label :for="'player_name' + index" class="mr-2">Player/Team Name: </label>
                 <input class="mr-1" type="text" name="player" :id="'player_name' + index" v-model="player.name">
@@ -32,7 +32,7 @@
             <button @click="playerStore.addPlayer()" class="game-button mt-2" :disabled="playerStore.playerCount >= 4">Add Player</button>
           </div>
           <div v-else-if="gameMode === 'single-player'">
-            <form>
+            <form @submit.prevent>
               <span>
                 <label for="player_name">Player Name: </label>
                 <input class="ml-2" type="text" name="player" id="player_name" v-model="playerStore.singlePlayerName">
