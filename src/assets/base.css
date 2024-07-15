@@ -79,8 +79,14 @@
 		--color-text: var(--vt-c-text-dark-2);
 	}
 
-	h1, h2 {
-		color: #fff
+	h1,
+	h2 {
+		color: #fff;
+	}
+
+	p,
+	label {
+		color: var(--vt-c-white) !important;
 	}
 }
 
