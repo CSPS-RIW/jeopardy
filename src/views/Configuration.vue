@@ -11,7 +11,7 @@
 		</p>
 		<div class="flex">
 			<div class="config-container">
-				<h2 class="center">Game Configuration</h2>
+				<h2>Game Configuration</h2>
 				<p>Select an option to continue.</p>
 				<div>
 					<fieldset>
@@ -41,7 +41,6 @@
 				</div>
 				<div v-if="gameMode.length > 0">
 					<div>
-						<h3>Player Info</h3>
 						<div v-if="gameMode === 'multi-player'">
 							<form @submit.prevent>
 								<div
@@ -93,25 +92,23 @@
 						</div>
 						<div v-else-if="gameMode === 'single-player'">
 							<form @submit.prevent>
-								<span>
-									<label for="player_name"
-										>Player Name:
-									</label>
-									<input
-										class="ml-2"
-										type="text"
-										name="player"
-										id="player_name"
-										v-model="playerStore.singlePlayerName"
-										@keydown.enter="startGame" />
-								</span>
-								<div
-									class="startgame d-flex justify-content-center"
-									v-if="
-										(gameMode.length > 0 &&
-											playerStore.playerCount > 0) ||
-										playerStore.singlePlayerName.length > 0
-									">
+								<div>
+                  <span class="input-stack">
+                    <label for="player_name"
+                      >Player Info:
+                    </label>
+                    <div class="input-flex">
+                      <input
+                        class="ml-2"
+                        type="text"
+                        name="player"
+                        id="player_name"
+                        placeholder="Enter player name..."
+                        v-model="playerStore.singlePlayerName"
+                        @keydown.enter="startGame" />
+                        <div
+									class=""
+									>
 									<router-link
 										to="/"
 										@click.prevent="startGame"
@@ -120,6 +117,10 @@
 										>Start Game</router-link
 									>
 								</div>
+                    </div>
+                  </span>
+                </div>
+							
 							</form>
 						</div>
 					</div>
@@ -177,23 +178,38 @@
 	}
 
 	.config-container {
-		background-color: #fff;
+    font-size: 20px;
 
-		padding: 2rem;
+		padding: 1rem;
 		margin-bottom: 1rem;
+    width: 450px;
+    	/* max-width: 550px; */
+    border-radius: 10px;
+
+    background-color: var(--white-heat);
 		color: var(--game-button-blue);
-		border-radius: 10px;
 		box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-		font-size: 20px;
-		max-width: 550px;
 
 		@media (min-width: 700px) {
 			max-width: 700px;
 		}
 
+    & h2 {
+      color: var(--game-button-blue)
+    }
 		& p {
 			color: #333;
+      margin-bottom: 0.5rem;
 		}
+    & input {
+      margin: 0 !important;
+      padding: 0 0.5rem;
+      border-radius: 0.5rem;
+      width: 260px;
+      height: 55px;
+    }
+
+
 	}
 
 	.instructions-container {
@@ -211,6 +227,11 @@
 			color: var(--white-heat);
 		}
 	}
+  
+  .input-stack {
+    display: flex;
+    flex-direction: column;
+  }
 
 	.flex {
 		display: flex;
@@ -218,6 +239,13 @@
 		justify-content: center;
 		align-items: center;
 	}
+
+  .input-flex {
+    display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+    }
 
 	.add-player {
 		padding: 0.2rem 0.7rem;
