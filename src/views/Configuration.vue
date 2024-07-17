@@ -40,7 +40,7 @@
                   </label>
                   <input class="mr-1" type="text" name="player" :id="`player_name${index}`" v-model="player.name"
                     @keydown.enter.prevent="nextInputField
-                  " />
+                  " placeholder="Player/Team Name"/>
                   <button class="delete-button" @click.prevent="
                   playerStore.deletePlayer(index)
                   " title="Delete player">
