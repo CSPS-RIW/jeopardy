@@ -3,9 +3,9 @@
       <div class="container">
         <h2>Game Over</h2>
         <h3>Final Scores</h3>
-        <div v-for="player in playerStore.players">
+        <div v-for="(player, index) in playerStore.players" :key="index">
 
-          <p>{{ player.name }}: {{ player.score }}</p>
+          <p>{{ displayName(player, index) }}: {{ player.score }}</p>
         </div>
         
         <button class="game-button" @click="$emit('update:reset')">Reset (same players)</button>
@@ -26,6 +26,10 @@
       required: true
     }
   })
+
+  const displayName = (player, index) => {
+      return player.name.length > 0 ? player.name : 'Player ' + (index += 1);
+    };
   
   </script>
   

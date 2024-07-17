@@ -1,7 +1,7 @@
 <template>
     <div >
       <div class="score-board" :class="{ 'player-turn': player.isPlayerTurn }">
-        <h2>{{ player.name }}</h2>
+        <h2>{{ displayName }}</h2>
         <p>Your score: {{ player.score }}</p>
       </div>
     </div>
@@ -9,14 +9,21 @@
   
   <script setup>
   import { useScoreStore } from '../stores/scoreStore.js'
-  import { defineProps } from 'vue';
+  import { defineProps, computed } from 'vue';
 
   const props = defineProps({
     player: {
       type: Object,
       required: true
-    }
+    },
+    index: {
+    type: Number,
+  }
   });
+
+  const displayName = computed(() => {
+  return props.player.name.length > 0 ? props.player.name : 'Player ' + (props.index + 1);
+});
 
 const scoreStore = useScoreStore()
 const score = scoreStore.score

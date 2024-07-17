@@ -17,7 +17,7 @@
       </div>
     </div>
     <div class="score-container">
-      <ScoreDisplay v-for="player in playerStore.players" v-if="!isGameOver" :player="player" />
+      <ScoreDisplay v-for="(player, index) in playerStore.players" v-if="!isGameOver" :player="player" :key="index" :index="index"/>
     </div>
     <GameOverDialog v-if="isGameOver" :finalScore="score" @update:retry="restartGame" @update:reset="resetGame" />
   </div>
