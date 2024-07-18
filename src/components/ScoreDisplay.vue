@@ -9,7 +9,7 @@
   
   <script setup>
   import { useScoreStore } from '../stores/scoreStore.js'
-  import { defineProps, computed } from 'vue';
+  import { computed } from 'vue';
 
   const props = defineProps({
     player: {
