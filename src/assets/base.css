@@ -80,21 +80,18 @@
 
 	h1,
 	h2 {
-		color: #fff;
+		color: var(--white-heat);
 	}
 
 	p,
 	label {
-		color: var(--vt-c-white) !important;
+		color: var(--vt-c-white);
 	}
-}
 
-*,
-*::before,
-*::after {
-	box-sizing: border-box;
-	margin: 0;
-	font-weight: normal;
+	.question-wrapper p,
+	.question-wrapper label {
+		color: var(--body-grey);
+	}
 }
 
 body {
