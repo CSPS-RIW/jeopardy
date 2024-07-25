@@ -9,8 +9,8 @@
     <div class="flex">
       <div class="config-container">
         <h2>{{ t("configuration.title") }}</h2>
-        <p>{{ t("configuration.message") }}</p>
-        <div>
+        <!-- <p>{{ t("configuration.message") }}</p> -->
+        <!-- <div>
           <fieldset>
             <div>
               <input type="radio" name="option" id="single_player" value="single-player"
@@ -23,8 +23,8 @@
               <label for="multi_player">{{ t("configuration.multiPlayer") }}</label>
             </div>
           </fieldset>
-        </div>
-        <div v-if="gameMode.length > 0">
+        </div> -->
+        <div>
           <div>
             <div v-if="gameMode === 'multi-player'">
               <form @submit.prevent>
@@ -35,10 +35,10 @@
                   </label>
                   <input class="mr-1" type="text" name="player" :id="`player_name${index}`" v-model="player.name"
                     @keydown.enter.prevent="nextInputField
-                  " :placeholder="t('configuration.multiPlayerInfo.label')"/>
+        " :placeholder="t('configuration.multiPlayerInfo.label')" />
                   <button class="delete-button ml-1" @click.prevent="
-                  playerStore.deletePlayer(index)
-                  " :title="t('configuration.multiPlayerInfo.deletePlayer')">
+        playerStore.deletePlayer(index)
+        " :title="t('configuration.multiPlayerInfo.deletePlayer')">
                     <i class="fas fa-times"></i>
                   </button>
                 </div>
@@ -47,7 +47,8 @@
                   {{ t('configuration.multiPlayerInfo.addPlayer') }}
                 </button>
                 <div class="startgame d-flex justify-content-center" v-if="playerStore.playerCount > 1">
-                  <router-link to="/" @click.prevent="startGame" class="game-button start-game" role="button">{{ t("configuration.start")}}</router-link>
+                  <router-link to="/" @click.prevent="startGame" class="game-button start-game" role="button">{{
+        t("configuration.start") }}</router-link>
                 </div>
               </form>
             </div>
@@ -58,11 +59,12 @@
                     <label for="player_name">{{ t("configuration.singlePlayerInfo.label") }}
                     </label>
                     <div class="d-flex-column">
-                      <input class="ml-2" type="text" name="player" id="player_name" :placeholder="t('configuration.singlePlayerInfo.placeholder')"
+                      <input class="ml-2" type="text" name="player" id="player_name"
+                        :placeholder="t('configuration.singlePlayerInfo.placeholder')"
                         v-model="playerStore.singlePlayerName" @keydown.enter="startGame" />
                       <div class="mt-3 d-flex justify-content-center">
-                        <router-link to="/" @click.prevent="startGame" class="game-button start-game"
-                          role="button">{{ t("configuration.start") }}</router-link>
+                        <router-link to="/" @click.prevent="startGame" class="game-button start-game" role="button">{{
+                          t("configuration.start") }}</router-link>
                       </div>
                     </div>
                   </span>
@@ -80,18 +82,22 @@
 <script setup>
 import { usePlayerStore } from '@/stores/playerStore';
 import { useScoreStore } from '@/stores/scoreStore';
+import { useProgressStore } from '@/stores/progressStore'
 import '@fortawesome/fontawesome-free/js/all.js';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
+import { onMounted, computed } from 'vue'
 const { t, locale, availableLocales } = useI18n()
 
 let lang = document.querySelector('html').getAttribute('lang')
 
 const playerStore = usePlayerStore();
 const scoreStore = useScoreStore();
-const gameMode = ref('');
+const progressStore = useProgressStore()
 const router = useRouter();
+
+const gameMode = computed(() => playerStore.gameMode);
 
 // focus in next input field - multiplayer
 function nextInputField(e) {
@@ -106,11 +112,31 @@ function nextInputField(e) {
 }
 
 const startGame = () => {
-  playerStore.setGameMode(gameMode.value);
+  // Initialize players (this will also set the game mode from the data attribute)
   playerStore.initializePlayers();
+
+  // Reset the score for all players
+  playerStore.players.forEach(player => {
+    player.score = 0;
+  });
+
+  // Reset the global score (if you're still using it)
   scoreStore.resetScore();
+
+  // Reset the progress
+  progressStore.resetProgress();
+
+  // Save the updated configurations
+  playerStore.saveConfig();
+  scoreStore.saveScore();
+
+  // Navigate to the Gameboard
   router.push({ name: 'Gameboard' });
 };
+
+onMounted(() => {
+  playerStore.initializePlayers();
+});
 </script>
 
 <style scoped lang="scss">
@@ -176,7 +202,7 @@ const startGame = () => {
     border-radius: 0.5rem;
     width: 260px;
     height: 55px;
-   
+
   }
 
 }
@@ -192,7 +218,7 @@ const startGame = () => {
   margin-bottom: 2rem;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 
- 
+
 }
 
 .input-stack {
@@ -262,7 +288,7 @@ input[type='radio']+label {
     top: 4px;
     width: 26px;
     height: 26px;
-  outline: 2px solid var(--game-button-blue   );
+    outline: 2px solid var(--game-button-blue);
     border-radius: 50%;
     background-color: var(--white-heat);
 
