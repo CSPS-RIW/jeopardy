@@ -10,7 +10,7 @@
         "singlePlayer": "Jeu solo",
         "multiPlayer": "Jeu multijoueurs",
         "singlePlayerInfo": {
-            "label": "Informations sur le joueur",
+            "label": "Informations sur le joueur :",
             "placeholder": "Entrez le nom du joueur..."
         },
         "multiPlayerInfo": {

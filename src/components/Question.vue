@@ -1,26 +1,42 @@
 <!-- Question.vue -->
 <template>
-  <div class="question-page-wrapper">
+  <div class="question-page-wrapper" aria-live="polite" tabindex="-1">
     <div class="category">
       <h2>{{ category }}</h2>
       <p v-if="question">{{ t("question.for") }} {{ question.value }} {{ t("question.points") }}</p>
       <p v-else>{{ t("question.for") }} {{ ("question.points") }} </p>
     </div>
     <div class="container">
-      <div class="question-wrapper" aria-live="polite">
+      <div class="question-wrapper">
         <h2>Question</h2>
         <p v-if="question">{{ question.question }}</p>
         <fieldset v-if="question">
           <legend></legend>
           <span v-for="(option, index) in question.options" :key="index" class="option">
-            <input type="radio" :id="'option_' + index" :value="option" name="option" v-model="selectedOption" :disabled="isSubmitted" ref="options">
+            <input type="radio" :id="'option_' + index" :value="option" name="option" v-model="selectedOption"
+              :disabled="isSubmitted" ref="options">
             <label :for="'option_' + index">{{ option }}</label>
           </span>
+          <div class="feedback-wrapper" aria-live="polite">
+            <div class="feedback" v-if="isSubmitted" tabindex="-1">
+              <div class="correct-feedback" v-if="selectedOption === question.answer">
+                <p>{{ question.feedback.correct }}</p>
+              </div>
+              <div class="incorrect-feedback" v-else>
+                <p>{{ question.feedback.incorrect }}</p>
+              </div>
+              <div class="generic-feedback" >
+                <p>{{ question.feedback.generic }}</p>
+              </div>
+            </div>
+          </div>
         </fieldset>
         <div class="controls">
-          <button @click="checkAnswer" class="game-button" :disabled="!selectedOption || isSubmitted">{{ t("question.submit") }}</button>
+          <button @click="checkAnswer" class="game-button" :disabled="!selectedOption || isSubmitted">{{
+        t("question.submit") }}</button>
           <button @click="goBack" class="game-button" :disabled="!isSubmitted">{{ t("question.back") }}</button>
         </div>
+
       </div>
     </div>
   </div>
@@ -55,7 +71,7 @@ onMounted(() => {
   progressStore.loadProgress()
   question.value = progressStore.gameData.questions.find(q => q.id === parseInt(questionId.value));
   category.value = progressStore.gameData.categories[question.value.categoryId]
-
+  document.querySelector('.question-page-wrapper').focus()
 });
 
 const checkAnswer = () => {
@@ -65,34 +81,25 @@ const checkAnswer = () => {
   } else {
     currentPlayer = playerStore.players[playerStore.currentPlayerIndex];
   }
-  
+
   if (selectedOption.value === question.value.answer) {
     currentPlayer.score += question.value.value;
     scoreStore.increaseScore(question.value.value);
-    document.querySelector('.question-wrapper').insertAdjacentHTML('beforeend', `
-      <div aria-live="polite" class="question-feedback">
-        <p>${question.value.feedback.correct}</p>
-        <p>${question.value.feedback.generic}</p>
-      </div>
-    `);
   } else {
     currentPlayer.score -= question.value.value;
     scoreStore.decreaseScore(question.value.value);
-    document.querySelector('.question-wrapper').insertAdjacentHTML('beforeend', `
-      <div aria-live="polite" class="question-feedback">
-        <p>${question.value.feedback.incorrect}</p>
-        <p>${question.value.feedback.generic}</p>
-      </div>
-    `);
+    
     if (playerStore.gameMode === 'multi-player') {
       playerStore.updateTurn();
     }
   }
 
+  
   playerStore.saveConfig();
   scoreStore.saveScore()
-
+  
   isSubmitted.value = true;
+  document.querySelector('.feedback').focus()
   question.value.attempted = true;
   progressStore.updateProgress(questionId.value);
 };
@@ -104,6 +111,14 @@ const goBack = () => {
 
 
 <style scoped lang="scss">
+
+/* Style quiz when focused */
+.question-page-wrapper[tabindex='-1']:focus-visible  {
+	outline: 5px solid red !important;
+  outline-offset: 5px;
+  border-radius: 5px;
+}
+
 .question-wrapper {
   background-color: var(--question-wrapper);
   max-width: 700px;
@@ -137,18 +152,19 @@ p {
 }
 
 .category {
-  background: linear-gradient(to bottom, rgba(3, 9, 180, 1) 0%,rgba(0, 15, 82, 1) 100%);
+  background: linear-gradient(to bottom, rgba(3, 9, 180, 1) 0%, rgba(0, 15, 82, 1) 100%);
   padding: 0.7rem 1rem;
   border: 3px solid var(--main-yellow);
   border-radius: 5px;
   margin-bottom: 2rem;
+
   h2 {
     color: var(--main-yellow);
   }
 
   p {
     color: var(--white-heat);
-    
+
   }
 }
 
