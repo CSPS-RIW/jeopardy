@@ -1,0 +1,23 @@
+{
+	"title": "Quiz Game",
+	"welcome": {
+        "title": "Welcome to the Quiz Game",
+        "message": "Get ready to test your knowledge on our subject. Get a question right, and you'll earn points according to its difficulty. Get it wrong, and you'll lose points! Try to get the best score possible, or play multi-player for some healthy competition. When you're ready, set up your game configuration below, and hit Start Game. Good Luck!"
+    },
+	"configuration": {
+        "title": "Game Configuration",
+        "message": "Select an option to continue.",
+        "singlePlayer": "Single Player",
+        "multiPlayer": "Multi-Player",
+        "singlePlayerInfo": {
+            "label": "Player Info",
+            "placeholder": "Enter player name..."
+        },
+        "multiPlayerInfo": {
+            "label": "Player/Team Name",
+            "addPlayer": "Add Player",
+            "deletePlayer": "Delete player"
+        },
+        "start": "Start Game"
+    }
+}
