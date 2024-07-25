@@ -19,5 +19,12 @@
             "deletePlayer": "Supprimer le lecteur"
         },
         "start": "Commencer le jeu"
+    },
+    "scoreDisplay": {
+        "yourScore": "Votre score"
+    },
+    "Question": {
+        "submit": "Soumettre",
+        "back": "Retour au plateau de jeu"
     }
 }

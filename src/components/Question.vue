@@ -4,7 +4,7 @@
     <div class="category">
       <h2>{{ category }}</h2>
       <p v-if="question">For {{ question.value }} points, your question is:</p>
-      <p v-else>For point, your question is: </p>
+      <p v-else>For points, your question is: </p>
     </div>
     <div class="container">
       <div class="question-wrapper" aria-live="polite">

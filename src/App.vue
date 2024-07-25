@@ -1,6 +1,6 @@
 <template>
 	<header>
-		<h1>Jeopardy Game</h1>
+		<h1>{{ t("title") }}</h1>
 	</header>
 	<main>
 		<div id="app">
@@ -13,10 +13,16 @@
 import { onBeforeMount, ref } from 'vue';
 import { useProgressStore } from './stores/progressStore';
 import { useRouter } from 'vue-router'
+import { useI18n } from "vue-i18n";
 import { useScoreStore } from '@/stores/scoreStore.js'
 import { usePlayerStore } from './stores/playerStore';
 const router = useRouter()
 
+const { t, locale } = useI18n();
+
+// Set html lang based on current locale
+let lang = document.querySelector("html");
+let currLang = lang?.getAttribute("lang");
 
 
 onBeforeMount(() => {
@@ -49,6 +55,11 @@ onBeforeMount(() => {
 	// if(localStorage.getItem("playerStore")) {
 	// 	playerStore.initializePlayers()
 	// }
+
+	if (currLang) {
+    locale.value = currLang
+    lang?.setAttribute('lang', locale.value)
+  }
 
 })
 

@@ -19,5 +19,12 @@
             "deletePlayer": "Delete player"
         },
         "start": "Start Game"
+    },
+    "scoreDisplay": {
+        "yourScore": "Your score"
+    },
+    "Question": {
+        "submit": "Submit",
+        "back": "Back to Game Board"
     }
 }
