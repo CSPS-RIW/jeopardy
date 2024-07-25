@@ -46,8 +46,8 @@ export const usePlayerStore = defineStore({
       } else if (this.gameMode === 'multi-player') {
         if (this.players.length === 0) {
           this.players = [
-            { name: 'Player 1', score: 0, isPlayerTurn: true },
-            { name: 'Player 2', score: 0, isPlayerTurn: false }
+            { name: '', score: 0, isPlayerTurn: true },
+            { name: '', score: 0, isPlayerTurn: false }
           ];
         } else {
           this.players.forEach((player, index) => {
@@ -61,7 +61,7 @@ export const usePlayerStore = defineStore({
     },
     addPlayer() {
       if (this.playerCount < 4) {
-        this.players.push({ name: `Player ${this.playerCount + 1}`, score: 0, isPlayerTurn: false });
+        this.players.push({ name: ``, score: 0, isPlayerTurn: false });
         this.playerCount = this.players.length;
         this.saveConfig();
       } else {
