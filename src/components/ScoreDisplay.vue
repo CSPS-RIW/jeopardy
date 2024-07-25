@@ -2,7 +2,7 @@
     <div >
       <div class="score-board" :class="{ 'player-turn': player.isPlayerTurn }">
         <h2>{{ displayName }}</h2>
-        <p>Your score: {{ player.score }}</p>
+        <p>{{ t("scoreDisplay.yourScore") }} {{ player.score }}</p>
       </div>
     </div>
   </template>
@@ -10,6 +10,10 @@
   <script setup>
   import { useScoreStore } from '../stores/scoreStore.js'
   import { computed } from 'vue';
+  import { useI18n } from "vue-i18n";
+  const { t, locale, availableLocales } = useI18n()
+
+  let lang = document.querySelector('html').getAttribute('lang')
 
   const props = defineProps({
     player: {
@@ -22,7 +26,12 @@
   });
 
   const displayName = computed(() => {
-  return props.player.name.length > 0 ? props.player.name : 'Player ' + (props.index + 1);
+    if(lang ="fr") {
+      return props.player.name.length > 0 ? props.player.name : 'Joueur ' + (props.index + 1);
+    } else {
+      return props.player.name.length > 0 ? props.player.name : 'Player ' + (props.index + 1);
+    }
+  
 });
 
 const scoreStore = useScoreStore()

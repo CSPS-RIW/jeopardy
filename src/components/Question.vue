@@ -3,8 +3,8 @@
   <div class="question-page-wrapper">
     <div class="category">
       <h2>{{ category }}</h2>
-      <p v-if="question">For {{ question.value }} points, your question is:</p>
-      <p v-else>For point, your question is: </p>
+      <p v-if="question">{{ t("question.for") }} {{ question.value }} {{ t("question.points") }}</p>
+      <p v-else>{{ t("question.for") }} {{ ("question.points") }} </p>
     </div>
     <div class="container">
       <div class="question-wrapper" aria-live="polite">
@@ -18,8 +18,8 @@
           </span>
         </fieldset>
         <div class="controls">
-          <button @click="checkAnswer" class="game-button" :disabled="!selectedOption || isSubmitted">Submit</button>
-          <button @click="goBack" class="game-button" :disabled="!isSubmitted">Back to Game Board</button>
+          <button @click="checkAnswer" class="game-button" :disabled="!selectedOption || isSubmitted">{{ t("question.submit") }}</button>
+          <button @click="goBack" class="game-button" :disabled="!isSubmitted">{{ t("question.back") }}</button>
         </div>
       </div>
     </div>
@@ -32,6 +32,11 @@ import { useRoute, useRouter } from 'vue-router';
 import { useProgressStore } from '../stores/progressStore';
 import { usePlayerStore } from '../stores/playerStore';
 import { useScoreStore } from '@/stores/scoreStore';
+import { useI18n } from 'vue-i18n';
+
+const { t, locale, availableLocales } = useI18n()
+
+let lang = document.querySelector('html').getAttribute('lang')
 
 const progressStore = useProgressStore();
 const playerStore = usePlayerStore();

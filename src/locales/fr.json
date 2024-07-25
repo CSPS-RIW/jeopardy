@@ -1,0 +1,38 @@
+{
+	"title": "Jeu de quiz",
+	"welcome": {
+        "title": "Bienvenue au jeu de quiz",
+        "message": "Préparez-vous à tester vos connaissances sur notre sujet. Si vous répondez correctement à une question, vous gagnerez des points en fonction de sa difficulté. Si vous vous trompez, vous perdrez des points ! Essayez d'obtenir le meilleur score possible ou jouez à plusieurs pour une saine compétition. Lorsque vous êtes prêt, configurez votre jeu ci-dessous et cliquez sur Démarrer le jeu. Bonne chance !"
+    },
+    "configuration": {
+        "title": "Configuration du jeu",
+        "message": "Sélectionnez une option pour continuer.",
+        "singlePlayer": "Jeu solo",
+        "multiPlayer": "Jeu multijoueurs",
+        "singlePlayerInfo": {
+            "label": "Informations sur le joueur",
+            "placeholder": "Entrez le nom du joueur..."
+        },
+        "multiPlayerInfo": {
+            "label": "Nom du joueur/de l'équipe",
+            "addPlayer": "Ajouter un joueur",
+            "deletePlayer": "Supprimer le joueur"
+        },
+        "start": "Commencer le jeu"
+    },
+    "scoreDisplay": {
+        "yourScore": "Votre score :"
+    },
+    "question": {
+        "for": "Pour",
+        "points": "points, votre question est :",
+        "submit": "Soumettre",
+        "back": "Retour au plateau de jeu"
+    },
+    "gameOver": {
+        "title": "Fin du jeu",
+        "finalScores": "Scores finaux",
+        "resetButton": "Réinitialiser (mêmes joueurs)",
+        "back": "Retour au menu principal"
+    }
+}
