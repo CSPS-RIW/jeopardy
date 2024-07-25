@@ -23,7 +23,9 @@
     "scoreDisplay": {
         "yourScore": "Votre score :"
     },
-    "Question": {
+    "question": {
+        "for": "Pour",
+        "points": "points, votre question est :",
         "submit": "Soumettre",
         "back": "Retour au plateau de jeu"
     },

@@ -23,7 +23,9 @@
     "scoreDisplay": {
         "yourScore": "Your score:"
     },
-    "Question": {
+    "question": {
+        "for": "for",
+        "points": "points, your question is:",
         "submit": "Submit",
         "back": "Back to Game Board"
     },
