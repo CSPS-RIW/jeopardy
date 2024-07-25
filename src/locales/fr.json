@@ -16,7 +16,7 @@
         "multiPlayerInfo": {
             "label": "Nom du joueur/de l'équipe",
             "addPlayer": "Ajouter un joueur",
-            "deletePlayer": "Supprimer le lecteur"
+            "deletePlayer": "Supprimer le joueur"
         },
         "start": "Commencer le jeu"
     },

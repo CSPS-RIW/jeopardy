@@ -1,31 +1,26 @@
 <template>
   <div class="instructions-container">
     <div class="intro-dialog">
-      <h2 class="instruction-heading">Welcome to the Jeopardy Game!</h2>
+      <h2 class="instruction-heading">{{ t("welcome.title") }}</h2>
       <p class="instruction-text">
-        Get ready to test your knowledge on our subject. Get a question
-        right, and you'll earn points according to its difficulty. Get it
-        wrong, and you'll lose points! Try to get the best score possible,
-        or play multi-player for some healthy competition. When you're
-        ready, set up your game configuration below, and hit Start Game.
-        Good Luck!
+        {{ t("welcome.message") }}
       </p>
     </div>
     <div class="flex">
       <div class="config-container">
-        <h2>Game Configuration</h2>
-        <p>Select an option to continue.</p>
+        <h2>{{ t("configuration.title") }}</h2>
+        <p>{{ t("configuration.message") }}</p>
         <div>
           <fieldset>
             <div>
               <input type="radio" name="option" id="single_player" value="single-player"
                 @change="playerStore.resetPlayerStore()" v-model="gameMode" class="mr-1" />
-              <label for="single_player">Single Player</label>
+              <label for="single_player">{{ t("configuration.singlePlayer") }}</label>
             </div>
             <div>
               <input type="radio" name="option" id="multi_player" value="multi-player"
                 @change="playerStore.resetPlayerStore()" v-model="gameMode" class="mr-1" />
-              <label for="multi_player">Multi-Player</label>
+              <label for="multi_player">{{ t("configuration.multiPlayer") }}</label>
             </div>
           </fieldset>
         </div>
@@ -36,39 +31,38 @@
                 <div v-for="(
 										player, index
 									) in playerStore.players" :key="index">
-                  <label :for="`player_name${index}`" class="mr-2">Player/Team Name:
+                  <label :for="`player_name${index}`" class="mr-2">{{ t("configuration.multiPlayerInfo.label") }}
                   </label>
                   <input class="mr-1" type="text" name="player" :id="`player_name${index}`" v-model="player.name"
                     @keydown.enter.prevent="nextInputField
-                  " placeholder="Player/Team Name"/>
-                  <button class="delete-button" @click.prevent="
+                  " :placeholder="t('configuration.multiPlayerInfo.label')"/>
+                  <button class="delete-button ml-1" @click.prevent="
                   playerStore.deletePlayer(index)
-                  " title="Delete player">
+                  " :title="t('configuration.multiPlayerInfo.deletePlayer')">
                     <i class="fas fa-times"></i>
                   </button>
                 </div>
                 <button @click="playerStore.addPlayer()" class="game-button mt-2"
                   :disabled="playerStore.playerCount >= 4">
-                  Add Player
+                  {{ t('configuration.multiPlayerInfo.addPlayer') }}
                 </button>
                 <div class="startgame d-flex justify-content-center" v-if="playerStore.playerCount > 1">
-                  <router-link to="/" @click.prevent="startGame" class="game-button start-game" role="button">Start
-                    Game</router-link>
+                  <router-link to="/" @click.prevent="startGame" class="game-button start-game" role="button">{{ t("configuration.start")}}</router-link>
                 </div>
               </form>
             </div>
             <div v-else-if="gameMode === 'single-player'">
               <form @submit.prevent>
                 <div>
-                  <span class="input-stack">
-                    <label for="player_name">Player Info:
+                  <span class="d-flex-column">
+                    <label for="player_name">{{ t("configuration.singlePlayerInfo.label") }}
                     </label>
-                    <div class="input-flex">
-                      <input class="ml-2" type="text" name="player" id="player_name" placeholder="Enter player name..."
+                    <div class="d-flex-column">
+                      <input class="ml-2" type="text" name="player" id="player_name" :placeholder="t('configuration.singlePlayerInfo.placeholder')"
                         v-model="playerStore.singlePlayerName" @keydown.enter="startGame" />
-                      <div class="">
+                      <div class="mt-3 d-flex justify-content-center">
                         <router-link to="/" @click.prevent="startGame" class="game-button start-game"
-                          role="button">Start Game</router-link>
+                          role="button">{{ t("configuration.start") }}</router-link>
                       </div>
                     </div>
                   </span>
@@ -89,6 +83,10 @@ import { useScoreStore } from '@/stores/scoreStore';
 import '@fortawesome/fontawesome-free/js/all.js';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { useI18n } from 'vue-i18n';
+const { t, locale, availableLocales } = useI18n()
+
+let lang = document.querySelector('html').getAttribute('lang')
 
 const playerStore = usePlayerStore();
 const scoreStore = useScoreStore();
