@@ -10,7 +10,7 @@
         "singlePlayer": "Single Player",
         "multiPlayer": "Multi-Player",
         "singlePlayerInfo": {
-            "label": "Player Info",
+            "label": "Player Info:",
             "placeholder": "Enter player name..."
         },
         "multiPlayerInfo": {

@@ -9,21 +9,6 @@
     <div class="flex">
       <div class="config-container">
         <h2>{{ t("configuration.title") }}</h2>
-        <!-- <p>{{ t("configuration.message") }}</p> -->
-        <!-- <div>
-          <fieldset>
-            <div>
-              <input type="radio" name="option" id="single_player" value="single-player"
-                @change="playerStore.resetPlayerStore()" v-model="gameMode" class="mr-1" />
-              <label for="single_player">{{ t("configuration.singlePlayer") }}</label>
-            </div>
-            <div>
-              <input type="radio" name="option" id="multi_player" value="multi-player"
-                @change="playerStore.resetPlayerStore()" v-model="gameMode" class="mr-1" />
-              <label for="multi_player">{{ t("configuration.multiPlayer") }}</label>
-            </div>
-          </fieldset>
-        </div> -->
         <div>
           <div>
             <div v-if="gameMode === 'multi-player'">
@@ -63,7 +48,7 @@
                         :placeholder="t('configuration.singlePlayerInfo.placeholder')"
                         v-model="playerStore.singlePlayerName" @keydown.enter="startGame" />
                       <div class="mt-3 d-flex justify-content-center">
-                        <router-link to="/" @click.prevent="startGame" class="game-button start-game" role="button">{{
+                        <router-link to="/gameboard" @click.prevent="startGame" class="game-button router-button start-game" role="button">{{
                           t("configuration.start") }}</router-link>
                       </div>
                     </div>
@@ -258,6 +243,12 @@ onMounted(() => {
 
 .start-game:hover {
   color: var(--main-yellow);
+}
+
+.start-game:focus {
+  color: var(--main-yellow);
+  background-color: var(--game-button-blue);
+  outline: 2px solid var(--main-yellow);
 }
 
 /* Custom Radio inputs */
