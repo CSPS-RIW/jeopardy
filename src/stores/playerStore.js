@@ -10,71 +10,83 @@ export const usePlayerStore = defineStore({
     currentPlayerIndex: 0,
   }),
   actions: {
-    setGameMode(mode) {
-      this.gameMode = mode;
+    setGameMode() {
+      const appElement = document.getElementById('app');
+      this.gameMode = appElement.getAttribute('data-game-mode') || 'single-player';
       this.saveConfig();
     },
     initializePlayers() {
+      this.setGameMode();
       const savedState = localStorage.getItem('playerStore');
-      let singlePlayerScore
-      if(localStorage.getItem('score')) {
-        singlePlayerScore = localStorage.getItem('score')
-      } else {
-        singlePlayerScore = 0
-      }
+      let singlePlayerScore = parseInt(localStorage.getItem('score')) || 0;
+
       if (savedState) {
-        console.log(this.players);
         const state = JSON.parse(savedState);
         this.players = state.players || [];
-        this.playerCount = state.playerCount || 0;
+        this.playerCount = this.players.length;
         this.singlePlayerName = state.singlePlayerName || '';
-        this.gameMode = state.gameMode || '';
         this.currentPlayerIndex = state.currentPlayerIndex || 0;
-        if(this.gameMode === 'multi-player') {
-          this.players[this.currentPlayerIndex].isPlayerTurn = true
+
+        if (this.gameMode === 'multi-player' && this.players.length === 0) {
+          this.setupInitialPlayers();
         } else if (this.gameMode === 'single-player') {
-          this.players = [{ name: this.singlePlayerName, score: singlePlayerScore , isPlayerTurn: true }];
+          this.players = [{ name: this.singlePlayerName || 'Player 1', score: singlePlayerScore, isPlayerTurn: true }];
+          this.playerCount = 1;
         }
       } else {
         this.setupInitialPlayers();
       }
+
       this.saveConfig();
     },
     setupInitialPlayers() {
       if (this.gameMode === 'single-player') {
-        this.players = [{ name: this.singlePlayerName, score: 0, isPlayerTurn: true }];
-        this.currentPlayerIndex = 0;
+        this.players = [{ name: this.singlePlayerName || 'Player 1', score: 0, isPlayerTurn: true }];
+        this.playerCount = 1;
       } else if (this.gameMode === 'multi-player') {
-        this.players.forEach((player, index) => {
-          player.score = 0;
-          player.isPlayerTurn = index === 0;
-        });
-        this.currentPlayerIndex = 0;
+        if (this.players.length === 0) {
+          this.players = [
+            { name: 'Player 1', score: 0, isPlayerTurn: true },
+            { name: 'Player 2', score: 0, isPlayerTurn: false }
+          ];
+        } else {
+          this.players.forEach((player, index) => {
+            player.score = 0;
+            player.isPlayerTurn = index === 0;
+          });
+        }
+        this.playerCount = this.players.length;
       }
+      this.currentPlayerIndex = 0;
     },
     addPlayer() {
       if (this.playerCount < 4) {
-        this.players.push({ name: '', score: 0, isPlayerTurn: false });
-        this.playerCount++;
+        this.players.push({ name: `Player ${this.playerCount + 1}`, score: 0, isPlayerTurn: false });
+        this.playerCount = this.players.length;
         this.saveConfig();
       } else {
         alert('Maximum player count reached!');
       }
     },
     deletePlayer(index) {
-      this.players.splice(index, 1);
-      this.playerCount--;
-      if (this.currentPlayerIndex >= this.playerCount) {
-        this.currentPlayerIndex = 0;
+      if (this.players.length > 2) {
+        this.players.splice(index, 1);
+        this.playerCount = this.players.length;
+        if (this.currentPlayerIndex >= this.playerCount) {
+          this.currentPlayerIndex = 0;
+        }
+        this.players[this.currentPlayerIndex].isPlayerTurn = true;
+        this.saveConfig();
+      } else {
+        alert('Minimum two players required for multiplayer mode!');
       }
-      this.saveConfig();
     },
     resetPlayerStore() {
       this.players = [];
       this.playerCount = 0;
       this.singlePlayerName = '';
-      this.gameMode = '';
       this.currentPlayerIndex = 0;
+      this.setupInitialPlayers();
       this.saveConfig();
     },
     updateTurn() {
