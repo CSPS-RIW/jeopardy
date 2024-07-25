@@ -21,10 +21,16 @@
         "start": "Start Game"
     },
     "scoreDisplay": {
-        "yourScore": "Your score"
+        "yourScore": "Your score:"
     },
     "Question": {
         "submit": "Submit",
         "back": "Back to Game Board"
+    },
+    "gameOver": {
+        "title": "Game Over",
+        "finalScores": "Final Scores",
+        "resetButton": "Reset (same players)",
+        "back": "Back to Main Menu"
     }
 }
