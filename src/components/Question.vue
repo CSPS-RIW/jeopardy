@@ -99,7 +99,9 @@ const checkAnswer = () => {
   scoreStore.saveScore()
   
   isSubmitted.value = true;
-  document.querySelector('.feedback').focus()
+
+  document.querySelector('.feedback-wrapper').focus()
+ 
   question.value.attempted = true;
   progressStore.updateProgress(questionId.value);
 };
