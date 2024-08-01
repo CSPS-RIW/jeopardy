@@ -46,8 +46,8 @@ export const usePlayerStore = defineStore({
       } else if (this.gameMode === 'multi-player') {
         if (this.players.length === 0) {
           this.players = [
-            { name: '', score: 0, isPlayerTurn: true },
-            { name: '', score: 0, isPlayerTurn: false }
+            { name: '', score: 0, isPlayerTurn: true, id: 0 },
+            { name: '', score: 0, isPlayerTurn: false, id: 1 }
           ];
         } else {
           this.players.forEach((player, index) => {
@@ -59,9 +59,25 @@ export const usePlayerStore = defineStore({
       }
       this.currentPlayerIndex = 0;
     },
+    reinitializePlayers() {
+      const savedState = localStorage.getItem('playerStore');
+
+      if (savedState) {
+        const state = JSON.parse(savedState);
+        this.players = state.players || [];
+        this.playerCount = this.players.length;
+        this.singlePlayerName = state.singlePlayerName || '';
+        this.currentPlayerIndex = state.currentPlayerIndex || 0;
+        this.setGameMode()
+      } else {
+        this.setupInitialPlayers();
+      }
+      this.saveConfig();
+    },
     addPlayer() {
       if (this.playerCount < 4) {
-        this.players.push({ name: ``, score: 0, isPlayerTurn: false });
+        const newPlayerId = this.players.length ;
+        this.players.push({ name: ``, score: 0, isPlayerTurn: false, id: newPlayerId });
         this.playerCount = this.players.length;
         this.saveConfig();
       } else {
@@ -72,6 +88,12 @@ export const usePlayerStore = defineStore({
       if (this.players.length > 2) {
         this.players.splice(index, 1);
         this.playerCount = this.players.length;
+
+        // Reassign IDs for remaining players to maintain a contiguous sequence
+        this.players.forEach((player, i) => {
+          player.id = i ; // Reassign ID based on new index
+        });
+
         if (this.currentPlayerIndex >= this.playerCount) {
           this.currentPlayerIndex = 0;
         }
@@ -107,5 +129,17 @@ export const usePlayerStore = defineStore({
       };
       localStorage.setItem('playerStore', JSON.stringify(state));
     },
+    updatePlayerScore(playerId, points) {
+      const player = this.players.find(p => p.id === playerId);
+      if (player) {
+        player.score += points;
+        this.saveConfig();
+      }
+    },
+    getPlayerScore(playerId) {
+      const player = this.players.find(p => p.id === playerId);
+      return player ? player.score : 0;
+    },
+
   },
 });

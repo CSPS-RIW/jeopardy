@@ -51,14 +51,18 @@ onMounted(() => {
     let localStorageProgress = JSON.parse(localStorage.getItem("progress"));
     categories.value = localStorageProgress.categories;
     questions.value = localStorageProgress.questions;
+
+    playerStore.reinitializePlayers()
     
   } else {
     categories.value = progressStore.gameData.categories;
     questions.value = progressStore.gameData.questions;
     //playerStore.initializePlayers()
+
+    playerStore.initializePlayers();
   }
 
-  playerStore.initializePlayers();
+  
 });
 
 const selectQuestion = (questionId) => {

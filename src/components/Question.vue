@@ -7,37 +7,37 @@
       <p v-else>{{ t("question.for") }} {{ ("question.points") }} </p>
     </div>
     <div class="container">
-        <div class="question-wrapper" ref="questionWrapper">
-          <h2>Question</h2>
-          <p v-if="question">{{ question.question }}</p>
-          <fieldset v-if="question">
-            <legend></legend>
-            <span v-for="(option, index) in question.options" :key="index" class="option">
-              <input type="radio" :id="'option_' + index" :value="option" name="option" v-model="selectedOption"
-                :disabled="isSubmitted" ref="options">
-              <label :for="'option_' + index">{{ option }}</label>
-            </span>
-            <div class="feedback-wrapper" aria-live="polite">
-              <div class="feedback" v-if="isSubmitted" tabindex="-1">
-                <div class="correct-feedback" v-if="selectedOption === question.answer">
-                  <p>{{ question.feedback.correct }}</p>
-                </div>
-                <div class="incorrect-feedback" v-else>
-                  <p>{{ question.feedback.incorrect }}</p>
-                </div>
-                <div class="generic-feedback" >
-                  <p>{{ question.feedback.generic }}</p>
-                </div>
+      <div class="question-wrapper" ref="questionWrapper">
+        <h2>Question</h2>
+        <p v-if="question">{{ question.question }}</p>
+        <fieldset v-if="question">
+          <legend></legend>
+          <span v-for="(option, index) in question.options" :key="index" class="option">
+            <input type="radio" :id="'option_' + index" :value="option" name="option" v-model="selectedOption"
+              :disabled="isSubmitted" ref="options">
+            <label :for="'option_' + index">{{ option }}</label>
+          </span>
+          <div class="feedback-wrapper" aria-live="polite">
+            <div class="feedback" v-if="isSubmitted" tabindex="-1">
+              <div class="correct-feedback" v-if="selectedOption === question.answer">
+                <p>{{ question.feedback.correct }}</p>
+              </div>
+              <div class="incorrect-feedback" v-else>
+                <p>{{ question.feedback.incorrect }}</p>
+              </div>
+              <div class="generic-feedback">
+                <p>{{ question.feedback.generic }}</p>
               </div>
             </div>
-          </fieldset>
-          <div class="controls">
-            <button @click="checkAnswer" class="game-button" :disabled="!selectedOption || isSubmitted">{{
-          t("question.submit") }}</button>
-            <button @click="goBack" class="game-button" :disabled="!isSubmitted">{{ t("question.back") }}</button>
           </div>
+        </fieldset>
+        <div class="controls">
+          <button @click="checkAnswer" class="game-button" :disabled="!selectedOption || isSubmitted">{{
+        t("question.submit") }}</button>
+          <button @click="goBack" class="game-button" :disabled="!isSubmitted">{{ t("question.back") }}</button>
         </div>
-      
+      </div>
+
     </div>
   </div>
 </template>
@@ -88,13 +88,18 @@ const updateWrapperHeight = async () => {
 onMounted(() => {
   // load progress
   progressStore.loadProgress()
-
+  playerStore.reinitializePlayers(); // Ensure players are initialized
   // set the question and category values
   question.value = progressStore.gameData.questions.find(q => q.id === parseInt(questionId.value));
   category.value = progressStore.gameData.categories[question.value.categoryId]
 
   // set focus on page wrapper for accessibility
   document.querySelector('.question-page-wrapper').focus()
+
+  if (question.value.attempted) {
+    isSubmitted.value = true;
+    selectedOption.value = question.value.answer; // Set the correct answer
+  }
 
   // wrapper height for animation
   updateWrapperHeight();
@@ -130,6 +135,7 @@ const checkAnswer = () => {
   //// checking answer and increase or decrease score accordingly
 
   let currentPlayer
+
   if (playerStore.gameMode === 'single-player') {
     currentPlayer = playerStore.players[0];
   } else {
@@ -137,12 +143,9 @@ const checkAnswer = () => {
   }
 
   if (selectedOption.value === question.value.answer) {
-    currentPlayer.score += question.value.value;
-    scoreStore.increaseScore(question.value.value);
+    playerStore.updatePlayerScore(currentPlayer.id, question.value.value);
   } else {
-    currentPlayer.score -= question.value.value;
-    scoreStore.decreaseScore(question.value.value);
-    // update turn if multiplayer and question was answered incorrectly
+    playerStore.updatePlayerScore(currentPlayer.id, -question.value.value);
     if (playerStore.gameMode === 'multi-player') {
       playerStore.updateTurn();
     }
@@ -151,7 +154,7 @@ const checkAnswer = () => {
   // save score and save config
   playerStore.saveConfig();
   scoreStore.saveScore()
-  
+
   // question is now submitted
   isSubmitted.value = true;
 
@@ -160,7 +163,7 @@ const checkAnswer = () => {
 
   // last piece for height animation
   void document.querySelector('.question-wrapper').offsetHeight
- 
+
   // question is attempted
   question.value.attempted = true;
   // update progress store
@@ -175,14 +178,13 @@ const goBack = () => {
 
 
 <style scoped lang="scss">
-
 .animate__animated {
   --animate-duration: 0.5s;
 }
 
 /* Style quiz when focused */
-.question-page-wrapper[tabindex='-1']:focus-visible  {
-	outline: 5px solid red !important;
+.question-page-wrapper[tabindex='-1']:focus-visible {
+  outline: 5px solid red !important;
   outline-offset: 5px;
   border-radius: 5px;
 }
