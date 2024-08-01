@@ -48,8 +48,9 @@
                         :placeholder="t('configuration.singlePlayerInfo.placeholder')"
                         v-model="playerStore.singlePlayerName" @keydown.enter="startGame" />
                       <div class="mt-3 d-flex justify-content-center">
-                        <router-link to="/gameboard" @click.prevent="startGame" class="game-button router-button start-game" role="button">{{
-                          t("configuration.start") }}</router-link>
+                        <router-link to="/gameboard" @click.prevent="startGame"
+                          class="game-button router-button start-game" role="button">{{
+        t("configuration.start") }}</router-link>
                       </div>
                     </div>
                   </span>
@@ -131,12 +132,11 @@ onMounted(() => {
 }
 
 .intro-dialog {
-
-  background-color: var(--dark-bgc);
   border-radius: 5px;
   padding: 1rem 0.5rem;
   margin-bottom: 1rem;
   border: 3px solid var(--main-yellow);
+  background: linear-gradient(to bottom, rgba(3, 9, 180, 1) 0%, rgba(0, 15, 82, 1) 100%);
 
   h2.instruction-heading {
     color: var(--main-yellow);
@@ -155,16 +155,13 @@ onMounted(() => {
 
 .config-container {
   font-size: 20px;
-
   padding: 1rem;
   margin-bottom: 1rem;
-  width: 450px;
+  //width: 450px;
   /* max-width: 550px; */
   border-radius: 5px;
-
   border: 3px solid var(--main-yellow);
-
-  background-color: var(--dark-bgc);
+  background: linear-gradient(to bottom, rgba(3, 9, 180, 1) 0%, rgba(0, 15, 82, 1) 100%);
   color: var(--white-heat);
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 
@@ -194,7 +191,7 @@ onMounted(() => {
 
 .instructions-container {
   /* height: 500px; */
-  width: 1200px;
+  //width: 1200px;
   border: 2px solid var(--game-button-blue);
   border-radius: 10px;
   background-color: var(--game-button-blue);

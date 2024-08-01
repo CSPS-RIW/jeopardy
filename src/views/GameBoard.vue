@@ -2,7 +2,7 @@
   <div>
     <ScoreDisplay v-for="player in playerStore.players" v-if="!isGameOver" class="sr-only" :player="player" />
     <div class="game-board" v-if="!isGameOver">
-      <div v-for="(category, catIndex) in categories" :key="catIndex">
+      <div class="category-container" v-for="(category, catIndex) in categories" :key="catIndex">
         <div class="category-column">
           <h2>{{ category }}</h2>
         </div>
@@ -122,6 +122,12 @@ const resetGame = () => {
   padding: 6px;
   border-radius: 10px;
   outline: 1px solid #ffffff00;
+}
+
+.category-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .category-column {
