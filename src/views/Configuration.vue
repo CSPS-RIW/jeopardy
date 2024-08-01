@@ -131,12 +131,11 @@ onMounted(() => {
 }
 
 .intro-dialog {
-
-  background-color: var(--dark-bgc);
   border-radius: 5px;
   padding: 1rem 0.5rem;
   margin-bottom: 1rem;
   border: 3px solid var(--main-yellow);
+  background: linear-gradient(to bottom, rgba(3, 9, 180, 1) 0%,rgba(0, 15, 82, 1) 100%);
 
   h2.instruction-heading {
     color: var(--main-yellow);
@@ -164,7 +163,7 @@ onMounted(() => {
 
   border: 3px solid var(--main-yellow);
 
-  background-color: var(--dark-bgc);
+  background: linear-gradient(to bottom, rgba(3, 9, 180, 1) 0%,rgba(0, 15, 82, 1) 100%);
   color: var(--white-heat);
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 

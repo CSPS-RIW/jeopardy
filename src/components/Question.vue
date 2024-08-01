@@ -249,6 +249,7 @@ p {
 .question-page-wrapper {
   background-color: var(--dark-bgc);
   padding: 1rem;
+  border-radius: 5px;
 }
 
 

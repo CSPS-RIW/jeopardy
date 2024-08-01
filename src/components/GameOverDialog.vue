@@ -61,8 +61,9 @@
     padding: 2rem;
     background-color: var(--game-button-blue);
     color: var(--main-yellow);
-    border: 2px solid var(--main-yellow);
+    border: 5px solid var(--main-yellow);
     font-size: 20px;
+    border-radius: 5px;
   }
   </style>
   
