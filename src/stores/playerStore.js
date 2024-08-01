@@ -46,8 +46,8 @@ export const usePlayerStore = defineStore({
       } else if (this.gameMode === 'multi-player') {
         if (this.players.length === 0) {
           this.players = [
-            { name: '', score: 0, isPlayerTurn: true },
-            { name: '', score: 0, isPlayerTurn: false }
+            { name: '', score: 0, isPlayerTurn: true, id: 0 },
+            { name: '', score: 0, isPlayerTurn: false, id: 1 }
           ];
         } else {
           this.players.forEach((player, index) => {
