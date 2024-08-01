@@ -59,11 +59,11 @@
 
   .container {
     padding: 2rem;
-    background-color: var(--game-button-blue);
+    background: linear-gradient(to bottom, rgba(3, 9, 180, 1) 0%,rgba(0, 15, 82, 1) 100%);
     color: var(--main-yellow);
     border: 5px solid var(--main-yellow);
     font-size: 20px;
-    border-radius: 5px;
+    border-radius: 8px;
   }
   </style>
   
