@@ -68,6 +68,7 @@ export const usePlayerStore = defineStore({
         this.playerCount = this.players.length;
         this.singlePlayerName = state.singlePlayerName || '';
         this.currentPlayerIndex = state.currentPlayerIndex || 0;
+        this.setGameMode()
       } else {
         this.setupInitialPlayers();
       }

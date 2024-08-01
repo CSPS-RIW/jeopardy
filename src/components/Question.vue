@@ -88,7 +88,7 @@ const updateWrapperHeight = async () => {
 onMounted(() => {
   // load progress
   progressStore.loadProgress()
-  //playerStore.initializePlayers(); // Ensure players are initialized
+  playerStore.reinitializePlayers(); // Ensure players are initialized
   // set the question and category values
   question.value = progressStore.gameData.questions.find(q => q.id === parseInt(questionId.value));
   category.value = progressStore.gameData.categories[question.value.categoryId]
@@ -144,7 +144,7 @@ const checkAnswer = () => {
 
   if (selectedOption.value === question.value.answer) {
     playerStore.updatePlayerScore(currentPlayer.id, question.value.value);
-    console.log(playerStore.players[playerStore.currentPlayerIndex])
+    //console.log(playerStore.players[playerStore.currentPlayerIndex])
     // if (playerStore.gameMode === 'single-player') {
     //   scoreStore.increaseScore(question.value.value);
     // }
