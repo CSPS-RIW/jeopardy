@@ -144,16 +144,8 @@ const checkAnswer = () => {
 
   if (selectedOption.value === question.value.answer) {
     playerStore.updatePlayerScore(currentPlayer.id, question.value.value);
-    //console.log(playerStore.players[playerStore.currentPlayerIndex])
-    // if (playerStore.gameMode === 'single-player') {
-    //   scoreStore.increaseScore(question.value.value);
-    // }
   } else {
     playerStore.updatePlayerScore(currentPlayer.id, -question.value.value);
-    console.log(playerStore.players[playerStore.currentPlayerIndex])
-    // if (playerStore.gameMode === 'single-player') {
-    //   scoreStore.decreaseScore(question.value.value);
-    // }
     if (playerStore.gameMode === 'multi-player') {
       playerStore.updateTurn();
     }
