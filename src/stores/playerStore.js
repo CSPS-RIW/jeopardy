@@ -75,7 +75,8 @@ export const usePlayerStore = defineStore({
     },
     addPlayer() {
       if (this.playerCount < 4) {
-        this.players.push({ name: ``, score: 0, isPlayerTurn: false });
+        const newPlayerId = this.players.length ;
+        this.players.push({ name: ``, score: 0, isPlayerTurn: false, id: newPlayerId });
         this.playerCount = this.players.length;
         this.saveConfig();
       } else {
@@ -86,6 +87,12 @@ export const usePlayerStore = defineStore({
       if (this.players.length > 2) {
         this.players.splice(index, 1);
         this.playerCount = this.players.length;
+
+        // Reassign IDs for remaining players to maintain a contiguous sequence
+        this.players.forEach((player, i) => {
+          player.id = i ; // Reassign ID based on new index
+        });
+
         if (this.currentPlayerIndex >= this.playerCount) {
           this.currentPlayerIndex = 0;
         }
