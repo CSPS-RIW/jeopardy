@@ -32,7 +32,7 @@
   })
 
   const displayName = (player, index) => {
-    if(lang ="fr") {
+    if(lang === "fr") {
       return player.name.length > 0 ? player.name : 'Joueur ' + (index + 1);
     } else {
       return player.name.length > 0 ? player.name : 'Player ' + (index + 1);
