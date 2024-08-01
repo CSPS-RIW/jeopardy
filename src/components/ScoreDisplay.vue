@@ -26,7 +26,7 @@
   });
 
   const displayName = computed(() => {
-    if(lang ="fr") {
+    if(lang === "fr") {
       return props.player.name.length > 0 ? props.player.name : 'Joueur ' + (props.index + 1);
     } else {
       return props.player.name.length > 0 ? props.player.name : 'Player ' + (props.index + 1);

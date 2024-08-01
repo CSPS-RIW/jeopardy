@@ -88,13 +88,18 @@ const updateWrapperHeight = async () => {
 onMounted(() => {
   // load progress
   progressStore.loadProgress()
-
+  playerStore.initializePlayers(); // Ensure players are initialized
   // set the question and category values
   question.value = progressStore.gameData.questions.find(q => q.id === parseInt(questionId.value));
   category.value = progressStore.gameData.categories[question.value.categoryId]
 
   // set focus on page wrapper for accessibility
   document.querySelector('.question-page-wrapper').focus()
+
+  if (question.value.attempted) {
+    isSubmitted.value = true;
+    selectedOption.value = question.value.answer; // Set the correct answer
+  }
 
   // wrapper height for animation
   updateWrapperHeight();
@@ -130,6 +135,7 @@ const checkAnswer = () => {
   //// checking answer and increase or decrease score accordingly
 
   let currentPlayer
+  
   if (playerStore.gameMode === 'single-player') {
     currentPlayer = playerStore.players[0];
   } else {
