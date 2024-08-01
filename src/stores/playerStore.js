@@ -59,6 +59,20 @@ export const usePlayerStore = defineStore({
       }
       this.currentPlayerIndex = 0;
     },
+    reinitializePlayers() {
+      const savedState = localStorage.getItem('playerStore');
+
+      if (savedState) {
+        const state = JSON.parse(savedState);
+        this.players = state.players || [];
+        this.playerCount = this.players.length;
+        this.singlePlayerName = state.singlePlayerName || '';
+        this.currentPlayerIndex = state.currentPlayerIndex || 0;
+      } else {
+        this.setupInitialPlayers();
+      }
+      this.saveConfig();
+    },
     addPlayer() {
       if (this.playerCount < 4) {
         this.players.push({ name: ``, score: 0, isPlayerTurn: false });
@@ -107,5 +121,17 @@ export const usePlayerStore = defineStore({
       };
       localStorage.setItem('playerStore', JSON.stringify(state));
     },
+    updatePlayerScore(playerId, points) {
+      const player = this.players.find(p => p.id === playerId);
+      if (player) {
+        player.score += points;
+        this.saveConfig();
+      }
+    },
+    getPlayerScore(playerId) {
+      const player = this.players.find(p => p.id === playerId);
+      return player ? player.score : 0;
+    },
+
   },
 });
