@@ -1,9 +1,9 @@
 <template>
     <div v-if="isOpen" class="modal-overlay" @click="closeModal">
       <div class="modal-content" @click.stop>
-        <button class="close-button" @click="closeModal" title="Close modal">&times;</button>
-        <h2>Reset Game</h2>
-        <p>Are you sure you want to reset the game?</p>
+        <button class="close-button" @click="closeModal" :title="t('modal.close')">&times;</button>
+        <h2>{{ t("modal.title") }}</h2>
+        <p>{{ t("modal.paragraph") }}</p>
         <div class="button-container">
             <button class="game-button mr-1" @click="$emit('update:reset'); $emit('close')">{{ t("gameOver.resetButton") }}</button>
             <button class="game-button ml-1" @click="$emit('update:retry')">{{ t("gameOver.back") }}</button>

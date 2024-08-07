@@ -34,5 +34,10 @@
         "finalScores": "Scores finaux",
         "resetButton": "Réinitialiser (mêmes joueurs)",
         "back": "Retour au menu principal"
+    },
+    "modal": {
+        "title": "Options",
+        "paragraph": "Vous pouvez réinitialiser le jeu avec la même configuration ou retourner au menu principal pour ajuster la configuration.",
+        "close": "Fermer la fenêtre modale"
     }
 }
