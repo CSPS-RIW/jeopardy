@@ -34,5 +34,10 @@
         "finalScores": "Final Scores",
         "resetButton": "Reset (same players)",
         "back": "Back to Main Menu"
+    },
+    "modal": {
+        "title": "Options",
+        "paragraph": "You can reset the game with the same configuration, or go back to the main menu to adjust the configuration.",
+        "close": "Close modal"
     }
 }
