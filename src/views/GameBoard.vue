@@ -19,15 +19,18 @@
     <div class="score-container">
       <ScoreDisplay v-for="(player, index) in playerStore.players" v-if="!isGameOver" :player="player" :key="index" :index="index"/>
     </div>
+    <button v-if="!isGameOver" @click="openResetModal" class="reset-button game-button" title="Options"><i class="fas fa-question"></i></button>
+    <ResetModal @update:retry="restartGame" @update:reset="resetGame" :isOpen="isResetModalOpen" @close="closeResetModal" />
     <GameOverDialog v-if="isGameOver" :finalScore="score" @update:retry="restartGame" @update:reset="resetGame" />
   </div>
 </template>
 
 <script setup>
-import { onMounted, ref, watch } from 'vue';
+import { onMounted, ref, watch, onUnmounted } from 'vue';
 import { useRouter } from 'vue-router';
 import GameOverDialog from '../components/GameOverDialog.vue';
 import ScoreDisplay from '../components/ScoreDisplay.vue';
+import ResetModal from '../components/ResetModal.vue';
 import { useProgressStore } from '../stores/progressStore';
 import { usePlayerStore } from '../stores/playerStore';
 import { useScoreStore } from '../stores/scoreStore.js';
@@ -62,8 +65,30 @@ onMounted(() => {
     playerStore.initializePlayers();
   }
 
-  
+  document.addEventListener('keydown', handleKeyDown);
 });
+
+onUnmounted(() => {
+  document.removeEventListener('keydown', handleKeyDown);
+})
+
+// Modal methods
+
+const isResetModalOpen = ref(false);
+
+const openResetModal = () => {
+  isResetModalOpen.value = true;
+};
+
+const closeResetModal = () => {
+  isResetModalOpen.value = false;
+};
+
+const handleKeyDown = (event) => {
+  if (event.key === 'Escape' && isResetModalOpen.value) {
+    closeResetModal();
+  }
+};
 
 const selectQuestion = (questionId) => {
   const question = questions.value.find(q => q.id === questionId);
@@ -186,4 +211,6 @@ const resetGame = () => {
   display: flex;
   justify-content: space-around;
 }
+
+
 </style>
