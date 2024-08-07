@@ -101,6 +101,12 @@ onMounted(() => {
     selectedOption.value = question.value.answer; // Set the correct answer
   }
 
+  const savedOption = localStorage.getItem(`question_${questionId.value}_selectedOption`);
+  if (savedOption) {
+    selectedOption.value = savedOption;
+  }
+  console.log(selectedOption);
+
   // wrapper height for animation
   updateWrapperHeight();
   // After setting initial height, remove the fixed height to allow natural expansion
@@ -151,6 +157,9 @@ const checkAnswer = () => {
     }
   }
 
+  localStorage.setItem('selectedOption', selectedOption.value)
+  
+
   // save score and save config
   playerStore.saveConfig();
   scoreStore.saveScore()
@@ -172,6 +181,9 @@ const checkAnswer = () => {
 
 // back to gameboard function
 const goBack = () => {
+  // Clear saved option from localStorage
+  localStorage.removeItem('selectedOption');
+
   router.push('/gameboard');
 };
 </script>
