@@ -1,3 +1,4 @@
+// score display component. has a yellow outline if it is that player's turn
 <template>
     <div >
       <div class="score-board" :class="{ 'player-turn': player.isPlayerTurn }">

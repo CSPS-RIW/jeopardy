@@ -31,11 +31,6 @@ export const useProgressStore = defineStore({
 			const savedData = localStorage.getItem('progress');
 			if (savedData) {
 				const gameInfo = JSON.parse(savedData);
-				// console.log(gameInfo);
-				// Iterate through gameData questions and update attempted based on attempts object
-				// for (const question of gameInfo.questions) {
-				//   question.attempted = gameInfo.questions[question.id] || false;
-				// }
 			}
 		},
 

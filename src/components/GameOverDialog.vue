@@ -1,3 +1,4 @@
+// game over component
 <template>
     <div class="game-over-dialog">
       <div class="container">

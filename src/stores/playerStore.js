@@ -3,18 +3,20 @@ import { defineStore } from 'pinia';
 export const usePlayerStore = defineStore({
   id: 'player',
   state: () => ({
-    players: [],
-    playerCount: 0,
-    singlePlayerName: '',
+    players: [], // players array
+    playerCount: 0, // number of players
+    singlePlayerName: '', // name for single player
     gameMode: '', // 'single-player' or 'multi-player'
-    currentPlayerIndex: 0,
+    currentPlayerIndex: 0, // this shows whose turn it is
   }),
   actions: {
+    // setting the game mode from the data-game-mode property
     setGameMode() {
       const appElement = document.getElementById('app');
       this.gameMode = appElement.getAttribute('data-game-mode') || 'single-player';
       this.saveConfig();
     },
+    // initializing the players, depending on if there's progress in local storage or not
     initializePlayers() {
       this.setGameMode();
       const savedState = localStorage.getItem('playerStore');
@@ -39,6 +41,7 @@ export const usePlayerStore = defineStore({
 
       this.saveConfig();
     },
+    // callback function that sets the basic players parameters
     setupInitialPlayers() {
       if (this.gameMode === 'single-player') {
         this.players = [{ name: this.singlePlayerName || 'Player 1', score: 0, isPlayerTurn: true }];
@@ -59,6 +62,7 @@ export const usePlayerStore = defineStore({
       }
       this.currentPlayerIndex = 0;
     },
+    // using this when the app gets reloaded to grab players info from localstorage
     reinitializePlayers() {
       const savedState = localStorage.getItem('playerStore');
 
@@ -74,6 +78,7 @@ export const usePlayerStore = defineStore({
       }
       this.saveConfig();
     },
+    // add a player to multiplayer mode. Max player count is 4, could change that if you want
     addPlayer() {
       if (this.playerCount < 4) {
         const newPlayerId = this.players.length ;
@@ -84,6 +89,7 @@ export const usePlayerStore = defineStore({
         alert('Maximum player count reached!');
       }
     },
+    // delete a player from the players array. minimum player number is 2 for multiplayer
     deletePlayer(index) {
       if (this.players.length > 2) {
         this.players.splice(index, 1);
@@ -103,6 +109,7 @@ export const usePlayerStore = defineStore({
         alert('Minimum two players required for multiplayer mode!');
       }
     },
+    // method for resetting the player store
     resetPlayerStore() {
       this.players = [];
       this.playerCount = 0;
@@ -111,6 +118,7 @@ export const usePlayerStore = defineStore({
       this.setupInitialPlayers();
       this.saveConfig();
     },
+    // when a player gets a question wrong, this updates to the next player's turn
     updateTurn() {
       if (this.players.length > 0) {
         this.players[this.currentPlayerIndex].isPlayerTurn = false;
@@ -119,6 +127,7 @@ export const usePlayerStore = defineStore({
         this.saveConfig();
       }
     },
+    // save config callback function
     saveConfig() {
       const state = {
         players: this.players,
@@ -129,6 +138,7 @@ export const usePlayerStore = defineStore({
       };
       localStorage.setItem('playerStore', JSON.stringify(state));
     },
+    // updating the player score
     updatePlayerScore(playerId, points) {
       const player = this.players.find(p => p.id === playerId);
       if (player) {
@@ -136,6 +146,7 @@ export const usePlayerStore = defineStore({
         this.saveConfig();
       }
     },
+    // get the player's score
     getPlayerScore(playerId) {
       const player = this.players.find(p => p.id === playerId);
       return player ? player.score : 0;
