@@ -20,14 +20,20 @@
           <div class="feedback-wrapper" aria-live="polite">
             <div class="feedback" v-if="isSubmitted" tabindex="-1">
               <div class="correct-feedback" v-if="selectedOption === question.answer">
+                <span class="feedback-icon" aria-hidden="true"></span>
                 <p>{{ question.feedback.correct }}</p>
-              </div>
-              <div class="incorrect-feedback" v-else>
-                <p>{{ question.feedback.incorrect }}</p>
-              </div>
-              <div class="generic-feedback">
+                <div class="generic-feedback">
                 <p>{{ question.feedback.generic }}</p>
               </div>
+              </div>
+              <div class="incorrect-feedback" v-else>
+                <span class="feedback-icon" aria-hidden="true"></span>
+                <p>{{ question.feedback.incorrect }}</p>
+                <div class="generic-feedback">
+                <p>{{ question.feedback.generic }}</p>
+              </div>
+              </div>
+              
             </div>
           </div>
         </fieldset>
@@ -343,6 +349,62 @@ input[type='radio']:disabled+label::after {
   background-color: var(--disabled);
   border-color: var(--disabled);
   cursor: not-allowed;
+}
+
+.correct-feedback {
+  position: relative;
+    outline-style: solid;
+    outline-width: 2px;
+    outline-color: #18703a;
+    background-color: #e2f3e8;
+    color: #072b00;
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+    margin-bottom: 15px;
+}
+
+.correct-feedback .feedback-icon[data-v-5ab2d74e]::after {
+    content: '\2714';
+    padding: 0px 0px 0px 7px;
+    outline: 2px solid #ffffff00;
+    color: var(--white-heat);
+    background-color: #18703a;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: -10px;
+    right: -11px;
+    background-origin: padding-box;
+    border-radius: 50%;
+    font-size: 19px;
+}
+
+.incorrect-feedback .feedback-icon[data-v-5ab2d74e]::after {
+    content: '\2716';
+    padding: 0px 0px 0px 7px;
+    outline: 2px solid #ffffff00;
+    color: var(--white-heat);
+    background-color: #9e0404;
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: -10px;
+    right: -11px;
+    background-origin: padding-box;
+    border-radius: 50%;
+    font-size: 19px;
+}
+
+.incorrect-feedback {
+  position: relative;
+    outline-style: solid;
+    outline-width: 2px;
+    outline-color: #9e0404;
+    background-color: #f3e2e2;
+    color: #2b0000;
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+    margin-bottom: 15px;
 }
 
 @media (prefers-contrast: more) {
