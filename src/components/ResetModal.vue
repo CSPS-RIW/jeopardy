@@ -1,3 +1,4 @@
+// the modal component. Used to soft or hard reset the game
 <template>
     <div v-if="isOpen" class="modal-overlay" @click="closeModal">
       <div class="modal-content" @click.stop>

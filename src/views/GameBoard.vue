@@ -1,11 +1,15 @@
 <template>
   <div>
+    <!-- Score display component, per number of players. this is for screenreaders only -->
     <ScoreDisplay v-for="player in playerStore.players" v-if="!isGameOver" class="sr-only" :player="player" />
+    <!-- the gameboard. won't show if game is over -->
     <div class="game-board" v-if="!isGameOver">
+      <!-- category container -->
       <div class="category-container" v-for="(category, catIndex) in categories" :key="catIndex">
         <div class="category-column">
           <h2>{{ category }}</h2>
         </div>
+        <!-- questions. disabled if attempted -->
         <div class="question-column">
           <button v-for="(question, qIndex) in progressStore.filteredQuestions(catIndex)" :key="qIndex"
             class="question-cell" :class="{ 'attempted': question.attempted }" @click="selectQuestion(question.id)"
@@ -16,18 +20,23 @@
         </div>
       </div>
     </div>
+    <!-- visible score displays -->
     <div class="score-container">
       <ScoreDisplay v-for="(player, index) in playerStore.players" v-if="!isGameOver" :player="player" :key="index" :index="index"/>
     </div>
+    <!-- Options button, featuring a tooltip -->
     <button v-if="!isGameOver" v-tippy="{ content: 'Options'}" @click="openResetModal" class="reset-button game-button"><i class="fas fa-question"></i></button>
+    <!-- Options modal window, with a fade in animation -->
     <Transition name="fade" mode="out-in">
       <ResetModal @update:retry="restartGame" @update:reset="resetGame" :isOpen="isResetModalOpen" @close="closeResetModal" />
     </Transition>
+    <!-- Game Over Dialog. only displays if isGameOver is true -->
     <GameOverDialog v-if="isGameOver" :finalScore="score" @update:retry="restartGame" @update:reset="resetGame" />
   </div>
 </template>
 
 <script setup>
+// imports
 import { onMounted, ref, watch, onUnmounted } from 'vue';
 import { useRouter } from 'vue-router';
 import GameOverDialog from '../components/GameOverDialog.vue';
@@ -38,6 +47,7 @@ import { usePlayerStore } from '../stores/playerStore';
 import { useScoreStore } from '../stores/scoreStore.js';
 import { useTippy } from 'vue-tippy'
 
+// variables, including our stores
 const progressStore = useProgressStore();
 const playerStore = usePlayerStore();
 const scoreStore = useScoreStore();
@@ -51,6 +61,7 @@ const router = useRouter();
 const categories = ref([]);
 const questions = ref([]);
 
+// onmounted, checking for progress, grabbing it from localstorage. if there is progress, we reinitialize the players that we had. If not, we initialize players, which will just put dummy player names
 onMounted(() => {
   if (localStorage.getItem("progress")) {
     progressStore.loadProgress();
@@ -63,11 +74,10 @@ onMounted(() => {
   } else {
     categories.value = progressStore.gameData.categories;
     questions.value = progressStore.gameData.questions;
-    //playerStore.initializePlayers()
-
+    
     playerStore.initializePlayers();
   }
-
+  // this if for the modal window
   document.addEventListener('keydown', handleKeyDown);
 });
 
@@ -93,6 +103,7 @@ const handleKeyDown = (event) => {
   }
 };
 
+// When you select a question, navigate to that question, and set its attempted property to true
 const selectQuestion = (questionId) => {
   const question = questions.value.find(q => q.id === questionId);
   if (question && !question.attempted) {
@@ -101,6 +112,7 @@ const selectQuestion = (questionId) => {
   }
 };
 
+// once all the questions have been answered, we go to the endgame
 watch(questions, () => {
   if (questions.value.every(question => question.attempted)) {
     isGameOver.value = true;
@@ -108,6 +120,7 @@ watch(questions, () => {
   }
 });
 
+// full reset of the game, go back to the configuration screen
 const restartGame = () => {
   progressStore.resetProgress();
   playerStore.resetPlayerStore();
@@ -117,6 +130,7 @@ const restartGame = () => {
   router.push('/');
 };
 
+// soft reset of the game, keeps the same players but resets all progress and scores
 const resetGame = () => {
   progressStore.resetProgress();
   scoreStore.resetScore();

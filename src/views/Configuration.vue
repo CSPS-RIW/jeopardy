@@ -1,4 +1,5 @@
 <template>
+  <!-- instructions section -->
   <div class="instructions-container">
     <div class="intro-dialog">
       <h2 class="instruction-heading">{{ t("welcome.title") }}</h2>
@@ -7,12 +8,15 @@
       </p>
     </div>
     <div class="flex">
+      <!-- configuration section -->
       <div class="config-container">
         <h2>{{ t("configuration.title") }}</h2>
         <div>
           <div>
+            <!-- if the game is multiplayer, display multiplayer options -->
             <div v-if="gameMode === 'multi-player'">
               <form @submit.prevent>
+                <!-- player/team input, label, and delete button -->
                 <div v-for="(
 										player, index
 									) in playerStore.players" :key="index">
@@ -27,20 +31,24 @@
                     <i class="fas fa-times"></i>
                   </button>
                 </div>
+                <!-- add player button -->
                 <button @click="playerStore.addPlayer()" class="game-button mt-2"
                   :disabled="playerStore.playerCount >= 4">
                   {{ t('configuration.multiPlayerInfo.addPlayer') }}
                 </button>
+                <!-- start game button -->
                 <div class="startgame d-flex justify-content-center" v-if="playerStore.playerCount > 1">
                   <router-link to="/" @click.prevent="startGame" class="game-button start-game" role="button">{{
         t("configuration.start") }}</router-link>
                 </div>
               </form>
             </div>
+            <!-- single player config options -->
             <div v-else-if="gameMode === 'single-player'">
               <form @submit.prevent>
                 <div>
                   <span class="d-flex-column">
+                    <!-- simply a label and an input for the single player user name -->
                     <label for="player_name">{{ t("configuration.singlePlayerInfo.label") }}
                     </label>
                     <div class="d-flex-column">
@@ -48,6 +56,7 @@
                         :placeholder="t('configuration.singlePlayerInfo.placeholder')"
                         v-model="playerStore.singlePlayerName" @keydown.enter="startGame" />
                       <div class="mt-3 d-flex justify-content-center">
+                        <!-- start game router link -->
                         <router-link to="/gameboard" @click.prevent="startGame"
                           class="game-button router-button start-game" role="button">{{
         t("configuration.start") }}</router-link>
@@ -66,6 +75,7 @@
 </template>
 
 <script setup>
+// imports
 import { usePlayerStore } from '@/stores/playerStore';
 import { useScoreStore } from '@/stores/scoreStore';
 import { useProgressStore } from '@/stores/progressStore'
@@ -74,6 +84,8 @@ import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { onMounted, computed } from 'vue'
+
+// variables
 const { t, locale, availableLocales } = useI18n()
 
 let lang = document.querySelector('html').getAttribute('lang')
@@ -120,6 +132,7 @@ const startGame = () => {
   router.push({ name: 'Gameboard' });
 };
 
+// initialize players on mounted
 onMounted(() => {
   playerStore.initializePlayers();
 });
