@@ -23,7 +23,7 @@
         " :placeholder="t('configuration.multiPlayerInfo.label')" />
                   <button class="delete-button ml-1" @click.prevent="
         playerStore.deletePlayer(index)
-        " :title="t('configuration.multiPlayerInfo.deletePlayer')">
+        " v-tippy="{ content: t('configuration.multiPlayerInfo.deletePlayer')}">
                     <i class="fas fa-times"></i>
                   </button>
                 </div>
