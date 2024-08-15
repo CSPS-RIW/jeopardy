@@ -1,10 +1,16 @@
 <template>
 	<header>
-		<h1>Jeopardy Game</h1>
+		<h1>{{ t("title") }}</h1>
 	</header>
 	<main>
 		<div id="app">
-			<router-view></router-view>
+			<router-view v-slot="{ Component }">
+				<transition name="fade" mode="out-in">
+					<div :key="route.name">
+						<component :is="Component" />
+					</div>
+				</transition>
+			</router-view>
 		</div>
 	</main>
 </template>
@@ -12,11 +18,18 @@
 <script setup>
 import { onBeforeMount, ref } from 'vue';
 import { useProgressStore } from './stores/progressStore';
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
+import { useI18n } from "vue-i18n";
 import { useScoreStore } from '@/stores/scoreStore.js'
 import { usePlayerStore } from './stores/playerStore';
 const router = useRouter()
+const route = useRoute()
 
+const { t, locale } = useI18n();
+
+// Set html lang based on current locale
+let lang = document.querySelector("html");
+let currLang = lang?.getAttribute("lang");
 
 
 onBeforeMount(() => {
@@ -27,6 +40,8 @@ onBeforeMount(() => {
 	const playerStore = usePlayerStore()
 
 	let tables = document.querySelector('.get-content')
+	
+	// before the app mounts, we check if there is progress in localstorage. If there is, we load that progress, otherwise we reset to default.
 
 	let savedProgress = localStorage.getItem("progress")
 
@@ -35,7 +50,6 @@ onBeforeMount(() => {
 		progressStore.gameData = useSavedProgress
 		tables.remove()
 	} else {
-		// progressStore.fetchGameData()
 		progressStore.getGameData()
 		tables.remove()
 	}
@@ -46,12 +60,16 @@ onBeforeMount(() => {
 		scoreStore.score = 0
 	}
 
-	// if(localStorage.getItem("playerStore")) {
-	// 	playerStore.initializePlayers()
-	// }
+	// setting the language
+	if (currLang) {
+    locale.value = currLang
+    lang?.setAttribute('lang', locale.value)
+  }
 
 })
 
 </script>
 
-<style></style>
+<style scoped>
+
+</style>

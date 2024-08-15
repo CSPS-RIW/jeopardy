@@ -1,4 +1,4 @@
-// scoreStore.js
+// scoreStore.js. not using it much anymore
 import { defineStore } from 'pinia';
 
 export const useScoreStore = defineStore({

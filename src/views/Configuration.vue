@@ -1,74 +1,65 @@
 <template>
+  <!-- instructions section -->
   <div class="instructions-container">
     <div class="intro-dialog">
-      <h2 class="instruction-heading">Welcome to the Jeopardy Game!</h2>
+      <h2 class="instruction-heading">{{ t("welcome.title") }}</h2>
       <p class="instruction-text">
-        Get ready to test your knowledge on our subject. Get a question
-        right, and you'll earn points according to its difficulty. Get it
-        wrong, and you'll lose points! Try to get the best score possible,
-        or play multi-player for some healthy competition. When you're
-        ready, set up your game configuration below, and hit Start Game.
-        Good Luck!
+        {{ t("welcome.message") }}
       </p>
     </div>
     <div class="flex">
+      <!-- configuration section -->
       <div class="config-container">
-        <h2>Game Configuration</h2>
-        <p>Select an option to continue.</p>
+        <h2>{{ t("configuration.title") }}</h2>
         <div>
-          <fieldset>
-            <div>
-              <input type="radio" name="option" id="single_player" value="single-player"
-                @change="playerStore.resetPlayerStore()" v-model="gameMode" class="mr-1" />
-              <label for="single_player">Single Player</label>
-            </div>
-            <div>
-              <input type="radio" name="option" id="multi_player" value="multi-player"
-                @change="playerStore.resetPlayerStore()" v-model="gameMode" class="mr-1" />
-              <label for="multi_player">Multi-Player</label>
-            </div>
-          </fieldset>
-        </div>
-        <div v-if="gameMode.length > 0">
           <div>
+            <!-- if the game is multiplayer, display multiplayer options -->
             <div v-if="gameMode === 'multi-player'">
               <form @submit.prevent>
+                <!-- player/team input, label, and delete button -->
                 <div v-for="(
 										player, index
 									) in playerStore.players" :key="index">
-                  <label :for="`player_name${index}`" class="mr-2">Player/Team Name:
+                  <label :for="`player_name${index}`" class="mr-2">{{ t("configuration.multiPlayerInfo.label") }}
                   </label>
                   <input class="mr-1" type="text" name="player" :id="`player_name${index}`" v-model="player.name"
                     @keydown.enter.prevent="nextInputField
-                  " placeholder="Player/Team Name"/>
-                  <button class="delete-button" @click.prevent="
-                  playerStore.deletePlayer(index)
-                  " title="Delete player">
+        " :placeholder="t('configuration.multiPlayerInfo.label')" />
+                  <button class="delete-button ml-1" @click.prevent="
+        playerStore.deletePlayer(index)
+        " v-tippy="{ content: t('configuration.multiPlayerInfo.deletePlayer')}">
                     <i class="fas fa-times"></i>
                   </button>
                 </div>
+                <!-- add player button -->
                 <button @click="playerStore.addPlayer()" class="game-button mt-2"
                   :disabled="playerStore.playerCount >= 4">
-                  Add Player
+                  {{ t('configuration.multiPlayerInfo.addPlayer') }}
                 </button>
+                <!-- start game button -->
                 <div class="startgame d-flex justify-content-center" v-if="playerStore.playerCount > 1">
-                  <router-link to="/" @click.prevent="startGame" class="game-button start-game" role="button">Start
-                    Game</router-link>
+                  <router-link to="/" @click.prevent="startGame" class="game-button start-game" role="button">{{
+        t("configuration.start") }}</router-link>
                 </div>
               </form>
             </div>
+            <!-- single player config options -->
             <div v-else-if="gameMode === 'single-player'">
               <form @submit.prevent>
                 <div>
-                  <span class="input-stack">
-                    <label for="player_name">Player Info:
+                  <span class="d-flex-column">
+                    <!-- simply a label and an input for the single player user name -->
+                    <label for="player_name">{{ t("configuration.singlePlayerInfo.label") }}
                     </label>
-                    <div class="input-flex">
-                      <input class="ml-2" type="text" name="player" id="player_name" placeholder="Enter player name..."
+                    <div class="d-flex-column">
+                      <input class="ml-2" type="text" name="player" id="player_name"
+                        :placeholder="t('configuration.singlePlayerInfo.placeholder')"
                         v-model="playerStore.singlePlayerName" @keydown.enter="startGame" />
-                      <div class="">
-                        <router-link to="/" @click.prevent="startGame" class="game-button start-game"
-                          role="button">Start Game</router-link>
+                      <div class="mt-3 d-flex justify-content-center">
+                        <!-- start game router link -->
+                        <router-link to="/gameboard" @click.prevent="startGame"
+                          class="game-button router-button start-game" role="button">{{
+        t("configuration.start") }}</router-link>
                       </div>
                     </div>
                   </span>
@@ -84,16 +75,27 @@
 </template>
 
 <script setup>
+// imports
 import { usePlayerStore } from '@/stores/playerStore';
 import { useScoreStore } from '@/stores/scoreStore';
+import { useProgressStore } from '@/stores/progressStore'
 import '@fortawesome/fontawesome-free/js/all.js';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { useI18n } from 'vue-i18n';
+import { onMounted, computed } from 'vue'
+
+// variables
+const { t, locale, availableLocales } = useI18n()
+
+let lang = document.querySelector('html').getAttribute('lang')
 
 const playerStore = usePlayerStore();
 const scoreStore = useScoreStore();
-const gameMode = ref('');
+const progressStore = useProgressStore()
 const router = useRouter();
+
+const gameMode = computed(() => playerStore.gameMode);
 
 // focus in next input field - multiplayer
 function nextInputField(e) {
@@ -108,11 +110,32 @@ function nextInputField(e) {
 }
 
 const startGame = () => {
-  playerStore.setGameMode(gameMode.value);
+  // Initialize players (this will also set the game mode from the data attribute)
   playerStore.initializePlayers();
+
+  // Reset the score for all players
+  playerStore.players.forEach(player => {
+    player.score = 0;
+  });
+
+  // Reset the global score (if you're still using it)
   scoreStore.resetScore();
+
+  // Reset the progress
+  progressStore.resetProgress();
+
+  // Save the updated configurations
+  playerStore.saveConfig();
+  scoreStore.saveScore();
+
+  // Navigate to the Gameboard
   router.push({ name: 'Gameboard' });
 };
+
+// initialize players on mounted
+onMounted(() => {
+  playerStore.initializePlayers();
+});
 </script>
 
 <style scoped lang="scss">
@@ -122,12 +145,11 @@ const startGame = () => {
 }
 
 .intro-dialog {
-
-  background-color: var(--dark-bgc);
   border-radius: 5px;
   padding: 1rem 0.5rem;
   margin-bottom: 1rem;
   border: 3px solid var(--main-yellow);
+  background: linear-gradient(to bottom, rgba(3, 9, 180, 1) 0%, rgba(0, 15, 82, 1) 100%);
 
   h2.instruction-heading {
     color: var(--main-yellow);
@@ -146,16 +168,13 @@ const startGame = () => {
 
 .config-container {
   font-size: 20px;
-
   padding: 1rem;
   margin-bottom: 1rem;
-  width: 450px;
+  //width: 450px;
   /* max-width: 550px; */
   border-radius: 5px;
-
   border: 3px solid var(--main-yellow);
-
-  background-color: var(--dark-bgc);
+  background: linear-gradient(to bottom, rgba(3, 9, 180, 1) 0%, rgba(0, 15, 82, 1) 100%);
   color: var(--white-heat);
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 
@@ -178,14 +197,14 @@ const startGame = () => {
     border-radius: 0.5rem;
     width: 260px;
     height: 55px;
-   
+
   }
 
 }
 
 .instructions-container {
   /* height: 500px; */
-  width: 1200px;
+  //width: 1200px;
   border: 2px solid var(--game-button-blue);
   border-radius: 10px;
   background-color: var(--game-button-blue);
@@ -194,7 +213,7 @@ const startGame = () => {
   margin-bottom: 2rem;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 
- 
+
 }
 
 .input-stack {
@@ -236,6 +255,12 @@ const startGame = () => {
   color: var(--main-yellow);
 }
 
+.start-game:focus {
+  color: var(--main-yellow);
+  background-color: var(--game-button-blue);
+  outline: 2px solid var(--main-yellow);
+}
+
 /* Custom Radio inputs */
 input[type='radio'] {
   position: absolute;
@@ -264,7 +289,7 @@ input[type='radio']+label {
     top: 4px;
     width: 26px;
     height: 26px;
-  outline: 2px solid var(--game-button-blue   );
+    outline: 2px solid var(--game-button-blue);
     border-radius: 50%;
     background-color: var(--white-heat);
 
