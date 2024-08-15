@@ -6,7 +6,9 @@
 		<div id="app">
 			<router-view v-slot="{ Component }">
 				<transition name="fade" mode="out-in">
-					<component :is="Component" />
+					<div :key="route.name">
+						<component :is="Component" />
+					</div>
 				</transition>
 			</router-view>
 		</div>
@@ -16,11 +18,12 @@
 <script setup>
 import { onBeforeMount, ref } from 'vue';
 import { useProgressStore } from './stores/progressStore';
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import { useI18n } from "vue-i18n";
 import { useScoreStore } from '@/stores/scoreStore.js'
 import { usePlayerStore } from './stores/playerStore';
 const router = useRouter()
+const route = useRoute()
 
 const { t, locale } = useI18n();
 
