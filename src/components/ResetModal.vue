@@ -40,7 +40,7 @@
     playerStore.resetPlayerStore();
     scoreStore.resetScore();
     closeModal();
-    router.push('/');
+    router.push({name: 'Configuration'});
   };
   </script>
   

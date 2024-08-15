@@ -28,7 +28,10 @@
                   <button class="delete-button ml-1" @click.prevent="
         playerStore.deletePlayer(index)
         " v-tippy="{ content: t('configuration.multiPlayerInfo.deletePlayer')}">
-                    <i class="fas fa-times"></i>
+                   
+                   <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24"><g fill="none" fill-rule="evenodd"><path d="M24 0v24H0V0zM12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.019-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z"/><path fill="currentColor" d="m12 14.122l5.303 5.303a1.5 1.5 0 0 0 2.122-2.122L14.12 12l5.304-5.303a1.5 1.5 0 1 0-2.122-2.121L12 9.879L6.697 4.576a1.5 1.5 0 1 0-2.122 2.12L9.88 12l-5.304 5.304a1.5 1.5 0 1 0 2.122 2.12z"/></g></svg>
+ 
+ 
                   </button>
                 </div>
                 <!-- add player button -->
@@ -38,7 +41,7 @@
                 </button>
                 <!-- start game button -->
                 <div class="startgame d-flex justify-content-center" v-if="playerStore.playerCount > 1">
-                  <router-link to="/" @click.prevent="startGame" class="game-button start-game" role="button">{{
+                  <router-link :to="{name: 'Configuration'}" @click.prevent="startGame" class="game-button start-game" role="button">{{
         t("configuration.start") }}</router-link>
                 </div>
               </form>
@@ -57,7 +60,7 @@
                         v-model="playerStore.singlePlayerName" @keydown.enter="startGame" />
                       <div class="mt-3 d-flex justify-content-center">
                         <!-- start game router link -->
-                        <router-link to="/gameboard" @click.prevent="startGame"
+                        <router-link :to="{name: 'Gameboard'}" @click.prevent="startGame"
                           class="game-button router-button start-game" role="button">{{
         t("configuration.start") }}</router-link>
                       </div>
@@ -79,7 +82,6 @@
 import { usePlayerStore } from '@/stores/playerStore';
 import { useScoreStore } from '@/stores/scoreStore';
 import { useProgressStore } from '@/stores/progressStore'
-import '@fortawesome/fontawesome-free/js/all.js';
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
