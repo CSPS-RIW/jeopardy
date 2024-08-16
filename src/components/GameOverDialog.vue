@@ -1,15 +1,16 @@
+// game over component
 <template>
     <div class="game-over-dialog">
       <div class="container">
-        <h2>Game Over</h2>
-        <h3>Final Scores</h3>
+        <h2>{{ t("gameOver.title") }}</h2>
+        <h3>{{ t("gameOver.finalScores") }}</h3>
         <div v-for="(player, index) in playerStore.players" :key="index">
 
           <p>{{ displayName(player, index) }}: {{ player.score }}</p>
         </div>
         
-        <button class="game-button" @click="$emit('update:reset')">Reset (same players)</button>
-        <button class="game-button" @click="$emit('update:retry')">Back to Main Menu</button>
+        <button class="game-button mr-1" @click="$emit('update:reset')">{{ t("gameOver.resetButton") }}</button>
+        <button class="game-button ml-1" @click="$emit('update:retry')">{{ t("gameOver.back") }}</button>
       </div>
     </div>
   </template>
@@ -17,6 +18,10 @@
   <script setup>
 
   import { usePlayerStore } from '@/stores/playerStore';
+  import { useI18n } from "vue-i18n";
+  const { t, locale, availableLocales } = useI18n()
+
+  let lang = document.querySelector('html').getAttribute('lang')
 
   const playerStore = usePlayerStore()
   
@@ -28,7 +33,11 @@
   })
 
   const displayName = (player, index) => {
-      return player.name.length > 0 ? player.name : 'Player ' + (index += 1);
+    if(lang === "fr") {
+      return player.name.length > 0 ? player.name : 'Joueur ' + (index + 1);
+    } else {
+      return player.name.length > 0 ? player.name : 'Player ' + (index + 1);
+    }
     };
   
   </script>
@@ -51,10 +60,11 @@
 
   .container {
     padding: 2rem;
-    background-color: var(--game-button-blue);
+    background: linear-gradient(to bottom, rgba(3, 9, 180, 1) 0%,rgba(0, 15, 82, 1) 100%);
     color: var(--main-yellow);
-    border: 2px solid var(--main-yellow);
+    border: 5px solid var(--main-yellow);
     font-size: 20px;
+    border-radius: 8px;
   }
   </style>
   
