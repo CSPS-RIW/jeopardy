@@ -56,7 +56,9 @@
     justify-content: center;
     align-items: center;
     z-index: 1000;
-  }
+
+     
+  } 
   
   .modal-content {
     background-color: white;
@@ -64,6 +66,11 @@
     border-radius: 5px;
     position: relative;
     max-width: 700px;
+
+    @media (prefers-color-scheme: dark) {
+      background-color: black;
+      outline: 1px solid white;
+    }
   }
   
   .close-button {
@@ -86,4 +93,10 @@
     justify-content: space-around;
     margin-top: 20px;
   }
+
+  @media (prefers-color-scheme: dark) {
+      .modal-content {
+        color: black;
+      }
+    }
   </style>

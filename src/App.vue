@@ -48,7 +48,7 @@ onBeforeMount(() => {
 		progressStore.gameData = useSavedProgress
 		
 	} else {
-		progressStore.getGameData()
+		progressStore.fetchGameData()
 		
 	}
 	// getting saved score from localstorage, otherwise set score to 0

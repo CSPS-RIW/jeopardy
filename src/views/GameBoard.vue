@@ -186,6 +186,7 @@ const resetGame = () => {
     color: var(--vt-c-white);
     text-align: center;
     font-weight: bold;
+    font-size: 1.6rem;
   }
 
 
