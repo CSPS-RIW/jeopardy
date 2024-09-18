@@ -71,70 +71,7 @@ export const useProgressStore = defineStore({
 		// Get GameData from html template instead
 
 		getGameData() {
-			console.log('creating game data from html');
-			let tableQuestions = document.querySelector(
-				'.get-content [data-table-name="questions"]',
-			);
-
-			let qsTbody = tableQuestions.querySelector('tbody');
-			// let qsTbody = tableQuestions.querySelector('tbody');
-			let qsTr = Array.from(qsTbody.querySelectorAll('tr'));
-
-			let tableCategories = document.querySelector(
-				'.get-content [data-table-name="categories"]',
-			);
-			let catTbody = tableCategories.querySelector('tbody');
-			let catTr = Array.from(catTbody.querySelectorAll('tr'));
-			let questions = ref([]);
-
-			let categories = [];
-			catTr.forEach((item, index) => {
-				let category = item.querySelector('td').innerText;
-				categories.push(category);
-			});
-
-			qsTr.forEach((item, index) => {
-				let optionsArr = [];
-				let headers = item.children;
-				let id = index;
-				let categoryText = headers[0].innerText.toLowerCase();
-				let categoryId;
-
-				for (let i = 0; i < categories.length; i++) {
-					if (categories[i].toLowerCase() === categoryText) {
-						categoryId = i;
-						// Exit the loop after finding the first match
-						break;
-					}
-				}
-
-				let value = headers[1].innerText;
-				let question = headers[2].innerText;
-				// options
-				headers[3].querySelectorAll('p').forEach((item) => {
-					optionsArr.push(item.innerText);
-				});
-				let answer = headers[4].innerText;
-				let correctFeedback = headers[5].innerText;
-				let incorrectFeedback = headers[6].innerText;
-				let genericFeedback = headers[7].innerText;
-
-				let obj = {};
-				obj.id = id;
-				obj.categoryId = categoryId;
-				obj.value = parseInt(value);
-				obj.question = question;
-				obj.options = optionsArr;
-				obj.answer = answer;
-				obj.feedback = {};
-				obj.feedback.correct = correctFeedback;
-				obj.feedback.incorrect = incorrectFeedback;
-				obj.feedback.generic = genericFeedback;
-				obj.attempted = false;
-
-				questions.value.push(obj);
-			});
-
+			
 			// populate game data
 			this.gameData.categories = categories;
 			this.gameData.questions = questions.value;

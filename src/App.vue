@@ -38,8 +38,6 @@ onBeforeMount(() => {
 	const scoreStore = useScoreStore()
 
 	const playerStore = usePlayerStore()
-
-	let tables = document.querySelector('.get-content')
 	
 	// before the app mounts, we check if there is progress in localstorage. If there is, we load that progress, otherwise we reset to default.
 
@@ -48,10 +46,10 @@ onBeforeMount(() => {
 	if (savedProgress) {
 		const useSavedProgress = JSON.parse(savedProgress)
 		progressStore.gameData = useSavedProgress
-		tables.remove()
+		
 	} else {
 		progressStore.getGameData()
-		tables.remove()
+		
 	}
 	// getting saved score from localstorage, otherwise set score to 0
 	if (localStorage.getItem("score")) {
