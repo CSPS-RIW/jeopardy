@@ -64,7 +64,7 @@ export const useProgressStore = defineStore({
 				this.gameData = data;
 				//console.log(this.gameData)
 				localStorage.setItem('gameData', JSON.stringify(data));
-				
+				console.log(this.gameData)
 				console.log('set gameData to default');
 				//this.getGameData()
 			} catch (error) {

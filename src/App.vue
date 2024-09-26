@@ -3,14 +3,14 @@
 		<h1>{{ t("title") }}</h1>
 	</header>
 	<main>
-		<div id="app">
+		<div>
 			<router-view v-slot="{ Component }">
-				<transition name="fade" mode="out-in">
-					<div :key="route.name">
+				
+					<div :key="route.fullPath">
 						<component :is="Component" v-if="Component"/>
 						<p v-else>Loading...</p>
 					</div>
-				</transition>
+				
 			</router-view>
 		</div>
 	</main>
@@ -33,7 +33,7 @@ let lang = document.querySelector("html");
 let currLang = lang?.getAttribute("lang");
 
 
-onMounted(() => {
+onBeforeMount(() => {
 	const progressStore = useProgressStore()
 
 	const scoreStore = useScoreStore()
