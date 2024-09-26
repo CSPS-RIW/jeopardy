@@ -190,7 +190,7 @@ const goBack = () => {
   // Clear saved option from localStorage
   localStorage.removeItem('selectedOption');
 
-  router.push('/gameboard');
+  router.push({name: 'Gameboard'});
 };
 </script>
 

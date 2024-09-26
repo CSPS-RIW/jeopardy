@@ -108,7 +108,7 @@ const selectQuestion = (questionId) => {
   const question = questions.value.find(q => q.id === questionId);
   if (question && !question.attempted) {
     question.attempted = true;
-    router.push(`/question/${questionId}`);
+    router.push(`/content/enforced/12481-SB-Noam_Stulberg/_projects/jeopardy/question/${questionId}`);
   }
 };
 
@@ -127,7 +127,7 @@ const restartGame = () => {
   finalScore.value = 0;
   scoreStore.resetScore();
   isGameOver.value = false;
-  router.push('/');
+  router.push({name: 'Configuration'});
 };
 
 // soft reset of the game, keeps the same players but resets all progress and scores

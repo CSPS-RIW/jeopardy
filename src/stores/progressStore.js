@@ -58,11 +58,15 @@ export const useProgressStore = defineStore({
 		// Method to fetch game data
 		async fetchGameData() {
 			try {
-				const resp = await fetch('./gameData.json');
+				const resp = await fetch('/content/enforced/12481-SB-Noam_Stulberg/_projects/jeopardy/gameData.json');
 				const data = await resp.json();
+				//console.log(data)
 				this.gameData = data;
+				//console.log(this.gameData)
 				localStorage.setItem('gameData', JSON.stringify(data));
+				
 				console.log('set gameData to default');
+				//this.getGameData()
 			} catch (error) {
 				console.error('Error fetching game data:', error);
 			}

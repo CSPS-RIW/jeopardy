@@ -13,5 +13,5 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url))
     }
   },
-  base: './',
+  base: '/content/enforced/12481-SB-Noam_Stulberg/_projects/jeopardy/',
 })

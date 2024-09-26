@@ -24,5 +24,7 @@ app.use(VueTippy)
 app.use(router)
 app.use(i18n)
 
+document.addEventListener('DOMContentLoaded', () => {
+  app.mount('#app')
+})
 
-app.mount('#app')

@@ -7,7 +7,8 @@
 			<router-view v-slot="{ Component }">
 				<transition name="fade" mode="out-in">
 					<div :key="route.name">
-						<component :is="Component" />
+						<component :is="Component" v-if="Component"/>
+						<p v-else>Loading...</p>
 					</div>
 				</transition>
 			</router-view>
@@ -16,7 +17,7 @@
 </template>
 
 <script setup>
-import { onBeforeMount, ref } from 'vue';
+import { onBeforeMount, onMounted, ref } from 'vue';
 import { useProgressStore } from './stores/progressStore';
 import { useRouter, useRoute } from 'vue-router'
 import { useI18n } from "vue-i18n";
@@ -32,7 +33,7 @@ let lang = document.querySelector("html");
 let currLang = lang?.getAttribute("lang");
 
 
-onBeforeMount(() => {
+onMounted(() => {
 	const progressStore = useProgressStore()
 
 	const scoreStore = useScoreStore()
@@ -46,10 +47,11 @@ onBeforeMount(() => {
 	if (savedProgress) {
 		const useSavedProgress = JSON.parse(savedProgress)
 		progressStore.gameData = useSavedProgress
+		console.log('loaded saved data');
 		
 	} else {
 		progressStore.fetchGameData()
-		
+		console.log('running fetchGameData')
 	}
 	// getting saved score from localstorage, otherwise set score to 0
 	if (localStorage.getItem("score")) {

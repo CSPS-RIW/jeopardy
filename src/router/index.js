@@ -1,23 +1,20 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import GameBoard from '../views/GameBoard.vue'
-import Question from '../components/Question.vue'
-import Configuration from '../views/Configuration.vue'
 
 const routes = [
   {
-    path: '/',
+    path: '/content/enforced/12481-SB-Noam_Stulberg/_projects/jeopardy/',
     name: 'Configuration',
-    component: Configuration
+    component: () => import('@/views/Configuration.vue')
   },
   {
-    path: '/question/:id',
+    path: '/content/enforced/12481-SB-Noam_Stulberg/_projects/jeopardy/question/:id',
     name: 'Question',
-    component: Question
+    component: () => import('@/components/Question.vue')
   },
   {
-    path: '/gameboard',
+    path: '/content/enforced/12481-SB-Noam_Stulberg/_projects/jeopardy/gameboard',
     name: 'Gameboard',
-    component: GameBoard
+    component: () => import('@/views/GameBoard.vue')
   }
 ]
 
@@ -27,4 +24,3 @@ const router = createRouter({
 })
 
 export default router
-
