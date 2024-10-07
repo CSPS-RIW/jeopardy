@@ -1,8 +1,8 @@
 {
-	"title": "Quiz Game",
+	"title": "GCWCC Quiz Game",
 	"welcome": {
-        "title": "Welcome to the Quiz Game",
-        "message": "Get ready to test your knowledge on our subject. Get a question right, and you'll earn points according to its difficulty. Get it wrong, and you'll lose points! Try to get the best score possible, or play multi-player for some healthy competition. When you're ready, set up your game configuration below, and hit Start Game. Good Luck!"
+        "title": "Welcome to the GCWCC Quiz Game",
+        "message": "Get ready to test your knowledge! Get a question right, and you'll earn points according to its difficulty. Get it wrong, and you'll lose points! Try to get the best score possible. When you're ready, set up your game configuration below, and select the Start Game button. Good Luck!"
     },
 	"configuration": {
         "title": "Game Configuration",
