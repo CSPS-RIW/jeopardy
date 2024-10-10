@@ -14,4 +14,7 @@ export default defineConfig({
     }
   },
   base: '/content/enforced/12481-SB-Noam_Stulberg/_projects/jeopardy/',
+  build: {
+    sourcemap: true
+  }
 })

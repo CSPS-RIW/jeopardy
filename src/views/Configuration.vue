@@ -134,6 +134,7 @@ const startGame = () => {
 
 // initialize players on mounted
 onMounted(() => {
+  console.log('configuration.vue mounted');
   playerStore.initializePlayers();
 });
 </script>
