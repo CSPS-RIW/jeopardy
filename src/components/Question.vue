@@ -8,18 +8,15 @@
     </div>
     <div class="container">
       <div class="question-wrapper" ref="questionWrapper">
-        <h2>Question</h2>
         <p v-if="question">{{ question.question }}</p>
         <fieldset v-if="question">
-          <legend></legend>
-          <span v-for="(option, index) in question.options" :key="index" class="option">
-            <input type="radio" :id="'option_' + index" :value="option" name="option" v-model="selectedOption"
-              :disabled="isSubmitted" ref="options">
-            <label :for="'option_' + index">{{ option }}</label>
-          </span>
+          <div class="moderator-buttons">
+            <button class="game-button correct-button" @click="checkAnswer('correct')" :disabled="selectedState === true">Correct</button>
+            <button class="game-button incorrect-button" @click="checkAnswer('incorrect')" :disabled="selectedState === true">Incorrect</button>
+          </div>
           <div class="feedback-wrapper" aria-live="polite">
             <div class="feedback" v-if="isSubmitted" tabindex="-1">
-              <div class="correct-feedback" v-if="selectedOption === question.answer">
+              <div class="correct-feedback" v-if="selectedState === true">
                 <span class="feedback-icon" aria-hidden="true"></span>
                 <p>{{ question.feedback.correct }}</p>
                 <div class="generic-feedback">
@@ -38,14 +35,17 @@
           </div>
         </fieldset>
         <div class="controls">
-          <button @click="checkAnswer" class="game-button" :disabled="!selectedOption || isSubmitted">{{
-        t("question.submit") }}</button>
           <button @click="goBack" class="game-button" :disabled="!isSubmitted">{{ t("question.back") }}</button>
         </div>
       </div>
-
+       <!-- visible score displays -->
+    
     </div>
+    
   </div>
+  <div class="score-container">
+      <ScoreDisplay v-for="(player, index) in playerStore.players" v-if="!isGameOver" :player="player" :key="index" :index="index"/>
+    </div>
 </template>
 
 <script setup>
@@ -55,6 +55,7 @@ import { useRoute, useRouter } from 'vue-router';
 import { useProgressStore } from '../stores/progressStore';
 import { usePlayerStore } from '../stores/playerStore';
 import { useScoreStore } from '@/stores/scoreStore';
+import ScoreDisplay from './ScoreDisplay.vue';
 import { useI18n } from 'vue-i18n';
 import 'animate.css'
 
@@ -81,6 +82,7 @@ const questionWrapper = ref(null);
 // selected option on the quiz and if quiz is submitted or not
 const selectedOption = ref('');
 const isSubmitted = ref(false);
+const selectedState = ref(null)
 
 
 const updateWrapperHeight = async () => {
@@ -128,7 +130,7 @@ watch(isSubmitted, updateWrapperHeight);
 
 
 // check answer function
-const checkAnswer = () => {
+const checkAnswer = (state) => {
 
   // updating wrapper height
   if (questionWrapper.value) {
@@ -154,10 +156,12 @@ const checkAnswer = () => {
     currentPlayer = playerStore.players[playerStore.currentPlayerIndex];
   }
 
-  if (selectedOption.value === question.value.answer) {
+  if (state === 'correct') {
     playerStore.updatePlayerScore(currentPlayer.id, question.value.value);
+    selectedState.value = true
   } else {
     playerStore.updatePlayerScore(currentPlayer.id, -question.value.value);
+    selectedState.value = false
     if (playerStore.gameMode === 'multi-player') {
       playerStore.updateTurn();
     }
@@ -405,6 +409,37 @@ input[type='radio']:disabled+label::after {
     border-radius: 12px;
     padding: 1rem 1.5rem;
     margin-bottom: 15px;
+}
+
+.moderator-buttons {
+  display: flex;
+  justify-content: space-evenly;
+  margin-bottom: 1rem;
+}
+
+.correct-button {
+  background-color: var(--game-button-blue);
+  border-color: var(--game-button-blue);
+  color: var(--main-yellow);
+
+  &:hover, &:focus {
+    background-color: rgb(23, 249, 53);
+    color: rgb(34, 34, 34);
+  }
+}
+
+.incorrect-button {
+
+  &:hover, &:focus {
+    background-color: rgb(249, 76, 23);
+    color: rgb(34, 34, 34);
+  }
+}
+
+.score-container {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: space-around;
 }
 
 @media (prefers-contrast: more) {
