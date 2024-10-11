@@ -7,7 +7,7 @@ export const usePlayerStore = defineStore({
     playerCount: 0, // number of players
     singlePlayerName: '', // name for single player
     gameMode: '', // 'single-player' or 'multi-player'
-    currentPlayerIndex: 0, // this shows whose turn it is
+    currentPlayerIndex: Number, // this shows whose turn it is
   }),
   actions: {
     // setting the game mode from the data-game-mode property
@@ -27,7 +27,7 @@ export const usePlayerStore = defineStore({
         this.players = state.players || [];
         this.playerCount = this.players.length;
         this.singlePlayerName = state.singlePlayerName || '';
-        this.currentPlayerIndex = state.currentPlayerIndex || 0;
+        this.currentPlayerIndex = state.currentPlayerIndex || null;
 
         if (this.gameMode === 'multi-player' && this.players.length === 0) {
           this.setupInitialPlayers();
@@ -49,7 +49,7 @@ export const usePlayerStore = defineStore({
       } else if (this.gameMode === 'multi-player') {
         if (this.players.length === 0) {
           this.players = [
-            { name: '', score: 0, isPlayerTurn: true, id: 0 },
+            { name: '', score: 0, isPlayerTurn: false, id: 0 },
             { name: '', score: 0, isPlayerTurn: false, id: 1 }
           ];
         } else {
@@ -71,7 +71,7 @@ export const usePlayerStore = defineStore({
         this.players = state.players || [];
         this.playerCount = this.players.length;
         this.singlePlayerName = state.singlePlayerName || '';
-        this.currentPlayerIndex = state.currentPlayerIndex || 0;
+        this.currentPlayerIndex = state.currentPlayerIndex || null;
         this.setGameMode()
       } else {
         this.setupInitialPlayers();
@@ -100,10 +100,10 @@ export const usePlayerStore = defineStore({
           player.id = i ; // Reassign ID based on new index
         });
 
-        if (this.currentPlayerIndex >= this.playerCount) {
-          this.currentPlayerIndex = 0;
-        }
-        this.players[this.currentPlayerIndex].isPlayerTurn = true;
+        // if (this.currentPlayerIndex >= this.playerCount) {
+        //   this.currentPlayerIndex = 0;
+        // }
+        // this.players[this.currentPlayerIndex].isPlayerTurn = true;
         this.saveConfig();
       } else {
         alert('Minimum two players required for multiplayer mode!');
@@ -114,7 +114,7 @@ export const usePlayerStore = defineStore({
       this.players = [];
       this.playerCount = 0;
       this.singlePlayerName = '';
-      this.currentPlayerIndex = 0;
+      this.currentPlayerIndex = null;
       this.setupInitialPlayers();
       this.saveConfig();
     },
@@ -126,6 +126,12 @@ export const usePlayerStore = defineStore({
         this.players[this.currentPlayerIndex].isPlayerTurn = true;
         this.saveConfig();
       }
+    },
+    setPlayerTurn(){
+      for(let player of this.players) {
+        player.isPlayerTurn = false
+      }
+      this.players[this.currentPlayerIndex].isPlayerTurn = true
     },
     // save config callback function
     saveConfig() {

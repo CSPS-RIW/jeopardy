@@ -44,7 +44,7 @@
     
   </div>
   <div class="score-container">
-      <ScoreDisplay v-for="(player, index) in playerStore.players" v-if="!isGameOver" :player="player" :key="index" :index="index"/>
+      <ScoreDisplay v-for="(player, index) in playerStore.players" :player="player" :key="index" :index="index"/>
     </div>
 </template>
 
