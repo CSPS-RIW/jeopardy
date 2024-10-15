@@ -48,6 +48,10 @@
     cursor: not-allowed;
     border: 0;
   }
+
+  &:active {
+    background-color: var(--game-button-blue-active);
+  }
 }
 
 .sr-only {
