@@ -1,354 +1,354 @@
 {
-	"categories": ["Personal Protective Equipment (PPE)", "Emergency Procedures", "Hazard Identification", "Safety Signs and Labels", "Workplace Ergonomics"],
+	"categories": ["Our Leadership", "Our Business Line", "People and EDI", "Artificial Intelligence", "What the Health?"],
 	"questions": [
 		{
 			"id": 1,
 			"categoryId": 0,
 			"value": 200,
-			"question": "What type of PPE is commonly used to protect against head injuries?",
+			"question": "The songbirds are singing, the noon time church bells are ringing. Sinan is making his way to this establishment.",
 			"options": ["Hard hat", "Safety glasses", "Ear plugs", "Gloves"],
 			"answer": "Hard hat",
 			"attempted": false,
 			"feedback": {
 				"correct": "Correct! Good job.",
 				"incorrect": "That's incorrect. Head back to the game board when you're ready",
-				"generic": "The thing about this is that..."
+				"generic": ""
 			}
 		},
 		{
 			"id": 2,
 			"categoryId": 0,
 			"value": 400,
-			"question": "Which of the following is NOT considered a type of PPE?",
+			"question": "The director general of RIW is making her way to the kitchen, where she puts these candies in a bowl to share with the team.",
 			"options": ["Safety shoes", "Emergency eyewash station", "Respirator", "Safety harness"],
 			"answer": "Emergency eyewash station",
 			"attempted": false,
 			"feedback": {
 				"correct": "Correct! Good job.",
 				"incorrect": "That's incorrect. Head back to the game board when you're ready",
-				"generic": "The thing about this is that..."
+				"generic": ""
 			}
 		},
 		{
 			"id": 3,
 			"categoryId": 0,
 			"value": 600,
-			"question": "What type of gloves are used to protect against chemical exposure?",
+			"question": "Questions, puzzles, and wordsmithing oh my! I am a director with a background in journalism.",
 			"options": ["Latex gloves", "Leather gloves", "Rubber gloves", "Cotton gloves"],
 			"answer": "Rubber gloves",
 			"attempted": false,
 			"feedback": {
 				"correct": "Correct! Good job.",
 				"incorrect": "That's incorrect. Head back to the game board when you're ready",
-				"generic": "The thing about this is that..."
+				"generic": ""
 			}
 		},
 		{
 			"id": 4,
 			"categoryId": 0,
 			"value": 800,
-			"question": "What type of eye protection is recommended when working with chemicals?",
+			"question": "A manager who is humble and kind, but over time you’ll come to find, there’s more to me than meets the I. I am also a leader in my community & in the world of EDI.  ",
 			"options": ["Safety glasses", "Sunglasses", "Reading glasses", "Goggles"],
 			"answer": "Goggles",
 			"attempted": false,
 			"feedback": {
 				"correct": "Correct! Good job.",
 				"incorrect": "That's incorrect. Head back to the game board when you're ready",
-				"generic": "The thing about this is that..."
+				"generic": ""
 			}
 		},
 		{
 			"id": 5,
 			"categoryId": 0,
 			"value": 1000,
-			"question": "What type of respiratory protection is used in environments with airborne contaminants?",
+			"question": "I focus best when I stand, my contagious laughter is grand—SQUIRELL.",
 			"options": ["Dust mask", "Bandana", "Scarf", "Handkerchief"],
 			"answer": "Dust mask",
 			"attempted": false,
 			"feedback": {
 				"correct": "Correct! Good job.",
 				"incorrect": "That's incorrect. Head back to the game board when you're ready",
-				"generic": "The thing about this is that..."
+				"generic": ""
 			}
 		},
 		{
 			"id": 6,
 			"categoryId": 1,
 			"value": 200,
-			"question": "What is the emergency evacuation procedure in case of a fire?",
+			"question": "We’ve heard of the Pillars of Salt, the Pillars of Hercules, but these are the 5 pillars of RIW?",
 			"options": ["Run to the nearest exit", "Use elevators", "Follow designated escape routes", "Ignore the alarm"],
 			"answer": "Follow designated escape routes",
 			"attempted": false,
 			"feedback": {
 				"correct": "Correct! Good job.",
 				"incorrect": "That's incorrect. Head back to the game board when you're ready",
-				"generic": "The thing about this is that..."
+				"generic": ""
 			}
 		},
 		{
 			"id": 7,
 			"categoryId": 1,
 			"value": 400,
-			"question": "What should you do if you discover a fire in the workplace?",
+			"question": "So new, shiny, and fresh, but don’t underestimate our depth. This year was when the RIW business line was established?",
 			"options": ["Attempt to extinguish it yourself", "Ignore it and continue working", "Notify a supervisor immediately", "Wait for someone else to report it"],
 			"answer": "Notify a supervisor immediately",
 			"attempted": false,
 			"feedback": {
 				"correct": "Correct! Good job.",
 				"incorrect": "That's incorrect. Head back to the game board when you're ready",
-				"generic": "The thing about this is that..."
+				"generic": ""
 			}
 		},
 		{
 			"id": 8,
 			"categoryId": 1,
 			"value": 600,
-			"question": "What should you do if you hear the fire alarm sound?",
+			"question": "Michael Jackson sang P.Y.T... Pier Alex sings the words behind the acronym P.I.F",
 			"options": ["Finish your work before evacuating", "Wait for instructions", "Immediately evacuate the building", "Check your email"],
 			"answer": "Immediately evacuate the building",
 			"attempted": false,
 			"feedback": {
 				"correct": "Correct! Good job.",
 				"incorrect": "That's incorrect. Head back to the game board when you're ready",
-				"generic": "The thing about this is that..."
+				"generic": ""
 			}
 		},
 		{
 			"id": 9,
 			"categoryId": 1,
 			"value": 800,
-			"question": "What is the purpose of fire drills?",
+			"question": "Reading HTML is less than ideal, but fear not! These Three people at RIW are turning our ideas, content, and requests into something real.",
 			"options": ["To practice emergency procedures", "To waste time", "To confuse employees", "To cause panic"],
 			"answer": "To practice emergency procedures",
 			"attempted": false,
 			"feedback": {
 				"correct": "Correct! Good job.",
 				"incorrect": "That's incorrect. Head back to the game board when you're ready",
-				"generic": "The thing about this is that..."
+				"generic": ""
 			}
 		},
 		{
 			"id": 10,
 			"categoryId": 1,
 			"value": 1000,
-			"question": "What should you do if you are unable to evacuate during a fire?",
+			"question": "RIW is housed at the School.... The building at the school is very cool. But if you went down into our underground tunnels, you would be a foul. The underground tunnels of LaSalle lead to this establishment.",
 			"options": ["Hide under your desk", "Wait for someone to rescue you", "Use the elevator", "Find a safe area and wait for assistance"],
 			"answer": "Find a safe area and wait for assistance",
 			"attempted": false,
 			"feedback": {
 				"correct": "Correct! Good job.",
 				"incorrect": "That's incorrect. Head back to the game board when you're ready",
-				"generic": "The thing about this is that..."
+				"generic": ""
 			}
 		},
 		{
 			"id": 11,
 			"categoryId": 2,
 			"value": 200,
-			"question": "What is the first step in the process of hazard identification?",
+			"question": "Intersectionality is an analytical framework for understanding how aspects of a person's identity combine to create particular forms of discrimination and privilege. This person popularized this definition.",
 			"options": ["Performing a risk assessment", "Inspecting the workplace", "Training employees", "Ignoring potential hazards"],
 			"answer": "Inspecting the workplace",
 			"attempted": false,
 			"feedback": {
 				"correct": "Correct! Good job.",
 				"incorrect": "That's incorrect. Head back to the game board when you're ready",
-				"generic": "The thing about this is that..."
+				"generic": ""
 			}
 		},
 		{
 			"id": 12,
 			"categoryId": 2,
 			"value": 400,
-			"question": "What is the purpose of a safety data sheet (SDS)?",
+			"question": " American gay liberation activist and self-identified drag queen. Known as an outspoken advocate for gay rights, this invdividual was one of the prominent figures in the Stonewall uprising of 1969.",
 			"options": ["To provide information on chemical hazards", "To provide cooking recipes", "To provide instructions for operating machinery", "To provide employee phone numbers"],
 			"answer": "To provide information on chemical hazards",
 			"attempted": false,
 			"feedback": {
 				"correct": "Correct! Good job.",
 				"incorrect": "That's incorrect. Head back to the game board when you're ready",
-				"generic": "The thing about this is that..."
+				"generic": ""
 			}
 		},
 		{
 			"id": 13,
 			"categoryId": 2,
 			"value": 600,
-			"question": "What should employees do if they identify a hazard in the workplace?",
+			"question": "I have participated in CSPS events, and some of my publications include:  <strong>“Too Tedious to Mention”: Pondering the border, Black Atlantic, and public schooling in colonial Canada</strong> and <strong>“As if we were all struggling together”: Black organizing, gendered violence, and Black women’s activism in Montréal.</strong>   ",
 			"options": ["Report it to a supervisor", "Ignore it", "Keep it to themselves", "Fix it themselves"],
 			"answer": "Report it to a supervisor",
 			"attempted": false,
 			"feedback": {
 				"correct": "Correct! Good job.",
 				"incorrect": "That's incorrect. Head back to the game board when you're ready",
-				"generic": "The thing about this is that..."
+				"generic": ""
 			}
 		},
 		{
 			"id": 14,
 			"categoryId": 2,
 			"value": 800,
-			"question": "What is the purpose of a hazard control program?",
+			"question": "I am the Director of the Black Equity Branch of the Treasury Board Secretariat in the Government of Ontario.",
 			"options": ["To eliminate hazards", "To create hazards", "To increase productivity", "To cause accidents"],
 			"answer": "To eliminate hazards",
 			"attempted": false,
 			"feedback": {
 				"correct": "Correct! Good job.",
 				"incorrect": "That's incorrect. Head back to the game board when you're ready",
-				"generic": "The thing about this is that..."
+				"generic": ""
 			}
 		},
 		{
 			"id": 15,
 			"categoryId": 2,
 			"value": 1000,
-			"question": "What should you do if you are unsure about the safety of a task?",
+			"question": " I developed the anti-trans policy risk map! I am one of the 15 people nominated by Pride at Work as a Changemaker, for championing 2SLGBTQIA+ inclusion in the corporate, public service, and non-profit sectors across Canada.",
 			"options": ["Proceed with the task anyway", "Ask a coworker for advice", "Wait for a supervisor to check", "Ignore your concerns"],
 			"answer": "Ask a coworker for advice",
 			"attempted": false,
 			"feedback": {
 				"correct": "Correct! Good job.",
 				"incorrect": "That's incorrect. Head back to the game board when you're ready",
-				"generic": "The thing about this is that..."
+				"generic": ""
 			}
 		},
 		{
 			"id": 16,
 			"categoryId": 3,
 			"value": 200,
-			"question": "What color is typically used for a 'Danger' safety sign?",
+			"question": "This is Microsoft's AI app",
 			"options": ["Red", "Yellow", "Green", "Blue"],
 			"answer": "Red",
 			"attempted": false,
 			"feedback": {
 				"correct": "Correct! Good job.",
 				"incorrect": "That's incorrect. Head back to the game board when you're ready",
-				"generic": "The thing about this is that..."
+				"generic": ""
 			}
 		},
 		{
 			"id": 17,
 			"categoryId": 3,
 			"value": 400,
-			"question": "What does a 'Caution' safety sign indicate?",
+			"question": "This type of AI produces content such as text, audio, code, videos and images.",
 			"options": ["High voltage", "Biohazard", "Slippery surface", "Exit route"],
 			"answer": "Slippery surface",
 			"attempted": false,
 			"feedback": {
 				"correct": "Correct! Good job.",
 				"incorrect": "That's incorrect. Head back to the game board when you're ready",
-				"generic": "The thing about this is that..."
+				"generic": ""
 			}
 		},
 		{
 			"id": 18,
 			"categoryId": 3,
 			"value": 600,
-			"question": "What does a 'Warning' safety sign indicate?",
+			"question": "This is a way that AI cannot surpass human beings.",
 			"options": ["Biohazard", "Radiation", "Dangerous animals", "Unsafe chemicals"],
 			"answer": "Unsafe chemicals",
 			"attempted": false,
 			"feedback": {
 				"correct": "Correct! Good job.",
 				"incorrect": "That's incorrect. Head back to the game board when you're ready",
-				"generic": "The thing about this is that..."
+				"generic": ""
 			}
 		},
 		{
 			"id": 19,
 			"categoryId": 3,
 			"value": 800,
-			"question": "What does a 'Notice' safety sign indicate?",
+			"question": "The percentage of women who are employed in fields vulnerable to automation by generative AI.",
 			"options": ["Important information", "A sale", "Upcoming event", "A break room"],
 			"answer": "Important information",
 			"attempted": false,
 			"feedback": {
 				"correct": "Correct! Good job.",
 				"incorrect": "That's incorrect. Head back to the game board when you're ready",
-				"generic": "The thing about this is that..."
+				"generic": ""
 			}
 		},
 		{
 			"id": 20,
 			"categoryId": 3,
 			"value": 1000,
-			"question": "What does a 'Mandatory' safety sign indicate?",
+			"question": "The thesis that AI poses an _______  risk, and that this risk needs much more attention than it currently gets, has been endorsed by many computer scientists and public figures, including Alan Turing, the most-cited computer scientist Geoffrey Hinton, Elon Musk, OpenAI CEO Sam Altman, Bill Gates, and Stephen Hawking.",
 			"options": ["A suggestion", "A recommendation", "A requirement", "An option"],
 			"answer": "A requirement",
 			"attempted": false,
 			"feedback": {
 				"correct": "Correct! Good job.",
 				"incorrect": "That's incorrect. Head back to the game board when you're ready",
-				"generic": "The thing about this is that..."
+				"generic": ""
 			}
 		},
 		{
 			"id": 21,
 			"categoryId": 4,
 			"value": 200,
-			"question": "What is the main goal of workplace ergonomics?",
+			"question": "I am a strong and contagious natural medicine you can share with anyone around you. I am free, always in your pantry and do not expire.",
 			"options": ["To prevent injuries", "To increase productivity", "To reduce costs", "To provide entertainment"],
 			"answer": "To prevent injuries",
 			"attempted": false,
 			"feedback": {
 				"correct": "Correct! Good job.",
 				"incorrect": "That's incorrect. Head back to the game board when you're ready",
-				"generic": "The thing about this is that..."
+				"generic": ""
 			}
 		},
 		{
 			"id": 22,
 			"categoryId": 4,
 			"value": 400,
-			"question": "Which of the following is an example of poor ergonomics?",
+			"question": "See me, feel me, touch me, smell me, taste me, and I, as a natural energizer, that hydrates and oxygenates your body so it feels revitalized and refreshed, just might heal you.",
 			"options": ["Adjustable chair and desk", "Frequent breaks", "Awkward posture when lifting heavy objects", "Ergonomic keyboard and mouse"],
 			"answer": "Awkward posture when lifting heavy objects",
 			"attempted": false,
 			"feedback": {
 				"correct": "Correct! Good job.",
 				"incorrect": "That's incorrect. Head back to the game board when you're ready",
-				"generic": "The thing about this is that..."
+				"generic": ""
 			}
 		},
 		{
 			"id": 23,
 			"categoryId": 4,
 			"value": 600,
-			"question": "What is the correct posture for sitting at a desk?",
+			"question": "I am an –ing activity in which you use your five senses to bridge the gap between you and the natural world.",
 			"options": ["Hunched over with shoulders forward", "Feet flat on the floor, knees at a 90-degree angle, back straight", "Leaning back with feet on the desk", "Crossing legs"],
 			"answer": "Feet flat on the floor, knees at a 90-degree angle, back straight",
 			"attempted": false,
 			"feedback": {
 				"correct": "Correct! Good job.",
 				"incorrect": "That's incorrect. Head back to the game board when you're ready",
-				"generic": "The thing about this is that..."
+				"generic": ""
 			}
 		},
 		{
 			"id": 24,
 			"categoryId": 4,
 			"value": 800,
-			"question": "What should you do to prevent repetitive strain injuries (RSIs) when using a computer?",
+			"question": "I help you focus or clear your mind using a combination of mental and physical techniques similar to yoga, tai-chi and Qigong.",
 			"options": ["Type faster", "Take frequent breaks", "Use a mouse with a high DPI setting", "Ignore any discomfort"],
 			"answer": "Take frequent breaks",
 			"attempted": false,
 			"feedback": {
 				"correct": "Correct! Good job.",
 				"incorrect": "That's incorrect. Head back to the game board when you're ready",
-				"generic": "The thing about this is that..."
+				"generic": ""
 			}
 		},
 		{
 			"id": 25,
 			"categoryId": 4,
 			"value": 1000,
-			"question": "What is the purpose of ergonomic equipment?",
+			"question": "This group defines health as “a state of complete physical, mental and social well-being and not merely the absence of disease or infirmity.” ",
 			"options": ["To improve comfort and efficiency", "To increase risk of injury", "To decrease productivity", "To cause discomfort"],
 			"answer": "To improve comfort and efficiency",
 			"attempted": false,
 			"feedback": {
 				"correct": "Correct! Good job.",
 				"incorrect": "That's incorrect. Head back to the game board when you're ready",
-				"generic": "The thing about this is that..."
+				"generic": ""
 			}
 		}
 	]
