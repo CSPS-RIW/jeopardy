@@ -433,6 +433,10 @@ input[type='radio']:disabled+label::after {
   &:disabled {
     color: #AFAFAF;
   }
+
+  &:active {
+    background-color: rgb(12, 119, 26);
+  }
 }
 
 .incorrect-button {
@@ -444,6 +448,10 @@ input[type='radio']:disabled+label::after {
 
   &:disabled {
     color: #AFAFAF;
+  }
+
+  &:active {
+    background-color: rgb(138, 42, 13);
   }
 }
 
