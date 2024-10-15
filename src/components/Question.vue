@@ -8,7 +8,7 @@
     </div>
     <div class="container">
       <div class="question-wrapper" ref="questionWrapper">
-        <p v-if="question">{{ question.question }}</p>
+        <p v-if="question" v-html="question.question"></p>
         <fieldset v-if="question">
           <div class="moderator-buttons">
             <button class="game-button correct-button" @click="checkAnswer('correct')"
