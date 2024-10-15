@@ -13,7 +13,7 @@
   <script setup>
   import { usePlayerStore } from '@/stores/playerStore.js';
   import { useScoreStore } from '../stores/scoreStore.js'
-  import { computed } from 'vue';
+  import { computed, onMounted } from 'vue';
   import { useI18n } from "vue-i18n";
   const { t, locale, availableLocales } = useI18n()
   const playerStore = usePlayerStore();
@@ -30,6 +30,14 @@
   }
   });
 
+  onMounted(() => {
+
+    if(localStorage.getItem('currentPlayer')) {
+      let currentPlayer = JSON.parse(localStorage.getItem('currentPlayer'))
+      console.log(currentPlayer);
+    }
+  })
+
   const displayName = computed(() => {
     if(lang === "fr") {
       return props.player.name.length > 0 ? props.player.name : 'Joueur ' + (props.index + 1);
@@ -41,7 +49,8 @@
 
   const setCurrentPlayer = () => {
     playerStore.currentPlayerIndex = props.index
-    console.log(`current player set to ` + playerStore.currentPlayerIndex)
+    
+    //console.log(`current player set to ` + playerStore.currentPlayerIndex)
     playerStore.setPlayerTurn()
   }
 

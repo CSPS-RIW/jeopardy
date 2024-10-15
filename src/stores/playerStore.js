@@ -7,7 +7,7 @@ export const usePlayerStore = defineStore({
     playerCount: 0, // number of players
     singlePlayerName: '', // name for single player
     gameMode: '', // 'single-player' or 'multi-player'
-    currentPlayerIndex: Number, // this shows whose turn it is
+    currentPlayerIndex: 0, // this shows whose turn it is
   }),
   actions: {
     // setting the game mode from the data-game-mode property
@@ -27,7 +27,7 @@ export const usePlayerStore = defineStore({
         this.players = state.players || [];
         this.playerCount = this.players.length;
         this.singlePlayerName = state.singlePlayerName || '';
-        this.currentPlayerIndex = state.currentPlayerIndex || null;
+        this.currentPlayerIndex = state.currentPlayerIndex
 
         if (this.gameMode === 'multi-player' && this.players.length === 0) {
           this.setupInitialPlayers();
@@ -72,7 +72,7 @@ export const usePlayerStore = defineStore({
         this.players = state.players || [];
         this.playerCount = this.players.length;
         this.singlePlayerName = state.singlePlayerName || '';
-        this.currentPlayerIndex = state.currentPlayerIndex || null;
+        this.currentPlayerIndex = state.currentPlayerIndex || 0;
         this.setGameMode()
       } else {
         this.setupInitialPlayers();
@@ -115,15 +115,19 @@ export const usePlayerStore = defineStore({
       this.players = [];
       this.playerCount = 0;
       this.singlePlayerName = '';
-      this.currentPlayerIndex = null;
+      this.currentPlayerIndex = 0;
       this.setupInitialPlayers();
       this.saveConfig();
     },
     // when a player gets a question wrong, this updates to the next player's turn
     updateTurn() {
       if (this.players.length > 0) {
+        
         this.players[this.currentPlayerIndex].isPlayerTurn = false;
         console.log(this.players[this.currentPlayerIndex]);
+
+       
+        //console.log(this.players[this.currentPlayerIndex]);
         this.currentPlayerIndex = (this.currentPlayerIndex + 1) % this.players.length;
         this.players[this.currentPlayerIndex].isPlayerTurn = true;
         this.saveConfig();
@@ -134,6 +138,8 @@ export const usePlayerStore = defineStore({
         player.isPlayerTurn = false
       }
       this.players[this.currentPlayerIndex].isPlayerTurn = true
+      localStorage.setItem('currentPlayer', JSON.stringify(this.players[this.currentPlayerIndex]))
+      this.saveConfig()
     },
     // save config callback function
     saveConfig() {

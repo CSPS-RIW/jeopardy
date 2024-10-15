@@ -113,7 +113,6 @@ onMounted(() => {
   if (savedOption) {
     selectedOption.value = savedOption;
   }
-  console.log(selectedOption);
 
   // wrapper height for animation
   updateWrapperHeight();
@@ -153,10 +152,8 @@ const checkAnswer = (state) => {
   if (playerStore.gameMode === 'single-player') {
     currentPlayer = playerStore.players[0];
   } else {
-    currentPlayer = playerStore.players.find(player => player.isPlayerTurn);
+      currentPlayer = playerStore.players.find(player => player.isPlayerTurn);
    }
-
-   console.log(currentPlayer)
 
    if(currentPlayer.name.length > 0) {
     if (state === 'correct') {
@@ -432,6 +429,10 @@ input[type='radio']:disabled+label::after {
     background-color: rgb(23, 249, 53);
     color: rgb(34, 34, 34);
   }
+
+  &:disabled {
+    color: #AFAFAF;
+  }
 }
 
 .incorrect-button {
@@ -439,6 +440,10 @@ input[type='radio']:disabled+label::after {
   &:hover, &:focus {
     background-color: rgb(249, 76, 23);
     color: rgb(34, 34, 34);
+  }
+
+  &:disabled {
+    color: #AFAFAF;
   }
 }
 
