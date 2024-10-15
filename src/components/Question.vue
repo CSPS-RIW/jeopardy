@@ -11,8 +11,8 @@
         <p v-if="question">{{ question.question }}</p>
         <fieldset v-if="question">
           <div class="moderator-buttons">
-            <button class="game-button correct-button" @click="checkAnswer('correct')" :disabled="selectedState === true">Correct</button>
-            <button class="game-button incorrect-button" @click="checkAnswer('incorrect')" :disabled="selectedState === true">Incorrect</button>
+            <button class="game-button correct-button" @click="checkAnswer('correct')" :disabled="selectedState === true || allAttempted">Correct</button>
+            <button class="game-button incorrect-button" @click="checkAnswer('incorrect')" :disabled="selectedState === true || allAttempted">Incorrect</button>
           </div>
           <div class="feedback-wrapper" aria-live="polite">
             <div class="feedback" v-if="isSubmitted" tabindex="-1">
@@ -83,6 +83,8 @@ const questionWrapper = ref(null);
 const selectedOption = ref('');
 const isSubmitted = ref(false);
 const selectedState = ref(null)
+const allAttempted = ref(false)
+const numOfAttempts = ref(0)
 
 
 const updateWrapperHeight = async () => {
@@ -163,7 +165,17 @@ const checkAnswer = (state) => {
     playerStore.updatePlayerScore(currentPlayer.id, -question.value.value);
     selectedState.value = false
     if (playerStore.gameMode === 'multi-player') {
-      playerStore.updateTurn();
+      numOfAttempts.value++
+      console.log(numOfAttempts.value, playerStore.players.length)
+      if(numOfAttempts.value === playerStore.players.length) {
+        allAttempted.value = true
+        console.log('all attempted');
+        playerStore.updateTurn();
+      }
+      if(allAttempted.value === false) {
+        playerStore.updateTurn();
+      }
+      
     }
   }
    }
