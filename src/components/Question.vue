@@ -11,26 +11,28 @@
         <p v-if="question">{{ question.question }}</p>
         <fieldset v-if="question">
           <div class="moderator-buttons">
-            <button class="game-button correct-button" @click="checkAnswer('correct')" :disabled="selectedState === true || allAttempted">Correct</button>
-            <button class="game-button incorrect-button" @click="checkAnswer('incorrect')" :disabled="selectedState === true || allAttempted">Incorrect</button>
+            <button class="game-button correct-button" @click="checkAnswer('correct')"
+              :disabled="selectedState === true || allAttempted">Correct</button>
+            <button class="game-button incorrect-button" @click="checkAnswer('incorrect')"
+              :disabled="selectedState === true || allAttempted">Incorrect</button>
           </div>
           <div class="feedback-wrapper" aria-live="polite">
             <div class="feedback" v-if="isSubmitted" tabindex="-1">
               <div class="correct-feedback" v-if="selectedState === true">
                 <span class="feedback-icon" aria-hidden="true"></span>
                 <p>{{ question.feedback.correct }}</p>
-                <div class="generic-feedback">
-                <p>{{ question.feedback.generic }}</p>
-              </div>
+                <!-- <div class="generic-feedback">
+                  <p>{{ question.feedback.generic }}</p>
+                </div> -->
               </div>
               <div class="incorrect-feedback" v-else>
                 <span class="feedback-icon" aria-hidden="true"></span>
                 <p>{{ question.feedback.incorrect }}</p>
-                <div class="generic-feedback">
-                <p>{{ question.feedback.generic }}</p>
+                <!-- <div class="generic-feedback">
+                  <p>{{ question.feedback.generic }}</p>
+                </div> -->
               </div>
-              </div>
-              
+
             </div>
           </div>
         </fieldset>
@@ -38,14 +40,14 @@
           <button @click="goBack" class="game-button" :disabled="!isSubmitted">{{ t("question.back") }}</button>
         </div>
       </div>
-       <!-- visible score displays -->
-    
+      <!-- visible score displays -->
+
     </div>
-    
+
   </div>
   <div class="score-container">
-      <ScoreDisplay v-for="(player, index) in playerStore.players" :player="player" :key="index" :index="index"/>
-    </div>
+    <ScoreDisplay v-for="(player, index) in playerStore.players" :player="player" :key="index" :index="index" />
+  </div>
 </template>
 
 <script setup>
@@ -133,70 +135,73 @@ watch(isSubmitted, updateWrapperHeight);
 // check answer function
 const checkAnswer = (state) => {
 
-  // updating wrapper height
-  if (questionWrapper.value) {
-    questionWrapper.value.style.height = questionWrapper.value.scrollHeight + 'px';
-  }
 
-  updateWrapperHeight();
-
-  setTimeout(() => {
-    if (questionWrapper.value) {
-      questionWrapper.value.style.height = 'auto';
-    }
-  }, 500); // This should match your transition duration
 
 
   //// checking answer and increase or decrease score accordingly
 
-  let currentPlayer
+  let currentPlayer = playerStore.gameMode === 'single-player' ? playerStore.players[0] : playerStore.players.find(player => player.isPlayerTurn);
 
-  if (playerStore.gameMode === 'single-player') {
-    currentPlayer = playerStore.players[0];
-  } else {
-      currentPlayer = playerStore.players.find(player => player.isPlayerTurn);
-   }
+  if (currentPlayer?.name.length > 0) {
 
-   if(currentPlayer.name.length > 0) {
-    if (state === 'correct') {
-    playerStore.updatePlayerScore(currentPlayer.id, question.value.value);
-    selectedState.value = true
-  } else {
-    playerStore.updatePlayerScore(currentPlayer.id, -question.value.value);
-    selectedState.value = false
-    if (playerStore.gameMode === 'multi-player') {
-      numOfAttempts.value++
-      console.log(numOfAttempts.value, playerStore.players.length)
-      if(numOfAttempts.value === playerStore.players.length) {
-        allAttempted.value = true
-        console.log('all attempted');
-        playerStore.updateTurn();
-      }
-      if(allAttempted.value === false) {
-        playerStore.updateTurn();
-      }
-      
+
+      // question is now submitted
+  isSubmitted.value = true;
+    // updating wrapper height
+    if (questionWrapper.value) {
+      questionWrapper.value.style.height = questionWrapper.value.scrollHeight + 'px';
     }
-  }
-   }
 
-  
+    updateWrapperHeight();
+
+    setTimeout(() => {
+      if (questionWrapper.value) {
+        questionWrapper.value.style.height = 'auto';
+      }
+    }, 500); // This should match your transition duration
+
+    // last piece for height animation
+    void document.querySelector('.question-wrapper').offsetHeight
+
+    
+    if (state === 'correct') {
+      playerStore.updatePlayerScore(currentPlayer.id, question.value.value);
+      selectedState.value = true
+    } else {
+      playerStore.updatePlayerScore(currentPlayer.id, -question.value.value);
+      selectedState.value = false
+      if (playerStore.gameMode === 'multi-player') {
+        numOfAttempts.value++
+        console.log(numOfAttempts.value, playerStore.players.length)
+        if (numOfAttempts.value === playerStore.players.length) {
+          allAttempted.value = true
+          console.log('all attempted');
+          playerStore.updateTurn();
+        }
+        if (allAttempted.value === false) {
+          playerStore.updateTurn();
+        }
+
+      }
+    }
+  } else if (!currentPlayer) {
+    window.alert('Please set an active team.')
+  }
+
+
 
   //localStorage.setItem('selectedOption', selectedOption.value)
-  
+
 
   // save score and save config
   playerStore.saveConfig();
   scoreStore.saveScore()
 
-  // question is now submitted
-  isSubmitted.value = true;
+  
 
   // set focus for accessibility
   document.querySelector('.feedback-wrapper').focus()
 
-  // last piece for height animation
-  void document.querySelector('.question-wrapper').offsetHeight
 
   // question is attempted
   question.value.attempted = true;
@@ -372,58 +377,58 @@ input[type='radio']:disabled+label::after {
 
 .correct-feedback {
   position: relative;
-    outline-style: solid;
-    outline-width: 2px;
-    outline-color: #18703a;
-    background-color: #e2f3e8;
-    color: #072b00;
-    border-radius: 12px;
-    padding: 1rem 1.5rem;
-    margin-bottom: 15px;
+  outline-style: solid;
+  outline-width: 2px;
+  outline-color: #18703a;
+  background-color: #e2f3e8;
+  color: #072b00;
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+  margin-bottom: 15px;
 }
 
 .correct-feedback .feedback-icon[data-v-5ab2d74e]::after {
-    content: '\2714';
-    padding: 0px 0px 0px 7px;
-    outline: 2px solid #ffffff00;
-    color: var(--white-heat);
-    background-color: #18703a;
-    width: 30px;
-    height: 30px;
-    position: absolute;
-    top: -10px;
-    right: -11px;
-    background-origin: padding-box;
-    border-radius: 50%;
-    font-size: 19px;
+  content: '\2714';
+  padding: 0px 0px 0px 7px;
+  outline: 2px solid #ffffff00;
+  color: var(--white-heat);
+  background-color: #18703a;
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: -10px;
+  right: -11px;
+  background-origin: padding-box;
+  border-radius: 50%;
+  font-size: 19px;
 }
 
 .incorrect-feedback .feedback-icon[data-v-5ab2d74e]::after {
-    content: '\2716';
-    padding: 0px 0px 0px 7px;
-    outline: 2px solid #ffffff00;
-    color: var(--white-heat);
-    background-color: #9e0404;
-    width: 30px;
-    height: 30px;
-    position: absolute;
-    top: -10px;
-    right: -11px;
-    background-origin: padding-box;
-    border-radius: 50%;
-    font-size: 19px;
+  content: '\2716';
+  padding: 0px 0px 0px 7px;
+  outline: 2px solid #ffffff00;
+  color: var(--white-heat);
+  background-color: #9e0404;
+  width: 30px;
+  height: 30px;
+  position: absolute;
+  top: -10px;
+  right: -11px;
+  background-origin: padding-box;
+  border-radius: 50%;
+  font-size: 19px;
 }
 
 .incorrect-feedback {
   position: relative;
-    outline-style: solid;
-    outline-width: 2px;
-    outline-color: #9e0404;
-    background-color: #f3e2e2;
-    color: #2b0000;
-    border-radius: 12px;
-    padding: 1rem 1.5rem;
-    margin-bottom: 15px;
+  outline-style: solid;
+  outline-width: 2px;
+  outline-color: #9e0404;
+  background-color: #f3e2e2;
+  color: #2b0000;
+  border-radius: 12px;
+  padding: 1rem 1.5rem;
+  margin-bottom: 15px;
 }
 
 .moderator-buttons {
@@ -437,7 +442,8 @@ input[type='radio']:disabled+label::after {
   border-color: var(--game-button-blue);
   color: var(--main-yellow);
 
-  &:hover, &:focus {
+  &:hover,
+  &:focus {
     background-color: rgb(23, 249, 53);
     color: rgb(34, 34, 34);
   }
@@ -453,7 +459,8 @@ input[type='radio']:disabled+label::after {
 
 .incorrect-button {
 
-  &:hover, &:focus {
+  &:hover,
+  &:focus {
     background-color: rgb(249, 76, 23);
     color: rgb(34, 34, 34);
   }
