@@ -153,10 +153,13 @@ const checkAnswer = (state) => {
   if (playerStore.gameMode === 'single-player') {
     currentPlayer = playerStore.players[0];
   } else {
-    currentPlayer = playerStore.players[playerStore.currentPlayerIndex];
-  }
+    currentPlayer = playerStore.players.find(player => player.isPlayerTurn);
+   }
 
-  if (state === 'correct') {
+   console.log(currentPlayer)
+
+   if(currentPlayer.name.length > 0) {
+    if (state === 'correct') {
     playerStore.updatePlayerScore(currentPlayer.id, question.value.value);
     selectedState.value = true
   } else {
@@ -166,8 +169,11 @@ const checkAnswer = (state) => {
       playerStore.updateTurn();
     }
   }
+   }
 
-  localStorage.setItem('selectedOption', selectedOption.value)
+  
+
+  //localStorage.setItem('selectedOption', selectedOption.value)
   
 
   // save score and save config

@@ -56,6 +56,7 @@ export const usePlayerStore = defineStore({
           this.players.forEach((player, index) => {
             player.score = 0;
             player.isPlayerTurn = index === 0;
+            player.id = index
           });
         }
         this.playerCount = this.players.length;
@@ -122,6 +123,7 @@ export const usePlayerStore = defineStore({
     updateTurn() {
       if (this.players.length > 0) {
         this.players[this.currentPlayerIndex].isPlayerTurn = false;
+        console.log(this.players[this.currentPlayerIndex]);
         this.currentPlayerIndex = (this.currentPlayerIndex + 1) % this.players.length;
         this.players[this.currentPlayerIndex].isPlayerTurn = true;
         this.saveConfig();
